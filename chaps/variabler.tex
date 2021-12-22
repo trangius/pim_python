@@ -1,0 +1,227 @@
+% Programmering i matematiken - med Python (c)
+% by Krister Trangius & Emil Hall
+%
+% Programmering i matematiken - med Python is licensed under a
+% Creative Commons  Attribution-ShareAlike 4.0 International License.
+%
+% You should have received a copy of the license along with this work. If not,
+% see <http://creativecommons.org/licenses/by-sa/4.0/>.
+%------------------------------------------------------------------------------
+
+\chapter{Variabler}\label{ch:variabler}\index{variabler|textbf}
+
+I det här kapitlet ska vi gå igenom variabler och hur de funkar i programmering. Vi kommer också lära oss hur man själv kan styra utskrift på ett tydligare sätt. All kod i detta kapitlet körs i ''Console''.
+
+Du känner kanske redan till begreppet variabler? Traditionellt inom matematiken talar man ofta om okända variabler som $x$ och $y$ eller $a$ och $b$. Variabler i Python är något liknande, men de används lite annorlunda.
+
+En variabel i programmering ses kanske enklast som en låda, med en etikett på. På etiketten står det ett namn och i lådan ligger det ett tal.
+\figurec{6cm}{boxes.png}{Variabler kan ses som lådor med etikett och innehåll}
+
+I matematikböcker är variablers namn oftast bara en bokstav långa, men i programmering brukar namnet vara ett helt ord, vilket hjälper oss att hålla reda på dem då vi har många.
+
+En annan skillnad är att variabler i programmering alltid har ett visst värde. I traditionell matematik kan man t.ex. säga att $a^x*a^y=a^{x+y}$ som en generell regel som gäller för alla värden. I Python så arbetar man inte med generella värden på variablerna, utan de ''innehåller'' alltid ett visst tal.
+
+
+%------------------------------------------------------------------------------
+
+\section{Att skapa en variabel}
+För att skapa en variabel hittar man först på ett namn till den, sen skriver man namnet, likamed-tecken, och värdet. Till exempel:
+\begin{python}[caption={Skapa variabeln celsius},label={}]
+In: celsius=17
+\end{python}
+
+Det är även okej att ha mellanslag om man tycker att det blir mer lättläst när det är mindre tätt:
+\begin{python}[caption={Skapa variabeln celsius},label={}]
+In: celsius = 17
+\end{python}
+
+Namnet kan inte innehålla åäö, mellanslag eller andra konstiga specialtecken. Om vi vill att namnet ska bestå av flera ord så kan vi som sagt inte använda mellanslag, utan istället brukar vi separera orden med hjälp av understreck; \cw{min\_egen\_variabel}.
+
+%------------------------------------------------------------------------------
+
+\section{Tilldelningsoperatorn =}\label{sec:tilldelningsoperatorn}\index{tilldelningsoperatorn =|textbf}
+Lika med-tecknet \cw{=} som vi använde ovan kallas för \emph{tilldelningsoperatorn}. I \autoref{sec:operatorer} tittade vi på jämförelseoperatorn \cw{==}. Inom programmering skiljer man på \emph{jämförelse} och \emph{tilldelning}. Tilldelningsoperatorn skrivs med bara \emph{ett} lika-med tecken och används, som vi såg ovan, när man vill ge en variabel ett värde. Det är mycket viktigt att man inte blandar ihop tilldelningsoperatorn \cw{=} och jämförelseoperatorn \cw{==}.
+
+Traditionellt inom matematiken har du kanske lärt dig att det inte spelar någon roll på vilken sida ''lika med''-tecknet olika tal står. När man programmerar i Python är det dock annorlunda. Variabeln, som ska få ett värde, står till vänster om tilldelningsoperatorn. Värdet som variabeln ska få, står till höger. Detta är alltså inte okej, men testa gärna själv och se vad som händer:
+
+\begin{python}[caption={Man får inte sätta variabelnamnet på fel sida},label={}]
+In: 17 = celsius # ej ok!
+\end{python}
+
+Det som ligger på högersidan om tilldelningsoperatorn händer först. Det innebär att vi kan göra beräkningar på högersidan. När det väl har räknats ut, tilldelas variabeln värdet. Vi kan t.ex. plussa ihop en massa siffror och sedan lägga det i variabeln. Här får variabeln \cw{nr} värdet 110:
+
+\begin{python}[caption={Beräkningar görs på högersidan om tilldelningsoperatorn},label={}]
+In: nr = 100 + 3 + 7
+\end{python}
+
+Med andra ord sker det i följande två steg:
+\begin{enumerate}
+\item Talen 100, 3 och 7 summeras till 110.
+\item Variabeln \cw{nr} skapas och tilldelas värdet 110.
+\end{enumerate}
+
+%------------------------------------------------------------------------------
+
+\section{Att läsa en variabels innehåll}
+Efter att en variabel har skapats så kan man läsa innehållet i den och göra beräkningar med den. Om man vill se vilket värde en variabel har just nu, så kan man skriva dess namn:
+\begin{python}[caption={Se en variabels värde},label={}]
+In: nr = 100 + 3 + 7
+In: nr
+Out: 110
+\end{python}
+
+Man kan addera två variabler med varandra:
+\begin{python}[caption={Addera två variabler},label={}]
+In: nr1 = 100
+In: nr2 = 555
+In: total = nr1 + nr2
+In: total
+Out: 655
+\end{python}
+
+Men, kanske du undrar nu, sa vi inte nyss att man inte får sätta variabelnamn på högersidan? Nja, det får man visst, om de variablerna redan finns sedan tidigare och därmed faktiskt har ett värde (100 och 555 i exemplet ovan). Vad vi egentligen menade var att den variabel som vi vill tilldela ett värde måste stå på vänstersidan.
+
+Viktigt att notera är att koden körs uppifrån och ned. Så först skapar vi två variabler (på rad 1 och rad 2). Därefter adderar vi dem (på rad 3). Det hade inte gått att göra tvärtom, att addera två variabler innan de skapats.
+
+Efter att man har skapat och använt variabeln, kan man fortsätta att använda den. Man kan t.ex. ändra variabelns värde. I följande kodstycke ändrar vi en variabel från att ha värdet 100 till att ha värdet 555.
+
+\begin{python}[caption={Ändra värdet på en variabel},label={}]
+In: nr = 100
+In: nr
+Out: 100
+In: nr = 555
+In: nr
+Out: 555
+\end{python}
+
+\boxteknisk{
+Faktum är att ordet \emph{variabel} kommer från latinets \emph{variare}, vilket betyder ''ändra''. Jämför svenskans variera!
+}
+
+Man kan öka en variabels värde. Det gör man genom att lägga på variabelns (tidigare) värde till sig själv och addera ett nytt värde. Detta kanske är lite förvirrande om du fortfarande tänker på tilldelningsoperatorn som ett lika med-tecken. Men det finns inget som hindrar att vi använder en variabel i en beräkning på högersidan, och skriver samma variabel på vänstersidan. På första raden i följande kodstycke får variabeln \cw{nr} värdet 100, på andra raden får den värdet 150:
+
+\begin{python}[caption={Öka värdet på variabeln},label={}]
+In: nr = 100
+In: nr = nr + 50
+In: nr
+Out: 150
+\end{python}
+
+Om detta vore en matematisk ekvation så vore det förstås omöjligt. Det finns ju inget tal som är lika med sig självt plus 50.
+
+%------------------------------------------------------------------------------
+
+\section{Styra utskrifterna med print}\index{print|textbf}
+
+Hittills har vi fått ut värdet på variabler genom att bara skriva deras namn. Vi kommer dock att behöva ha mer kontroll över vår utskrift framöver. Då kan vi använda funktionen \cw{print} som funkar såhär:
+
+\begin{python}[caption={Skriv ut på kommando},label={}]
+In: nr1 = 100
+In: nr2 = 555
+# vi kan skriva ut text med citattecken,
+# så kallade dubbelfnuttar:
+In: print("nu ska vi räkna")
+nu ska vi räkna
+In: print(nr1) # vi kan skriva ut en variabels värde,
+100
+In: print(nr1+nr2+12) # ...och resultatet av en uträkning
+667
+\end{python}
+\newpage
+Det är också möjligt att använda två eller fler argument med \cw{print}. De skrivs då ut på samma rad, med mellanslag emellan.
+
+\begin{python}[caption={Skriv ut på kommando},label={}]
+In: nr1 = 100
+In: print("Värdet är:", nr1)
+Värdet är 100
+\end{python}
+
+
+%------------------------------------------------------------------------------
+
+\section{Variabeltyper och rutan ''Variable explorer''}\label{sec:variabeltyper}
+Hittills har vi bara arbetat med heltalsvariabler. Det går såklart att arbeta med decimaltal också. Faktum är att Python gör skillnad på dessa typer av variabler. Varför? Förklaringen är teknisk och ligger utanför ramen för denna bok.
+
+För att se detta tydligt, låt oss titta på en till av rutorna i Spyder. De variabler vi skapar går att se i den lilla rutan ''Variable explorer'' som ligger till höger.
+
+\figurec{11cm}{spyder-gui-variable-explorer.png}{Rutan ''Variable explorer'' efter att vi skapat två variabler}
+
+I rutan finner vi dels kolumnerna ''Name'' och ''Value''. De kan vara till hjälp när vi behöver dubbelkolla värdet på variabler vi har skapat. Kolumnen ''type'' berättar för oss vilken typ som våra variabler har. De ord Python använder är \emph{int} (från engelskans \emph{integer}) för heltal och \emph{float} för decimaltal. Kolumnen ''size'' berättar hur mycket plats variabeln tar i datorns minne.
+
+Du kommer att kunna se variabler av andra typer än \emph{float} och \emph{int}. Det finns många andra variabeltyper i Python (ett exempel är typen \emph{bool} som bara kan ha ett av två värden, \cw{True} eller \cw{False}). I den här boken räcker det dock med att du kommer ihåg \emph{float} och \emph{int}.
+
+När man startar Spyder så är rutan oftast helt tom. När vi skriver \cw{from pylab import *} fylls dock rutan på med en del variabler som kan göra rutan mer oöverskådlig. Dessa varibler finns för att kunna göra vissa viktiga matematiska beräkningar. T.ex. kan du se värdet på variablerna \cw{e} och \cw{pi} i rutan.
+
+\subsection{Konvertera variabler}\label{subsec:konverteraVariabler}
+Oftast behöver vi inte tänka på vilken typ en viss variabel har. Det finns dock tillfällen då vi måste konvertera från decimaltal till heltal (eller tvärtom). Då gör vi såhär:
+
+\begin{python}[caption={Konvertera variabler},label={}]
+In: x = 1.7 # skapa en variabel av typen float, decimaltal
+In: x = int(x) # konvertera den till int, heltal
+In: print(x)
+Out: 1
+In: x = float(x) # konvertera tillbaka den till float
+In: print(x)
+Out: 1.0
+\end{python}
+
+Testa denna kod och se hur kolumnen ''type'' i rutan ''Variable explorer'' ändras. Notera att decimaltalen avrundas om vi konverterar dem till heltal (nedåt om talet är positivt och uppåt om talet är negativt).
+
+Vi kommer att behöva konvertera till heltal i \autoref{ov:myOwnHistogramFunction}.
+%---------------------------------------------------------------
+
+\subsection{Övningar för variabler}
+
+\begin{matteovning}{Höger eller vänster?}{assignOpDirection}
+Om du kör dessa tre rader kod:
+\vspace{10pt}
+\begin{python}
+a = 1
+b = 2
+a = b
+\end{python}
+
+Vad är nu värdet på \cw{a} och \cw{b}? Fundera själv innan du testar och läser facit.
+\end{matteovning}
+
+%---------------------------------------------------------------
+\begin{matteovning}{Kopplas variabler ihop för all framtid?}{assignmentNotReference}
+Om du kör dessa tre rader kod:
+\vspace{10pt}
+\begin{python}
+a = 1
+b = a
+a = 2
+\end{python}
+
+Vad är nu värdet på \cw{b}? Fundera själv innan du testar och läser facit.
+\end{matteovning}
+
+%---------------------------------------------------------------
+\begin{matteovning}{Summan och medelvärdet av tre tal}{sum3AndAverage}
+Låt säga att du redan har dessa tre variabler inmatade i Python:
+\vspace{10pt}
+\begin{python}
+a = 23
+b = 45
+c = 67
+\end{python}
+
+Skriv en rad kod som beräknar summan av dessa variabler och skriver ut summan.
+\newline
+\newline
+Skriv en till rad kod som skriver ut medelvärdet. Kom ihåg att det är datorn som ska göra uträkningen, inte du!
+\end{matteovning}
+%---------------------------------------------------------------
+\begin{matteovning}{Decimaltal till heltal}{roundFloatToInt}
+Låt säga att du redan har denna variabel inmatad i Python:
+\vspace{10pt}
+\begin{python}
+a = 11.534
+\end{python}
+
+Skriv en rad kod som tar denna variabel, omvandlar decimaltalet till närmsta heltal, och skriver ut det.
+\end{matteovning}
+
+%------------------------------------------------------------------------------
+

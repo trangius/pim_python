@@ -1,0 +1,693 @@
+% Programmering i matematiken - med Python (c)
+% by Krister Trangius & Emil Hall
+%
+% Programmering i matematiken  - med Python is licensed under a
+% Creative Commons  Attribution-ShareAlike 4.0 International License.
+%
+% You should have received a copy of the license along with this work. If not,
+% see <http://creativecommons.org/licenses/by-sa/4.0/>.
+%------------------------------------------------------------------------------
+
+\usepackage{graphicx} % Required for including pictures
+\graphicspath{{pics/}} % Specifies the directory where pictures are stored
+\usepackage[swedish]{babel} % Swedish language/hyphenation
+\usepackage[utf8]{inputenc} % Required for including letters with accents
+\usepackage{scrextend} % Required for addmargin
+\usepackage{mathtools} % for math stuff
+\usepackage[normalem]{ulem} % for strike-trough
+\usepackage{textcomp} % for the copyright symbol etc
+\usepackage[toc,page]{appendix}
+\renewcommand{\appendixname}{Appendix}
+\renewcommand{\appendixtocname}{Appendix}
+\renewcommand{\appendixpagename}{Appendix}
+
+
+
+\usepackage{xcolor} % Required for specifying colors by name
+\definecolor{myBlue}{RGB}{0,77,153}
+\definecolor{myGreen}{RGB}{111, 220, 111}
+\definecolor{myYellow}{RGB}{255,255,153}
+\definecolor{myRed}{RGB}{255,71,26}
+\usepackage{times} % Serif/Roman font
+\usepackage[T1]{fontenc}
+\renewcommand{\familydefault}{\rmdefault}
+
+% so we get figure numbers from chapter number:
+\usepackage{amsmath}
+
+\usepackage{longtable} % this one is so we can us tables with linebreaks
+
+% so we can do kapitelöversikt:
+\newcommand*{\fullchref}[1]{\hyperref[{#1}]{\textbf{Kapitel \ref*{#1} - \nameref*{#1}}}} % One single link
+
+%\usepackage{makecell} % this one is so we can us tables with linebreaks
+%\renewcommand{\cellalign}{tl} % and this one to align them...
+
+\usepackage{parskip} % space between paragraphs instead of indent
+
+\usepackage{imakeidx}
+\makeindex[intoc=false]
+\indexsetup{level=\chapter,toclevel=chapter,noclearpage}
+
+\renewcommand{\footnotesize}{\fontsize{12pt}{14pt}\selectfont}
+
+%----------------------------------------------------------------------------------------
+%	TABLE STUFF
+%----------------------------------------------------------------------------------------
+\usepackage{makecell}
+\usepackage{colortbl} % for coloring tables
+\usepackage{ragged2e}
+\newcolumntype{g}{>{\columncolor{myGreen}}c}
+\newcolumntype{y}{>{\columncolor{myYellow}}c}
+\newcolumntype{r}{>{\columncolor{myRed}}c}
+
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+%----------------------------------------------------------------------------------------
+
+\usepackage{chngcntr}
+\counterwithin{figure}{chapter}
+
+%----------------------------------------------------------------------------------------
+%	MAIN TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+\usepackage{titletoc} % Required for manipulating the table of contents
+
+\contentsmargin{0cm} % Removes the default margin
+
+% Part text styling
+\titlecontents{part}[0cm]
+{\addvspace{20pt}\Large}
+{\color{myBlue}\contentslabel[\Large\thecontentslabel]{1.25cm}\color{myBlue}} % Chapter number
+{\color{myBlue}}
+{} % Page number
+
+% Chapter text styling
+\titlecontents{chapter}[1.25cm] % Indentation
+{\addvspace{12pt}\large\rmfamily} % Spacing and font options for chapters
+{\color{black}\contentslabel[\Large\thecontentslabel]{1.25cm}\color{black}} % Chapter number
+{\color{black}}
+{\color{black}\normalsize\;\titlerule*[.5pc]{.}\;\thecontentspage} % Page number
+
+% Section text styling
+\titlecontents{section}[1.25cm] % Indentation
+{\addvspace{3pt}\rmfamily} % Spacing and font options for sections
+{\contentslabel[\thecontentslabel]{1.25cm}} % Section number
+{}
+{\ \titlerule*[.5pc]{.}\;\thecontentspage} % Page number
+%{\hfill\color{black};\thecontentspage} % Page number
+[]
+
+% Subsection text styling
+\titlecontents{subsection}[1.25cm] % Indentation
+{\addvspace{1pt}\rmfamily\small} % Spacing and font options for subsections
+{\contentslabel[\thecontentslabel]{1.25cm}} % Subsection number
+{}
+{\ \titlerule*[.5pc]{.}\;\thecontentspage} % Page number
+[]
+
+% List of figures
+\titlecontents{figure}[0em]
+{\addvspace{-5pt}\sffamily}
+{\thecontentslabel\hspace*{1em}}
+{}
+{\ \titlerule*[.5pc]{.}\;\thecontentspage}
+[]
+
+% List of tables
+\titlecontents{table}[0em]
+{\addvspace{-5pt}\sffamily}
+{\thecontentslabel\hspace*{1em}}
+{}
+{\ \titlerule*[.5pc]{.}\;\thecontentspage}
+[]
+
+
+% set level of numbers and level of TOC
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
+
+
+%----------------------------------------------------------------------------------------
+%	PAGE HEADERS, FANCY, PLAIN, EMPTY
+%----------------------------------------------------------------------------------------
+
+\usepackage{fancyhdr} % Required for header and footer configuration
+
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{\rmfamily\normalsize\bfseries\chaptername\ \thechapter.\ #1}{}} % Chapter text font settings
+\renewcommand{\sectionmark}[1]{\markright{\rmfamily\normalsize\thesection\hspace{5pt}#1}{}} % Section text font settings
+
+
+\fancyhf{} \fancyhead[LE,RO]{\sffamily\normalsize\thepage} % Font setting for the page number in the header
+\fancyhead[LO]{\rightmark} % Print the nearest section name on the left side of odd pages
+\fancyhead[RE]{\leftmark} % Print the current chapter name on the right side of even pages
+\renewcommand{\headrulewidth}{0.5pt} % Width of the rule under the header
+\addtolength{\headheight}{2.5pt} % Increase the spacing around the header slightly
+\renewcommand{\footrulewidth}{0.5pt} % Removes the rule in the footer
+\fancypagestyle{plain}{\fancyhead{}\fancyfoot{}\renewcommand{\headrulewidth}{0pt}\renewcommand{\footrulewidth}{0pt}} % Style for when a plain pagestyle is specified
+
+% Removes the header from odd empty pages at the end of chapters
+\makeatletter
+\renewcommand{\cleardoublepage}{
+\clearpage\ifodd\c@page\else
+\hbox{}
+\vspace*{\fill}
+\thispagestyle{empty}
+\newpage
+\fi}
+\makeatother
+
+%----------------------------------------------------------------------------------------
+%	HYPERLINKS IN THE DOCUMENTS
+%----------------------------------------------------------------------------------------
+
+\usepackage{hyperref}
+\hypersetup{hidelinks,colorlinks=false,breaklinks=true,urlcolor=myBlue,bookmarksopen=false,pdftitle={Title},pdfauthor={Author}}
+
+%----------------------------------------------------------------------------------------
+%  HEADINGS
+%----------------------------------------------------------------------------------------
+% this is the fancy chapter heading:
+\usepackage[explicit]{titlesec}
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype} % makes font nicer...
+\usepackage{tikz}
+% see style-headings.tex for more!
+
+%----------------------------------------------------------------------------------------
+%	MISC FONT STYLES
+%----------------------------------------------------------------------------------------
+\newcommand{\compileerror}[1]{{\sffamily\itshape\small\color{myBlue} #1}}
+\renewcommand\UrlFont{\color{blue}\rmfamily\itshape}
+\renewcommand{\labelitemii}{${\color{myBlue}\triangleright}$} % makes a dot to the itemize->itemize (subitem)
+
+\newcommand{\myref}[1]{{{\color{myBlue}{\ref{#1} - \nameref{#1}}}}}
+\newcommand{\facovref}[1]{{Övning \ref{#1} - \nameref{#1}}}
+\newcommand{\facchapref}[1]{{Facit till kapitel \ref{#1} - \nameref{#1}}}
+%----------------------------------------------------------------------------------------
+%	FANCY PART
+%----------------------------------------------------------------------------------------
+\definecolor{myLightblue}{RGB}{199,234,253}
+
+\renewcommand\thepart{\Roman{part}} % We want roman letters for the parts
+
+\newcommand\partnumfont{% font specification for the number
+  \rmfamily\fontsize{120}{150}\color{white}\selectfont%
+}
+\newcommand\partnamefont{% font specification for the number
+  \rmfamily\fontsize{26}{20}\fontshape{it}\color{white}\selectfont%
+}
+
+\newcommand\partbackground{}
+\titleformat{\part}
+  {\normalfont\huge\filleft}
+  {}
+  {20pt}
+  {\begin{tikzpicture}[remember picture,overlay]
+  \node[inner sep=0pt] (background) at (current page.center) {\includegraphics[width=\paperwidth]{\partbackground}}; % bg-image
+  \node[ % top block
+      fill=myBlue,
+      opacity=1.0,
+      text width=2\paperwidth,
+      rounded corners=0cm,
+      text depth=12cm,
+      anchor=center,
+      inner sep=0pt] at (current page.north east) (parttop)
+    {\thepart};% part number
+  \node[
+      anchor=south east,
+      inner sep=0pt,
+      outer sep=0pt] (partnum) at ([yshift=60pt, xshift=-20pt]parttop.south)
+    {\partnumfont\thepart};
+  \node[ % name
+      anchor=south east,
+      color=white,
+      inner sep=0pt,
+      outer sep=0pt] at ([yshift=30pt, xshift=-20pt]parttop.south)
+  {\parbox{1.7\textwidth}{\raggedleft\partnamefont#1}};
+  \end{tikzpicture}%
+  }
+\let\origpart\part
+\renewcommand\part[2]{\edef\partbackground{#2}\origpart{#1}}
+
+%----------------------------------------------------------------------------------------
+%	LISTINGS for: c#, cpp, matlab, python, console, pseudokod
+%   SEE: https://en.m.wikibooks.org/wiki/LaTeX/Source_Code_Listings
+%        http://texdoc.net/texmf-dist/doc/latex/listings/listings.pdf
+%----------------------------------------------------------------------------------------
+\usepackage[many]{tcolorbox}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+\usepackage{inconsolata}
+%\usepackage{courier}
+\usepackage{color}
+\usepackage[font=small,labelfont=bf]{caption} % font size etc of captions
+
+\DeclareCaptionFormat{listing}{\rule{\dimexpr\textwidth-0.8cm\relax}{0pt}\par\vskip0pt#1#2#3}
+\captionsetup[lstlisting]{format=listing,labelsep=colon,justification=centering,singlelinecheck=false,margin=0.8cm,font={small},labelfont=bf}
+
+\definecolor{bluekeywords}{rgb}{0,0,1}
+\definecolor{greencomments}{rgb}{0,0.5,0}
+\definecolor{redstrings}{rgb}{0.64,0.08,0.08}
+\definecolor{xmlcomments}{rgb}{0.5,0.5,0.5}
+\definecolor{types}{rgb}{0.17,0.57,0.68}
+\definecolor{nrgray}{RGB}{96,96,96}
+\definecolor{codebg}{RGB}{255,255,234}
+
+
+% ---------------------------  csharp  -------------------------------
+% Ok, the caption needs have 1mm less margin than the lststyle. I suppose the lststyle
+% adds its own border or something.
+% Note: If we want a line above the "Exempel 1.1 blabla"-text, we change 0pt to something else
+
+\lstdefinestyle{csharpstyle}{
+language=[Sharp]C,
+backgroundcolor=\color{codebg},
+xleftmargin=0.8cm,
+belowcaptionskip=0.1cm,
+belowskip=0.5cm,
+captionpos=t, % sets the caption-position to top
+numbers=left, % set where the line numbers are to appear
+numberstyle=\tiny\color{nrgray},
+numbersep=8pt,                   % how far the line-numbers are from the code
+frame=lt,% or Lrtb or something
+keepspaces=true, % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+showspaces=false,
+showtabs=false,
+tabsize=3,
+breaklines=true,
+showstringspaces=false,
+breakatwhitespace=true,
+escapeinside={(*@}{@*)},
+commentstyle=\color{greencomments},
+rulecolor=\color{black},  % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+morekeywords={partial, var, value, get, set},
+keywordstyle=\color{bluekeywords},
+stringstyle=\color{redstrings},
+basicstyle=\ttfamily\small, % font
+extendedchars=true,
+% and we need this for åäö etc:
+literate=
+  {'}{{\textquotesingle}}1 {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
+}
+
+% Well, I dunno how this macro thingie really works,
+% found it here: https://tex.stackexchange.com/questions/305980/reference-to-lstnewenvironment?rq=1
+% but it enables us to add references to examples...
+\makeatletter
+\lst@UserCommand\lstlistofcsharp{\bgroup
+    \let\contentsname\lstlistcsharpname
+    \let\lst@temp\@starttoc \def\@starttoc##1{\lst@temp{loc}}%
+    \tableofcontents \egroup}
+
+\newcounter{csharp}
+\lstnewenvironment{csharp}[1][]{%
+	\renewcommand{\lstlistingname}{Exempel} % Listing -> Exempel
+    \lstset{
+	style=csharpstyle,
+%	caption={[#1]{#1}}
+	#1
+	}} {\addtocounter{csharp}{1}}
+{}
+
+\makeatother
+
+
+
+% ---------------------------  cpp -------------------------------
+% Ok, the caption needs have 1mm less margin than the lststyle. I suppose the lststyle
+% adds its own border or something.
+% Note: If we want a line above the "Exempel 1.1 blabla"-text, we change 0pt to something else
+
+\lstdefinestyle{cppstyle}{
+language=C++,
+backgroundcolor=\color{codebg},
+xleftmargin=0.8cm,
+belowcaptionskip=0.1cm,
+belowskip=0.5cm,
+captionpos=t, % sets the caption-position to top
+numbers=left, % set where the line numbers are to appear
+numberstyle=\tiny\color{nrgray},
+numbersep=8pt,                   % how far the line-numbers are from the code
+frame=lt,% or Lrtb or something
+keepspaces=true, % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+showspaces=false,
+showtabs=false,
+tabsize=3,
+breaklines=true,
+showstringspaces=false,
+breakatwhitespace=true,
+escapeinside={(*@}{@*)},
+commentstyle=\color{greencomments},
+rulecolor=\color{black},  % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+morekeywords={partial, var, value, get, set, string},
+keywordstyle=\color{bluekeywords},
+stringstyle=\color{redstrings},
+basicstyle=\ttfamily\small, % font
+extendedchars=true,
+% and we need this for åäö etc:
+literate=
+  {'}{{\textquotesingle}}1 {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
+}
+
+% Well, I dunno how this macro thingie really works,
+% found it here: https://tex.stackexchange.com/questions/305980/reference-to-lstnewenvironment?rq=1
+% but it enables us to add references to examples...
+\makeatletter
+\lst@UserCommand\lstlistofcpp{\bgroup
+    \let\contentsname\lstlistcppname
+    \let\lst@temp\@starttoc \def\@starttoc##1{\lst@temp{loc}}%
+    \tableofcontents \egroup}
+
+\newcounter{cpp}
+\lstnewenvironment{cpp}[1][]{%
+	\renewcommand{\lstlistingname}{Exempel} % Listing -> Exempel
+    \lstset{
+	style=cppstyle,
+%	caption={[#1]{#1}}
+	#1
+	}} {\addtocounter{cpp}{1}}
+{}
+
+\makeatother
+
+
+
+% ---------------------------  matlab  -------------------------------
+% Ok, the caption needs have 1mm less margin than the lststyle. I suppose the lststyle
+% adds its own border or something.
+% Note: If we want a line above the "Exempel 1.1 blabla"-text, we change 0pt to something else
+
+\lstdefinestyle{matlabstyle}{
+language=Matlab,
+backgroundcolor=\color{codebg},
+xleftmargin=0.8cm,
+belowcaptionskip=0.1cm,
+belowskip=0.5cm,
+captionpos=t, % sets the caption-position to top
+numbers=left, % set where the line numbers are to appear
+numberstyle=\tiny\color{nrgray},
+numbersep=8pt,                   % how far the line-numbers are from the code
+frame=lt,% or Lrtb or something
+keepspaces=true, % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+showspaces=false,
+showtabs=false,
+tabsize=3,
+breaklines=true,
+showstringspaces=false,
+breakatwhitespace=true,
+escapeinside={(*@}{@*)},
+commentstyle=\color{greencomments},
+rulecolor=\color{black},  % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+morekeywords={partial, var, value, get, set, sind, cosd, tand, asind, acosd, atand, ones, randi, solve, mod, mode},
+deletekeywords={det},
+keywordstyle=\color{bluekeywords},
+stringstyle=\color{redstrings},
+basicstyle=\ttfamily\small, % font
+% and we need this for åäö etc:
+literate=
+  {'}{{\textquotesingle}}1 {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
+}
+
+% Well, I dunno how this macro thingie really works,
+% found it here: https://tex.stackexchange.com/questions/305980/reference-to-lstnewenvironment?rq=1
+% but it enables us to add references to examples...
+\makeatletter
+\lst@UserCommand\lstlistofmatlab{\bgroup
+    \let\contentsname\lstlistmatlabname
+    \let\lst@temp\@starttoc \def\@starttoc##1{\lst@temp{loc}}%
+    \tableofcontents \egroup}
+\newcounter{matlab}
+\lstnewenvironment{matlab}[1][]{%
+	\renewcommand{\lstlistingname}{Exempel} % Listing -> Exempel
+    \lstset{
+	style=matlabstyle,
+%	caption={[#1]{#1}}
+	#1
+	}}
+{\addtocounter{matlab}{1}}
+
+{}
+
+\makeatother
+
+
+% ---------------------------  python -------------------------------
+
+\lstdefinestyle{pythonstyle}{
+language=Python,
+backgroundcolor=\color{codebg},
+xleftmargin=0.8cm,
+belowcaptionskip=0.1cm,
+belowskip=0.5cm,
+captionpos=t, % sets the caption-position to top
+numbers=left, % set where the line numbers are to appear
+numberstyle=\tiny\color{nrgray},
+numbersep=8pt,                   % how far the line-numbers are from the code
+frame=lt,% or Lrtb or something
+keepspaces=true, % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+showspaces=false,
+showtabs=false,
+tabsize=3,
+breaklines=true,
+showstringspaces=false,
+breakatwhitespace=true,
+escapeinside={(*@}{@*)},
+commentstyle=\color{greencomments},
+rulecolor=\color{black},  % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+morekeywords={partial, var, value, get, set, sind, cosd, tand, asind, acosd, atand, ones, randi, solve, mod, mode},
+deletekeywords={det},
+keywordstyle=\color{bluekeywords},
+stringstyle=\color{redstrings},
+basicstyle=\ttfamily\small, % font
+% and we need this for åäö etc:
+literate=
+  {'}{{\textquotesingle}}1 {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
+}
+
+% Well, I dunno how this macro thingie really works,
+% found it here: https://tex.stackexchange.com/questions/305980/reference-to-lstnewenvironment?rq=1
+% but it enables us to add references to examples...
+\makeatletter
+\lst@UserCommand\lstlistofpython{\bgroup
+    \let\contentsname\lstlistpythonname
+    \let\lst@temp\@starttoc \def\@starttoc##1{\lst@temp{loc}}%
+    \tableofcontents \egroup}
+\newcounter{python}
+\lstnewenvironment{python}[1][]{%
+	\renewcommand{\lstlistingname}{Exempel} % Listing -> Exempel
+    \lstset{
+	style=pythonstyle,
+%	caption={[#1]{#1}}
+	#1
+	}}
+{\addtocounter{python}{1}}
+
+{}
+
+\makeatother
+
+%
+% ---------------------------  console  -------------------------------
+
+\lstdefinestyle{consolestyle}{
+language=bash,
+backgroundcolor=\color{black},
+xleftmargin=0.8cm,
+belowcaptionskip=0.1cm,
+belowskip=0.5cm,
+captionpos=none, % sets the caption-position to top
+numbers=none, % set where the line numbers are to appear
+numberstyle=\tiny\color{nrgray},
+numbersep=8pt,                   % how far the line-numbers are from the code
+frame=l,%
+keepspaces=true, % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+tabsize=3,
+breaklines=true,
+showstringspaces=false,
+escapeinside={(*@}{@*)},
+deletekeywords={in,is,out,for,return,test,source},
+basicstyle=\ttfamily\small\color{white},
+% and we need this for åäö etc...
+literate=
+  {'}{{\textquotesingle}}1 {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
+}
+\newcounter{console}
+\lstnewenvironment{console}[1][]{%
+    \lstset{style=consolestyle,caption={[#1]{#1}}}}
+	{\addtocounter{console}{1}}
+	{}%
+
+
+
+
+% ---------------------------  pseudocode  -------------------------------
+
+\definecolor{pseudocol}{RGB}{153, 92, 0}
+
+\lstdefinestyle{pseudocodestyle}{
+language=bash,
+%backgroundcolor=\color{green},
+xleftmargin=0.8cm,
+belowcaptionskip=0.1cm,
+belowskip=0.5cm,
+captionpos=none, % sets the caption-position to top
+numbers=none, % set where the line numbers are to appear
+numberstyle=\tiny\color{nrgray},
+numbersep=8pt,                   % how far the line-numbers are from the code
+frame=l,%
+keepspaces=true, % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+tabsize=3,
+breaklines=true,
+showstringspaces=false,
+%keywords={MEDAN,OM,SÅ,IF,ELSE,WHILE,END,SLUT}, Å does not work, stupid...
+deletekeywords={in,is,out,for,return},
+escapeinside={(*@}{@*)},
+basicstyle=\ttfamily\small\color{pseudocol},
+% and we need this for åäö etc...
+literate=
+  {'}{{\textquotesingle}}1 {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
+}
+\newcounter{pseudo}
+\lstnewenvironment{pseudo}[1][]{%
+	\lstset{style=pseudocodestyle,caption={[#1]{#1}}}}
+	{\addtocounter{pseudo}{1}}
+	{}%
+
+
+% ------------------------  code in text  ----------------------------
+\newcommand{\cw}[1]{\texttt{\small{#1}}}%
+
+
+%----------------------------------------------------------------------------------------
+%   COLORED BOXES (TEKNISK INFO, LÄNKAR)
+%----------------------------------------------------------------------------------------
+%\definecolor{colboxteknisk}{RGB}{0,153,0}
+\definecolor{colboxteknisk}{RGB}{125, 88, 161}
+\newcommand{\boxteknisk}[1]
+{
+\begin{tcolorbox}[width=\textwidth, colback=colboxteknisk!5!white,colframe=colboxteknisk!75!black, leftrule=3mm, enlarge top by=12pt, enlarge bottom by=12pt]
+#1
+\end{tcolorbox}
+}
+
+
+\definecolor{colboxlinks}{RGB}{0,102,204}
+\newcommand{\boxlinks}[1]
+{
+\begin{tcolorbox}[width=\textwidth, colback=colboxlinks!5!white,colframe=colboxlinks!75!black, leftrule=3mm, enlarge top by=12pt, enlarge bottom by=12pt]
+#1
+\end{tcolorbox}
+}
+
+%----------------------------------------------------------------------------------------
+%   UPPGIFTER STYLE THINGS
+%----------------------------------------------------------------------------------------
+\usepackage{amsthm} % to give uppgifter numbers... uff
+%\newtcolorbox{uppgBox}[1]{colback=white!10!white,colframe=colboxuppgift!75!black,title={#1}}
+%\newtcbtheorem[]{uppgBox}[1]{colback=white!10!white,colframe=colboxuppgift!75!black,title={#1}}
+
+
+% LÄTT:
+\definecolor{colEasy}{RGB}{0,96,0}
+\newtcbtheorem[number within=chapter]{matteovning}{Övning (E),}{breakable,enhanced,colback=white!15!white,colframe=colEasy!100!black,arc=1pt,outer arc=2pt, enlarge top by=6pt, enlarge bottom by=6pt}{ov}
+\makeatletter
+\newcommand\tcb@cnt@matteovningautorefname{Övning}
+\makeatother
+
+%MEDEL:
+\definecolor{colMid}{RGB}{204,122,0}
+\newtcbtheorem[use counter from=matteovning, number within=chapter]{matteovningm}{Övning (M),}{breakable,enhanced,colback=white!15!white,colframe=colMid!100!black,arc=1pt,outer arc=2pt, enlarge top by=6pt, enlarge bottom by=6pt}{ov}
+\makeatletter
+\newcommand\tcb@cnt@matteovningmautorefname{Övning}
+\makeatother
+
+%SVÅR:
+\definecolor{colHard}{RGB}{128,0,0}
+\newtcbtheorem[use counter from=matteovning, number within=chapter]{matteovnings}{Övning (S),}{breakable,enhanced,colback=white!15!white,colframe=colHard!100!black,arc=1pt,outer arc=2pt, enlarge top by=6pt, enlarge bottom by=6pt}{ov}
+\makeatletter
+\newcommand\tcb@cnt@matteovningsautorefname{Övning}
+\makeatother
+%----------------------------------------------------------------------------------------
+%   FIGURES
+%----------------------------------------------------------------------------------------
+\usepackage{float} % needed to be able to place figures exactly where we want (adds H flag for \begin{x}[H], see https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions
+\newcommand{\figurec}[3]
+{
+\begin{figure}[H]
+  \centering
+  \caption{#3}
+  \includegraphics[width=#1]{img/#2}
+   \end{figure}
+}

@@ -1,0 +1,232 @@
+% Programmering i matematiken - med Python (c)
+% by Krister Trangius & Emil Hall
+%
+% Programmering i matematiken - med Python is licensed under a
+% Creative Commons  Attribution-ShareAlike 4.0 International License.
+%
+% You should have received a copy of the license along with this work. If not,
+% see <http://creativecommons.org/licenses/by-sa/4.0/>.
+%------------------------------------------------------------------------------
+
+\chapter{Selektion (med if)}\label{ch:selektion}\index{selektion|textbf}
+Ett program behöver ofta göra olika val beroende på olika värden på saker och ting (t.ex. olika variablers värden). Då använder man något som kallas för \emph{selektion}. I det här kapitlet kommer vi att gå igenom \cw{if}-satsen. Den utför selektion men brukar i sig kallas för \emph{villkorssats}.
+
+
+\section{Läsa in variabler}\index{input|textbf}
+Innan vi går vidare med selektion så ska vi ta ett kort sidospår och lära oss hur man kan läsa in variabler medan en kodsnutt körs. Det är smidigt om man vill köra samma kodsnutt flera gånger, men testa olika värden på variablerna. Hittills när vi har skrivit kod har vi ju bara gjort det för oss själva. Men det är ju möjligt att låta andra personer köra vår kod.
+
+Vi skapar en ny fil och skriver följande kod:
+
+\begin{python}[caption={Läsa in variabler},label={}]
+a = float(input("Ange variabeln a: "))
+b = float(input("Ange variabeln b: "))
+print(a+b)
+\end{python}
+
+Här blev det mycket nytt på en gång. Vi går igenom det bit för bit.
+
+Funktionen \cw{input} skriver alltså ut en text på skärmen, och låter användaren (den som kör vår kod) skriva in något. När användaren tryckt på Enter-tangenten, så fortsätter vår kod köras.
+
+En användare skulle ju kunna skriva in vad som helst, t.ex. ordet ''morot''. Det är ju inget tal! Men om användaren skriver in ett tal, så kan Python ändå inte automatiskt anta att det är ett tal. Därför måste vi, när vi skriver programmet, använda funktionen \cw{float} för att tala om för datorn att vi bara är intresserade av decimaltal. Om vi däremot bara vore intresserade av heltal skulle vi skriva \cw{int} istället.
+
+\begin{matteovning}{input}{input}
+Testa funktionen \cw{input}. Prova lite olika utskrifter och olika namn på variabler. Testa med \cw{int} istället för \cw{float}.
+\newline
+\newline
+Testa att köra exemplet ovan, men istället för att skriva in en siffra så skriver du in ditt namn. Vad får du för felmeddelande? Vad tror du det beror på?
+\end{matteovning}
+
+Men nu ska vi gå vidare och lära oss selektion, där vi kommer att använda \cw{input}.
+
+\section{if-satsen}\index{if|textbf}
+En \cw{if}-sats jämför alltså två värden med varandra. En \cw{if}-sats på svenska blir alltså en om-sats:
+
+\begin{pseudo}
+OM något SÅ
+	gör detta.
+SLUT OM
+\end{pseudo}
+
+T.ex. så kan man kontrollera hur varmt vatten är:
+
+\begin{pseudo}
+OM temperatur är 100 SÅ
+	skriv ut "Nu kokar vattnet!" på skärmen.
+SLUT OM
+\end{pseudo}
+
+Detta kan illustreras visuellt som ett flödesschema som ser ut så här:
+
+\figurec{12cm}{flodesschema/if1.png}{If-sats som flödesschema}
+
+Låt oss prova detta i Python. Vi lägger till lite kod för att användaren ska få mata in värdet på variabeln \cw{temperature}:
+\begin{python}[caption={Vår första if-sats},label={code:kokar1}]
+temperature = float(input("Ange temperatur: "))
+if temperature == 100:
+    print("Nu kokar vattnet!")
+\end{python}
+
+Du minns väl att det är skillnad på jämförelseoperatorn och tilldelningsoperatorn? Om du inte minns, se \autoref{sec:operatorer} och \autoref{sec:tilldelningsoperatorn}. När vi arbetar med \cw{if}-satser använder vi jämförelseoperatorn just för att jämföra två olika tal (eller i exemplet ovan, värdet av variabeln \cw{temperature} och talet \cw{100}).
+
+Lägg märke till kolonet \cw{:} efter \cw{if}-raden. Efter \cw{if temperature == 100:} ligger den kod som vi vill utföra, ifall villkorssatsen visar sig stämma.
+
+Raden under \cw{if}-raden är indragen åt höger. Låt oss tydliggöra vad detta indrag innebär med följande exempel:
+
+\begin{python}[caption={Vår andra if-sats},label={code:kokar2}]
+temperature = float(input("Ange temperatur: "))
+if temperature == 100:
+	print("Nu kokar vattnet!")
+	print("Kok kok kok!")
+print("Programmet avslutas")
+\end{python}
+
+De två första raderna ligger i rak linje med varandra längst åt vänster, medan rad 3 och 4 ligger med ett indrag åt höger. \emph{Detta indrag är av yttersta vikt!} Indraget görs med hjälp av TAB på tangentbordet. Alla indragna rader körs om (och endast om) det som står i \cw{if}-satsen är sant. Om detta verkar oklart nu, så hoppas vi att det ska bli tydligare när du läst klart detta kapitel och nästföljande.
+
+Om vi anger att vattnet är 100 grader, får vi alltså följande resultat:
+
+\vspace{10pt}
+\begin{python}
+Ange temperatur: 100
+Nu kokar vattnet!
+Kok kok kok!
+Programmet avslutas
+\end{python}
+\newpage
+\subsection{else}\index{else|textbf}
+Att använda en \cw{if}-sats utan något mer, gör att vi kör ett stycke kod om villkorssatsen visar sig stämma. Annars gör vi ingenting speciellt utan programmet fortsätter bara att köra. Låt oss fortsätta med temperaturer. Om vi i körningen av \autoref{code:kokar2} angav något annat än 100, slutar programmet abrupt:
+
+\vspace{10pt}
+\begin{python}
+Ange temperatur: 89
+Programmet avslutas
+\end{python}
+
+Men ofta vill man ju faktiskt göra något annat, om det visar sig att villkorssatsen \emph{inte} stämmer. Låt oss fortsätta med det kokande vattnet, först på svenska:
+
+\begin{pseudo}
+OM temperatur är 100 SÅ
+   Skriv ut "Nu kokar vattnet!" på skärmen.
+ANNARS
+   Skriv ut "Vattnet är inte exakt 100 grader..."
+SLUT OM
+\end{pseudo}
+
+Detta kan illustreras som flödesschema så här:
+
+\figurec{12cm}{flodesschema/if2.png}{if och else som flödesschema}
+
+ Låt oss programmera detta i Python:
+
+\begin{python}[caption={Vår första else-sats},label={}]
+temperature = float(input("Ange temperatur: "))
+if temperature == 100:
+    print("Nu kokar vattnet!")
+else:
+    print("Vattnet är inte exakt 100 grader...")
+\end{python}
+
+Nu får vi i alla fall ett meddelande, om vi anger att temperaturen är annat än 100 grader:
+
+\vspace{10pt}
+\begin{python}
+Ange temperatur: 89
+Vattnet är inte exakt 100 grader...
+\end{python}
+
+% \subsection{elseif}\index{elseif|textbf}
+% Ibland vill man göra flera olika jämförelser. Låt oss göra ett test som säger till när temperaturen är exakt halvvägs till 100. Vi skriver det först på svenska:
+
+% \begin{pseudo}
+% OM temperatur är 100 SÅ
+%    Skriv ut "Nu kokar vattnet!" på skärmen.
+% ANNARS OM temperatur är 50 SÅ
+%    Skriv ut "Halvvägs till 100!"
+% ANNARS
+%    Skriv ut "Vattnet är inte exakt 100 grader..."
+% SLUT OM
+% \end{pseudo}
+
+% Observera att vi lägger in \cw{ANNARS OM} mellan den första \cw{OM} och den sista \cw{ANNARS}. Vi hanterar alltså först alla specifika resultat (50 och 100). Sist tar vi hand om alla övriga resultat (alltså alla övriga temperaturer).
+
+% Detta kan illustreras som flödesschema så här:
+
+%  \figurec{12cm}{flodesschema/if3.png}{if, else och elseif som flödesschema}
+
+% Kodat i Python blir det:
+
+% \begin{python}[caption={Vår första elseif-sats},label={}]
+% temperature = float(input("Ange temperatur: "))
+% if temperature == 100:
+%     print("Nu kokar vattnet!")
+% elseif temperature == 50:
+%     print("Halvvägs till 100!")
+% else:
+%     print("Vattnet är inte exakt 100 grader...")
+% \end{python}
+
+% Man kan fylla på med hur många \cw{elseif} man vill för att kontrollera andra temperaturer. Det går också att använda \cw{elseif} utan att använda sig av en \cw{else} på slutet.
+
+\subsection{if-satser med mindre än-operatorn <}\index{jämförelseoperatorer}
+Låt oss testa \cw{if}-satser med en annan jämförelseoperator. Vi tar mindre än-operatorn \cw{<}.
+
+Vi tar det först på svenska:
+
+\begin{pseudo}
+OM temperatur är mindre än 100 SÅ
+   Skriv ut "Vattnet är inte tillräckligt varmt än..." på skärmen.
+ANNARS
+   Skriv ut "Vattnet kokar!"
+\end{pseudo}
+
+Kodat i Python blir det:
+
+\begin{python}[caption={Mindre än-operatorn},label={}]
+temperature = float(input("Ange temperatur: "))
+if temperature < 100:
+    print("Vattnet är inte tillräckligt varmt än...")
+else:
+    print("Vattnet kokar!")
+\end{python}
+
+På samma sätt som med operatorerna \cw{==} och \cw{<}, kan du använda \cw{if}-satser med de övriga jämförelseoperatorerna som finns listade i \autoref{sec:operatorer}.
+
+
+\subsection{Input med bokstäver}
+
+Ibland känns det lite tråkigt att vi bara kan prata siffror med datorn. Det vore roligare att kunna säga små ord till den, i alla fall ''j'' och ''n'' för att symbolisera ja/nej.
+Vi skapar ett program som ställer frågan ''Är det fint väder?''. Om användaren svarar ''j'' skriver programmet ut ''Vi går på picknick!''. Annars händer ingenting. Men hur ska datorn kunna förstå svaret ''j''? Vi kan använda följande trick:
+
+\begin{python}[caption={Kontrollera vädret},label={ml:kontrolleraVadret}]
+svaret = input("Är det fint väder? ") # obs, utan float/int
+if svaret == "j": # observera citattecknen
+    print("Vi går på picknick!")
+\end{python}
+\newpage
+%---------------------------------------------------------------
+
+\section{Övningar}
+
+\begin{matteovning}{Kontrollera vädret (fortsättning)}{kontrolleraVadret2}
+Arbeta vidare på \autoref{ml:kontrolleraVadret} men lägg till att användaren kan svara ''n''. Då skriver programmet ut ''Vi stannar inne och läser en bok''.
+\end{matteovning}
+
+%---------------------------------------------------------------
+
+\begin{matteovning}{Var är det kallast?}{varArDetKallast}
+Skapa ett program där man får mata in temperaturen i Östersund och Göteborg. Programmet ska sedan berätta var det är kallast. Men om det är lika kallt i båda städerna så ska programmet berätta detta istället.
+\end{matteovning}
+
+%---------------------------------------------------------------
+
+\begin{matteovning}{Felaktig if-sats}{felaktigIfSats}
+Något stämmer inte riktigt med följande if-sats:
+
+\vspace{10pt}
+\begin{python}
+x = 9
+if x = 10
+    print("den är 10!")
+\end{python}
+
+När vi försöker köra koden så får vi ett felmeddelande - vad är det som inte stämmer? Skriv om koden så att det blir rätt!
+\end{matteovning}

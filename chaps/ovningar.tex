@@ -1,0 +1,561 @@
+% Programmering i matematiken - med Python (c)
+% by Krister Trangius & Emil Hall
+%
+% Programmering i matematiken - med Python is licensed under a
+% Creative Commons  Attribution-ShareAlike 4.0 International License.
+%
+% You should have received a copy of the license along with this work. If not,
+% see <http://creativecommons.org/licenses/by-sa/4.0/>.
+%------------------------------------------------------------------------------
+
+\chapter{Övningar}\label{ch:ovningar}
+
+%==============================================================================
+
+\section{Primtal, delbarhet och faktorisering}\label{sec:primtalDelbarhetFaktorisering}
+\emph{Följande övningar är lämpliga för Ma1c och är relaterade till följande centrala innehåll:
+\begin{itemize}
+\item \textbf{Taluppfattning, aritmetik och algebra:} [...] begreppen primtal och delbarhet. (Ma1c)
+\end{itemize}}
+
+\begin{matteovning}{Kontrollera faktorer (Ma1c)}{kontrolleraFaktorer}
+Kim hävdar att om vi multiplicerar alla tal i listan \cw{[3, 5, 7, 17, 23]} så blir produkten lika med $41055$, och ber dig skriva ett program som kontrollräknar. Du föreslår att Kim helt enkelt skriver in \cw{3*5*7*17*23} som ett kommando i Python, men Kim säger att han kommer vilja använda programmet på väldigt långa listor som redan är färdigskrivna, så han orkar inte skriva in så många multiplikationstecken. Skriv ett program åt Kim så att han lätt kan kontrollräkna sånt själv i fortsättningen. Programmets första två rader ska vara:
+\vspace{10pt}
+\begin{python}
+expected_product = 41055 # här kan Kim ändra
+all_factors = array([3, 5, 7, 17, 23]) # här också
+\end{python}
+Programmet ska sedan använda de två variablerna, och skriva ut ''Rätt'' eller ''Fel''.
+\end{matteovning}
+
+\begin{matteovning}{Delbart med 3? (Ma1c)}{delbartMedTre}
+Skriv ett program som låter användaren mata in ett heltal. Programmet ska testa om talet är delbart med 3 eller inte. Skriv ut ''delbart'' eller ''ej delbart'' beroende på vad det är.
+\newline
+\newline
+\emph{Tips: Bläddra tillbaka till \autoref{ex:funktionermedtvaargument} och läs om funktionen \cw{fmod}.}
+\end{matteovning}
+
+\begin{matteovningm}{Primtal eller ej (Ma1c)}{primtalEllerEj}
+Skriv ett program som låter användaren mata in ett heltal. Kolla om talet är ett primtal. Skriv ut ''primtal'' eller ''ej primtal'' beroende på vad det är.
+\newline
+\newline
+\emph{Tips: Utgå från förra övningen och bygg vidare på den.}
+\end{matteovningm}
+
+\begin{matteovningm}{Faktorisera ett heltal (Ma1c)}{faktoriseraTillPrimtalsFaktorer}
+Skriv ett program som låter användaren mata in ett heltal. Skriv ut alla talets primtalsfaktorer.
+\newline
+\newline
+\emph{Tips: Utgå från förra övningen och bygg vidare på den.}
+\end{matteovningm}
+
+\begin{matteovningm}{Testa att programmet stämmer (Ma1c)}{testaFaktoriseringsProgrammet}
+Gör om ovanstående faktoriserings-program så att det lägger alla faktorerna i en lista. Använd sedan programmet från \autoref{ov:kontrolleraFaktorer} för att testa att ditt faktoriserings-program verkligen räknade rätt. Om programmen inte håller med varandra så är det fel i antingen det ena eller det andra programmet. Hitta i så fall felet och fixa det.
+\end{matteovningm}
+
+%==============================================================================
+\newpage
+\section{Sannolikhet och statistik}\label{sec:sannolikhetStatistik}
+\emph{Följande övningar är lämpliga för Ma1c och Ma2c och är relaterade till följande centrala innehåll:
+\begin{itemize}
+\item \textbf{Sannolikhet och statistik:} \lbrack...M\rbrack etoder för beräkning av sannolikheter vid slumpförsök i flera steg med exempel från spel[...]. (Ma1c)
+\item \textbf{Sannolikhet och statistik:} Statistiska metoder för rapportering av observationer och mätdata från undersökningar. (Ma2c)
+\item \textbf{Sannolikhet och statistik:} Metoder för beräkning av olika lägesmått och spridningsmått inklusive standardavvikelse, med digitala verktyg. (Ma2c)
+\item \textbf{Samband och förändring:} Konstruktion av grafer till funktioner [...] med digitala verktyg. (Ma2c)
+\end{itemize}}
+
+Programmering kan vara lämpligt för att räkna på och förstå sannolikhet och statistik. Matteuppgifter om sannolikhet har ofta en exakt lösning som vi kan få fram via någon färdig formel. Din vanliga mattebok är garanterat fylld av såna. Men vad gör du om du får en uppgift där du inte har någon färdig formel? Om du klurar tillräckligt länge så kanske du kan komma på en formel själv. Men det är ofta lättare att istället skriva ett program som gör en simulering, t.ex. kastar tärning jättemånga gånger, och sedan samlar ihop statistik om resultatet. Du får inte ett exakt resultat, men ett ungefärligt. Ju fler kast desto mer exakt.
+
+Exempel: Om du kastar två tärningar (vanliga sexsidiga tärningar), vad är sannolikheten att summan blir 2? Att den blir 3? Och så vidare.
+
+Vi skriver ett program som kastar en tärning 100 gånger, och ritar resultatet i ett histogram som vi lärde oss i \autoref{sec:histogram}:
+\vspace{10pt}
+\begin{python}
+random_numbers = array([])
+number_throws = 100 # den här kan man ändra
+throw = 1
+while throw <= number_throws:
+	dice1 = randint(1, 7)
+	random_numbers = append(random_numbers, dice1)
+	throw = throw + 1
+hist(random_numbers, arange(min(random_numbers)-0.5, max(random_numbers)+1.5))
+show()
+\end{python}
+\newpage
+Nu utökar vi programmet så att det kastar två tärningar åt gången, och mäter summan av dem:
+\vspace{10pt}
+\begin{python}
+random_numbers = array([])
+number_throws = 100 # den här kan man ändra
+throw = 1
+while throw <= number_throws:
+	dice1 = randint(1, 7)
+	dice2 = randint(1, 7)
+	sum = dice1 + dice2
+	random_numbers = append(random_numbers, sum)
+	throw = throw + 1
+hist(random_numbers, arange(min(random_numbers)-0.5, max(random_numbers)+1.5))
+show()
+\end{python}
+
+\figurec{9cm}{dice-throw-sum.png}{Histogram över 100 summor}
+
+
+\begin{matteovning}{Funktionen randi (Ma1c, Ma2c)}{funktionenRandi}
+Eftersom programmet använder slumptalsfunktionen \cw{randint} så kommer resultatet att bli olika varje gång du kör programmet. Prova det några gånger!
+\end{matteovning}
+
+\begin{matteovning}{När blir datorn långsam? (Ma1c, Ma2c)}{datornLangsam}
+Datorn är såpass snabb att den kan simulera hundra kast utan problem. Prova att öka antalet kast till 1000, 10000 och så vidare och kolla när det börjar gå långsamt på din dator!
+\end{matteovning}
+
+\begin{matteovning}{Hur förändras formen? (Ma1c, Ma2c)}{twoDiceSumHistShapeChange}
+Hur förändras formen på histogrammet när du ökar antalet kast, från 100 till 1000 och 10000? Beskriv med ord.
+\end{matteovning}
+
+\begin{matteovning}{Skillnad mellan två tärningar (Ma1c, Ma2c)}{twoDiceDiffProgram}
+Gör om programmet så att det inte längre mäter summan av de två tärningarna, utan istället mäter skillnaden mellan dem. Här måste du tänka på att vi inte är intresserade av negativa skillnader. Alltså, om det första tärningskastet ger $2$ och det andra tärningskastet ger $5$ så vill vi ändå tänka att skillnaden är $3$, inte $-3$.
+\newline
+\newline
+\emph{Tips: bläddra tillbaka till \autoref{subsec:abs} och läs om funktionen \cw{abs}.}
+\end{matteovning}
+
+\begin{matteovning}{Histogramanalys (Ma1c, Ma2c)}{twoDiceDiff}
+Titta i det nya histogrammet. Vad är den vanligaste skillnaden mellan två tärningar? Alltså, vad blev det oftast?
+\end{matteovning}
+
+\begin{matteovningm}{Beräkna histogram själv (Ma1c, Ma2c)}{myOwnHistogramFunction}
+Tänk om funktionen \cw{hist} inte fanns, men du ändå väldigt gärna ville rita nån sorts histogram. Och tänk om funktionen \cw{plot} fortfarande fanns. Du skulle kunna skriva egen kod som utgår från \cw{random\_numbers} och gör en sammanfattande beräkning och till slut använder \cw{plot} för att rita sammanfattningen. Hur ser den koden ut? Observera att \cw{plot(random\_numbers)} inte är rätt svar. Din graf ska visa samma information som \cw{hist}, förutom att den rent visuellt använder linjer istället för staplar.
+
+\figurec{12cm}{exercise-own-histogram.png}{Plot som motsvarar histogram}
+
+\emph{Tips: bläddra tillbaka till \autoref{subsec:konverteraVariabler} och läs om funktionen \cw{int}.}
+\end{matteovningm}
+
+\begin{matteovning}{Chans att slå Yatzy på ett slag (Ma1c)}{yatzy1}
+Alex spelar spelet Yatzy. I det spelet får hon kasta fem tärningar. Beroende på vad hon slår så blir det olika poäng. Det som ger mest poäng är att alla fem tärningarna får samma tal - detta kallas också Yatzy, och antalet ögon på tärningarna spelar alltså ingen roll. Fem 1:or är lika mycket Yatzy som fem 6:or. Gör ett program som beräknar sannolikheten att slå Yatzy på ett slag.
+\newline
+\newline
+\emph{Tips: Om du är osäker på var du ska börja, gå tillbaka till \autoref{ov:slumpaFemTarningssslag}, och hitta på ett sätt att testa om alla tärningarna visar samma tal eller inte. Kör sedan tusentals spelomgångar och håll räkningen på hur många av dem som blir Yatzy.
+}\end{matteovning}
+
+\begin{matteovningm}{Spara tärningar i Yatzy (Ma1c, Ma2c)}{yatzy2}
+Alex fortsätter spela Yatzy (se föregående övning). Om hon inte är nöjd med sitt första försök, så får hon välja att låta valfritt antal tärningar ligga kvar på bordet, och plocka upp resten och slå om dem. Den lättaste strategin för att slå Yatzy är att spara de tärningar som har samma tal, och slå om resten.
+\newline
+\newline
+Skriv ett program som analyserar en lista med fem tärningar, och skriver ut vilket värde som är smartast att spara nästa slag. Om det finns flera på delad förstaplats så spelar det ingen roll vilken av dem som programmet skriver ut. Testkör programmet med dessa listor:
+
+\begin{itemize}
+\item \cw{[1, 4, 5, 4, 3]}. Det är smartast att spara 4:orna.
+\item \cw{[1, 4, 5, 4, 1]}. Spara 4:orna eller 1:orna, vilket som.
+\item \cw{[1, 4, 4, 4, 1]}. Spara 4:orna.
+\item \cw{[1, 4, 5, 6, 3]}. Alla olika, spelar ingen roll vad som sparas.
+\end{itemize}
+\end{matteovningm}
+
+\begin{matteovnings}{Chans att slå Yatzy (Ma1c, Ma2c)}{chansTillYatzy}
+Enligt de riktiga reglerna för Yatzy (jämför föregående övning) så får man \emph{två} gånger välja ett valfritt antal tärningar och slå om dem. Alex vill veta vad sannolikheten för att slå Yatzy är. Hjälp henne att skriva ett program som ger henne svar på frågan genom att spela väldigt många (säg 10000, 100000 eller ännu fler) spel.
+\newpage
+Exempel:
+\begin{itemize}
+\item Första kastet: Tärningarna visar 4 5 1 4 2
+\item Alex sparar de två 4:orna och kastar om de tre övriga.
+\item Andra kastet: De nykastade tärningarna visar 1 1 1. Totalt visar tärningarna alltså 4 1 1 4 1.
+\item Nu har ju Alex fler 1:or än 4:or, så hon sparar de tre 1:orna och kastar om resten.
+\item Tredje kastet: De nykastade tärningarna visar 5 3. Totalt visar tärningarna alltså 5 1 1 3 1.
+\item Alex har nu gjort tre kast och får inte göra fler. Alex fick tyvärr inte Yatzy.
+\end{itemize}
+{\color{white}.}
+\newline
+\emph{Tips:}
+\begin{itemize}
+\item \emph{Börja med att skriva koden för att göra ett enda kast med fem tärningar (se \autoref{ov:yatzy1}).}
+\item \emph{Skriv sedan kod som räknar ut vilka tärningar som är bäst att spara (se \autoref{ov:yatzy2}).}
+\item\emph{Ändra sedan koden så att den upprepar ovanstående tre gånger. Detta är en spelomgång. Men kasta inte om alla tärningar, utan bara de som inte ska sparas.}
+\item\emph{Kör tusentals spelomgångar och håll räkningen på hur många av dem som blir Yatzy.}
+\end{itemize}
+\end{matteovnings}
+
+% \begin{matteovningm}{Graf för Yatzy}{}
+% För varje spelomgång datorn kör i ovanstående program, så ändras ju andelen som gett Yatzy. Om du efter varje spelomgång skulle lägga in den senaste andelen i en lista, och på slutet visa den listan som en graf, ungefär hur tror du att den grafen skulle se ut i grova drag? Rita först en egen skiss, testa sedan med kod!
+% \end{matteovningm}
+
+
+\begin{matteovning}{Standardavvikelse (Ma2c)}{standardavvikelse}
+Utgå från följande lista: \cw{[4, 9, 10, 7.5, 8, 9, 3, 9, 4, -2]}
+\newline
+\newline
+Skriv ett program som räknar ut listans medelvärde och standardavvikelse. Vi utgår från att du redan känner till vad det innebär. Använd iteration.
+\end{matteovning}
+
+
+\begin{matteovnings}{Typvärde (Ma2c)}{typvarde}
+Utgå från följande lista: \cw{[4, 9, 10, 7.5, 8, 9, 3, 9, 4, -2]}
+\newline
+\newline
+Skriv ett program som räknar ut listans typvärde. Vi utgår från att du redan känner till vad det innebär. Använd iteration.
+\newline
+\newline
+\emph{Tips: Om du tycker att övningen är svår, börja med att lösa \autoref{ov:yatzy2}.}
+\end{matteovnings}
+
+
+\begin{matteovningm}{Inbyggda funktioner för lägesmått och spridningsmått (Ma2c)}{standardavvikelse2}\index{mean|textbf}\index{mode|textbf}\index{std|textbf}\index{medelvärde|textbf}\index{typvärde|textbf}\index{standardavvikelse|textbf}
+Python innehåller förstås färdiga funktioner för att räkna ut medelvärde, typvärde och standardavvikelse. Gör en ny version av ovanstående övningar. Sök information om de inbyggda funktionerna \cw{mean}, \cw{mode} och \cw{std}, och använd dem istället för att göra beräkningen själv. För \cw{mode} kan du behöva importera ett extra s.k bibliotek via \cw{from scipy.stats import mode}.
+\end{matteovningm}
+
+% \begin{matteovning}{xx}{}
+% behandlar följande centrala innehåll: Sannolikhet och statistik. Statistiska metoder för rapportering av observationer och mätdata från undersökningar inklusive regressionsanalys.
+% Lämplig för Ma2c
+% Regression med least squares. Testa Pythons funktioner för detta.
+% \end{matteovning}
+
+%==============================================================================
+
+\section{Numerisk lösning av linjära ekvationer}\label{sec:numeriskLosningLinjara}
+\emph{Följande övningar är lämpliga för Ma1c och är relaterade till följande centrala innehåll:
+\begin{itemize}
+\item \textbf{Taluppfattning, aritmetik och algebra:} Algebraiska och grafiska metoder för att lösa linjära ekvationer och olikheter samt potensekvationer[...] (Ma1c)
+\end{itemize}}
+
+\emph{Övningarna lämpar sig även för Ma2c och Ma3c, då de är förkunskapskrav för att kunna lösa andragradsekvationer och för att kunna approximera talet $e$}
+
+Grafer är bra för att utforska ekvationer. Om din vanliga mattebok t.ex. nämner ekvationen $3x-7=5$ och ber dig att hitta vad $x$ är, så ska du förstås kunna göra beräkningen för hand med penna och papper, men att även se ekvationen grafiskt kan vara ett komplement som ökar din förståelse, och ett sätt att dubbelkolla att du räknat ut rätt svar.
+
+Vi kan betrakta de två sidorna i ekvationen som varsin linje. Vi kan rita båda linjerna tillsammans i samma graf, såhär:
+\vspace{10pt}
+\begin{python}
+xmin = -10
+xmax = 10
+x = arange(xmin, xmax+1)
+left_side = 3 * x - 7
+plot(x, left_side) # det till vänster om likamedtecknet
+plot([xmin,xmax], [5,5]) # det till höger
+grid(True)
+show()
+\end{python}
+
+Notera att vi använder \cw{plot()} på två olika sätt, som vi lärde oss i \autoref{subsec:plottwodim}.
+
+(Se graf på nästa sida...)
+\newpage
+\figurec{9cm}{linear-equation-1.png}{Ekvationen visualiserad som två linjer}
+
+Vad innebär nu egentligen ekvationen $3x-7=5$? Den innebär att det finns något $x$ som gör att vänstersidan och högersidan om likamedtecknet får samma värde. Grafiskt innebär det att de två linjerna någonstans korsar varandra. Titta på bilden! Det $x$-värde där linjerna korsar varandra är rätt svar på övningen. Alla de andra $x$-värdena i grafen gör att de två linjerna hamnar på olika höjd, så de är inte lösningar på övningen. Om du kommer fram till ett $x$ när du räknar ut ekvationen på papper, och ett annat $x$ när du tittar i grafen, så vet du att du har gjort fel någonstans.
+
+
+När du tittar på bilden så använder du ögonen för att hitta det $x$-värde där linjerna möts. Men vi skulle kunna programmera datorn för att göra ungefär samma sak, utan ögon. Datorn är så snabb att den kan helt enkelt testa jättemånga $x$-värden för att hitta det värde där ekvationen stämmer. Detta kallas \emph{numerisk lösning}.
+
+\begin{matteovning}{Enkel numerisk lösning (Ma1c)}{enkelNumeriskLosning}
+Skriv ett program som går igenom alla heltal mellan $-10$ och $10$, och testar om ekvationen stämmer. Med andra ord, börja med att låta $x$ vara lika med -10, gör beräkningen $3x-7$, och om resultatet blir lika med $5$ så skriv ut värdet på $x$, annars öka $x$ ett steg till $-9$ och upprepa. Programmet ska skriva ut svaret \cw{4}.
+\end{matteovning}
+
+Den enkla metoden för numerisk lösning har dock några svagheter:
+
+\begin{matteovning}{Enkel numerisk lösning, svaghet 1 (Ma1c)}{enkelNumeriskLosningFel1}
+Prova att ändra ekvationen till $3x-7=29$. Ditt program kommer inte att hitta lösningen. Varför? Och vad är det lättaste sättet att fixa programmet så att det hittar lösningen?
+\end{matteovning}
+
+\begin{matteovning}{Enkel numerisk lösning, svaghet 2 (Ma1c)}{enkelNumeriskLosningFel2}
+Prova att ändra ekvationen till $3x-7=4$. Ditt program kommer inte att hitta lösningen. Varför?
+\end{matteovning}
+
+
+\begin{matteovning}{Lös linjär ekvation med \cw{fsolve} (Ma1c)}{testaSolve}
+Det är förstås möjligt att skriva ett bättre program som inte har svagheterna i de två ovanstående övningarna. Men det finns, föga förvånande, redan en färdig, inbyggd funktion som inte har dessa två svagheter. Först måste vi göra om ekvationen för hand så att den har en nolla på högersidan, alltså $3x-7-4=0$. Sen använder vi funktionen \cw{fsolve} såhär:
+
+\vspace{10pt}
+\begin{python}
+from scipy.optimize import fsolve
+print(fsolve(lambda x: 3*x-7-4, 0))
+\end{python}
+
+Vi behöver \cw{lambda x:} innan vi skriver själva ekvationen för att Python ska fatta att \cw{x} är en okänd variabel. Efter ekvationen kommer det andra argumentet till \cw{fsolve}, där vi skickar in en \cw{0}:a. Datorn utgår då från värdet $x=0$ som en första gissning när den börjar lösa ekvationen. Datorn kan misslyckas med att hitta en lösning om den första gissningen inte är tillräckligt nära rätt svar.
+\newline
+\newline
+Övning: Använd \cw{fsolve} för att lösa ekvationen: $4x+15=-9$. Vad är $x$?
+\newline
+\newline
+Använd sedan \cw{fsolve} på några andra ekvationer från din vanliga mattebok.
+\end{matteovning}
+
+\begin{matteovnings}{Klurig numerisk lösning med intervallhalvering (Ma1c)}{intervallhalvering}\index{intervallhalvering}
+Skriv ett eget program som kan lösa ekvationen $3x-7=4$ och valfri annan ekvation av samma sort, och som inte har ovannämnda svaghet nummer två. (Använd inte den inbyggda \cw{fsolve}.)
+\newline
+\newline
+Det räcker inte att ta kortare steg, för hur korta steg ska vi ta för att vara säkra på att inte hoppa över svaret? Om vi tar steg med längden 0.1 så kommer vi ju att hoppa från x=3,6 till x=3,7 och därmed hoppa över svaret.
+\newline
+\newline
+Tricket är att, istället för att bara leta efter \emph{ett} x där vänsterledet blir exakt lika med 4, så kan vi utgå ifrån \emph{två olika} x som ligger på varsin sida om rätt svar, och sedan ta oss närmare och närmare svaret med hjälp av samma metod som den optimala strategin för ''gissa talet''-spelet vi jobbade med i \autoref{ov:gissatalet}.
+\newline
+\newline
+\emph{Den här uppgiften är avsiktligt lite klurig. Börja med att fundera på problemet geometriskt med penna och papper, och se om du kan se samband mellan denna övning och hur du bäst löser gissa talet-spelet.}
+\end{matteovnings}
+
+
+%==============================================================================
+
+
+\section{Andragradsekvationer}\label{sec:andragradsekvationer}
+
+\emph{Följande övningar är lämpliga för Ma2c och Ma3c och är relaterade till följande centrala innehåll:
+\begin{itemize}
+\item \textbf{Taluppfattning, aritmetik och algebra:} Algebraiska och grafiska metoder för att lösa exponential-, andragrads- och rotekvationer [...] (Ma2c)
+\item \textbf{Samband och förändring}: Konstruktion av grafer till funktioner [...] med digital verktyg. (Ma2c)
+\item \textbf{Samband och förändring}: Egenskaper hos andragradsfunktioner. (Ma2c)
+\item \textbf{Samband och förändring}: Algebraiska och grafiska metoder för lösning av extremvärdesproblem (Ma3c)
+\end{itemize}}
+
+\begin{matteovning}{Lös andragradsekvation med \cw{roots} (Ma2c)}{testaRoots2ndDegree}
+Kan Python hjälpa oss att lösa andragradsekvationer? Funktionen \cw{fsolve}, som vi lärde oss i \autoref{ov:testaSolve}, passar inte så bra här, för \cw{fsolve} hittar bara en lösning, men andragradsekvationer kan ha två lösningar. Lyckligtvis finns det en annan funktion som heter \cw{roots}. Den passar bättre för andragradsekvationer och, mer generellt, för den typ av ekvationer som kallas \emph{polynomekvationer}. Följande är exempel på polynomekvationer:
+
+\begin{itemize}
+\item $x = 5$
+\item $3x + 7 = 0$
+\item $x^2 - 2x - 12 = 0$
+\item $4x^2 + 9 = 0$
+\item $2x^3 + 6x^2 + 13x - 8 = 0$
+\end{itemize}
+
+{\color{white}.}
+\newline
+Följande är \emph{inte} polynomekvationer och går alltså inte att lösa med \cw{root}:
+\begin{itemize}
+\item $7 / x = 0$
+\item $3^x = 0$
+\item $sin(x) = 0$
+\end{itemize}
+
+{\color{white}.}
+\newline
+För att lösa en polynomekvation ser vi först till att den har rätt form, annars slår vi ihop och flyttar över termer tills den har rätt form. Sen tar vi bort alla $x$ och $x^2$, och gör en lista av det som blir kvar på vänstersidan. Generellt så blir ekvationen $ax^2 + bx + c = 0$ listan \cw{[a, b, c]}. T.ex ekvationen $3x^2 = 4$ gör vi först om till $3x^2 + 0x - 4 = 0$ och sedan till listan \cw{[3, 0, -4]}. Slutligen ger vi denna lista som ett argument till \cw{roots} och skriver ut resultatet:
+\vspace{10pt}
+\begin{python}
+print(roots([3, 0, -4]))
+\end{python}
+
+Övning: lös så många som möjligt av dessa ekvationer med hjälp av \cw{roots}:
+\begin{itemize}
+\item $6x^2 - 13x + 5 = 0$ % [6, -13, 5]
+\item $4x^2 - 2x - x/x = 5$ % [4, -2, -6]
+% \item $4x^2 - 2x - 1 = 5$
+% \item $4x^2 - 2x - 1 - 5 = 0$
+% \item $4x^2 - 2x - 6 = 0$
+\item $2/x - 18 = 0$ % går inte
+\item $2x^2 / 2 + 2x^2 - x - x = 0$ % [3, -2, 0]
+% \item $x^2 + 2x^2 - x - x = 0$
+% \item $3x^2 - 2x = 0$
+\end{itemize}
+\end{matteovning}
+
+\begin{matteovnings}{Klurig numerisk lösning, del 2 (Ma2c)}{intervallhalvering2}
+Ekvationen i \autoref{ov:intervallhalvering} är nog ärligt talat lättare att lösa för hand än genom att skriva ett klurigt datorprogram. Men när du klarat den övningen, testa att använda samma program för att lösa den mycket mer komplexa ekvationen $x^6 - sin(x) - 3^x + 7 = 0$.
+\newline
+\newline
+Vilket värde har $x$? Starta sökningen i intervallet $-50 <= x <= 50$. Om du har lyckats göra programmet tillräckligt generellt så ska det fungera!
+\newline
+\newline
+\emph{Hade du kunnat lösa ut $x$ för hand i denna ekvation?}
+\end{matteovnings}
+
+\begin{matteovnings}{Klurig numerisk lösning, del 3 (Ma2c)}{intervallhalvering3}
+Testa att använda samma program för att lösa ekvationen $x^2 + 6x + 9 = 0$. Fungerar det? Om inte, varför inte?
+\end{matteovnings}
+\newpage
+\begin{matteovningm}{Andragradsfunktionens minsta värde, grafiskt (Ma2c, Ma3c)}{lisasLillaTunna}
+Diogenes har fått i uppdrag att tillverka en stor plåtburk / liten tunna som ska rymma $6.2832$ $dm^3$ vätska. Tunnan ska ha formen av en cylinder. Diogenes tänker göra tunnan av en rektangular plåtbit som rullas ihop till en cylinder, plus två cirkulära plåtbitar som täpper till ändarna på cylindern. Beroende på hur långsmal Diogenes gör tunnan så kommer det gå åt olika mycket plåt. Uppdragsgivaren bad Diogenes att använda så lite plåt som möjligt till tunnan.
+\newline
+\newline
+Fråga: Vilken radie och höjd ska Diogenes välja på sin tunna?
+\newline
+\newline
+Eftersom vi vet att volymen ska vara $6.2832$ $dm^3$ så kan radien och höjden inte variera oberoende av varann. Om Diogenes väljer en radie i $dm$, så ges höjden $h$ automatiskt av:
+\newline
+\newline
+$h = 6.2832 / (\pi * radie^2)$
+\newline
+\newline
+Ekvationen för hur mycket plåt som behövs är i $dm^2$:
+\newline
+\newline
+$area = 2 * \pi * radie * (radie + h)$
+\newline
+\newline
+Problemet går att lösa analytiskt, men här ska vi lösa det genom att titta i en graf. Börja med att skapa en lista med ett antal tänkbara radier, till exempel från 0 till 10. Använd sedan ovanstående ekvationer för att beräkna en lista med höjder, och en lista med areor. Använd slutligen funktionen \cw{plot()} för att grafiskt se vilken radie som ger den minsta arean. Du kan behöva ändra på din lista med radie-förslag flera gånger för att ''zooma in'' på rätt del av grafen.
+\end{matteovningm}
+
+%==============================================================================
+\newpage
+\section{Potensfunktioner och exponentialfunktioner}\label{sec:potensfunktionerExponentialfunktioner}
+\emph{Följande övningar är lämpliga för Ma1c och Ma2c och är relaterade till följande centrala innehåll:
+\begin{itemize}
+\item \textbf{Samband och förändring:} Begreppen förändringsfaktor och index. Metoder för beräkning av räntor och amorteringar för olika typer av lån [...] (Ma1c)
+\item \textbf{Samband och förändring:} egenskaper hos [...] exponentialfunktioner. (Ma1c)
+\item \textbf{Samband och förändring:} Konstruktion av grafer till funktioner [...] med digital verktyg. (Ma2c)
+\item \textbf{Taluppfattning, aritmetik och algebra:} Algebraiska och grafiska metoder för att lösa [...] exponentialekvationer (Ma2c)
+\item \textbf{Sannolikhet och statistik:} Metoder för beräkning av olika lägesmått och spridningsmått inklusive standardavvikelse [...]. (Ma2c)
+\end{itemize}}
+
+% \begin{matteovning}{Årsränta och månadsränta (Ma2c)}{arsrantaOchManadsranta}
+% % behandlar följande centrala innehåll: Begreppen förändringsfaktor och index samt metoder för beräkning av räntor och amorteringar för olika typer av lån. egenskaper hos exponentialfunktioner. Algebraiska och grafiska metoder för att lösa exponential-ekvationer.
+% % Lämplig för Ma1c??? , Ma2c?
+% Den första januari sätter Gizem in 10000 kr på ett sparkonto som ska ge 3\% ränta på ett år. Hon förväntar sig att få 300 kr insatta på kontot av banken den 31 december. Men det visar sig istället att den här banken sätter in pengar varje månad istället för en gång per år. Insättningarna blir större och större varje månad på grund av ränta-på-ränta-effekten. Vid årets slut har hon totalt fått exakt 300 kr, som förväntat. Hon räknar ut att månadsräntan blev ungefär 0.2466\%.
+% \newline
+% \newline
+% Skriv ett kort program som, givet en månadsränta i procent, räknar ut årsräntan i procent. Att multiplicera med 12 ger inte rätt svar. Tänk på ränta-på-ränta-effekten.
+% \newline
+% \newline
+% Skriv ett kort program som, givet en årsränta i procent, räknar ut månadsräntan i procent. Att dividera med 12 ger inte rätt svar.
+% \end{matteovning}
+
+\begin{matteovning}{Exponentialfunktion (Ma1c, Ma2c)}{invanareEfterYYears}
+En nystartad sommarfestival släpper 1 000 biljetter som blir slutsålda direkt. Arrangörerna vill att festivalen ska växa i en lagom takt, så de bestämmer sig för att släppa 10\% fler biljetter varje år. Hur många biljetter släpps till den 21:a festivalen, när det alltså gått 20 år sedan starten? Använd iteration! Som bonus kan du även plotta en graf över antalet biljetter per år.
+\end{matteovning}
+
+\begin{matteovning}{Numerisk lösning av exponentialekvation (Ma1c, Ma2c)}{invanareHurMangaYears}
+Utgå från föregående övning. Vilken festival i ordningen blir den första att släppa 5 000 eller fler biljetter? Programmet ska skriva ut svaret. Använd iteration! Tänk på att festival nummer 2 inträffar 1 år efter starten, festival nummer 3 inträffar 2 år efter starten, och så vidare.
+\end{matteovning}
+
+% \begin{matteovnings}{Numerisk lösning av potensekvation}{invanareVilkenPercentOkning}
+% En annan festival släpper också en viss procent fler biljetter varje år. Om antalet biljetter på 5 år har ökat från 1024 det första året till 3125 det sjätte året, hur många procent ökade de med varje år? Använd intervallhalvering som i \autoref{ov:intervallhalvering} och gissa att den procentuella ökningen är någonstans mellan 0\% och 100\%.
+% \newline
+% \newline
+% Det finns olika sätt att lösa ovanstående övning. Det klassiskt matematiska sättet är med ekvationen $3125=1024*a^5$. Det andra är som sagt med intervallhalvering. Vad finns det för fördelar och nackdelar med de olika sätten?
+% \end{matteovnings}
+
+% \begin{matteovning}{Ma2 exponentialfunktion}{}
+% Om antalet invånare ökar med P\% varje år, och just nu är E, vad var antalet invånare D? för Y år sedan?
+% \end{matteovning}
+\newpage
+\begin{matteovningm}{Oregelbunden exponentialfunktion (Ma1c, Ma2c)}{oregelbundenExpFunkt}
+Det finns olika sätt att lösa ovanstående två matteproblem. Ett sätt är med algebraisk/analytisk matematik, genom att lösa ut relevanta variabler ur ekvationen $y=C*a^x$. Det numeriska sättet är att upprepa en uträkning i en loop, där varje varv i loopen t.ex. representerar att det gått ett år.
+\newline
+\newline
+Det finns för- och nackdelar med de olika sätten. I de ovanstående övningarna vore nog faktiskt det analytiska sättet mycket enklare än det numeriska. Men ju mer ''oregelbundet'' ett matematiskt problem är, desto svårare brukar det vara att lösa analytiskt, och desto lämpligare blir då det numeriska. T.ex. om ökningstakten i en exponentialfunktion inte är samma procent varje år, utan varierar.
+\newline
+\newline
+En annan årlig festival bestämmer sig för att busa med matematiker och ändrar biljettantalet enligt följande sicksack-mönster:
+
+\begin{figure}[H]
+\begin{center}
+\begin{tabular}{l|*{9}{c}r}
+\emph{Festival nummer} & \emph{2} & \emph{3} & \emph{4} & \emph{5} & \emph{6} & \emph{7} & \emph{8} & \emph{9} & \\
+\hline
+\emph{Ökning sen förra året}       & 4\% & 2\% & 5\% & 3\% & 6\% & 4\% & 7\% & 5\% & osv...  \\
+\end{tabular}
+\end{center}
+\end{figure}
+
+Övning: Den första festivalen har 100 biljetter. Hur många biljetter har den 26:e festivalen, när det alltså gått 25 år sedan start?
+\newline
+\newline
+\emph{Hade du kunnat lösa denna övning analytiskt? Hade du orkat göra det numeriskt utan programmering?}
+\end{matteovningm}
+\newpage
+\begin{matteovnings}{Oregelbunden exponentialfunktion, del 2 + slumpförsök och statistik (Ma1c, Ma2c)}{oregelbundenExpFunkt2}
+Det är förstås inte så vanligt i verkligheten att ökningstakten i en exponentialfunktion går upp och ner i ett exakt sicksack-mönster. Det är betydligt vanligare att vi inte vet i förväg exakt hur stor ökningstakten kommer bli, men att vi vill göra någon sorts kvalificerad gissning ändå.
+\newline
+\newline
+Till exempel: En population på 20 kaniner har utplanterats i ett område där det inte finns några rovdjur, men en del andra faror. Vi utgår från att antalet kaniner ökar med mellan 10\% och 28\% per månad.
+\newline
+\newline
+Fråga: Ungefär hur många kaniner finns det efter 24 månader?
+\newline
+\newline
+Tips: Vi kan välja ett slumpmässigt tal mellan 10\% och 28\% och låtsas att det talet är ökningstakten just den månaden. Vi kan välja ett nytt slumptal nästa månad, och så vidare, upp till 24 månader. Detta ger oss en gissning, ett tänkbart framtidsscenario för hur många kaniner som skulle kunna finnas om 24 månader. Skriv ett program som skapar en sådan gissning!
+\newline
+\newline
+Utöka sedan programmet så att det gör om hela beräkningen 100 gånger. Du får då 100 olika gissningar för hur stor kaninpopulationen kommer vara efter 24 månader. Beräkna medelvärdet av alla dessa gissningar. Som bonus kan du även välja att plotta alla 100 scenarion i en och samma graf.
+\newline
+\newline
+Denna metod brukar kallas en Monte Carlo-simulering, efter det berömda casinot i Monaco.
+\end{matteovnings}
+\newpage
+\begin{matteovnings}{Avbetalning av annuitetslån (Ma1c, Ma2c)}{avbetalningAvAnnuitetsLan}
+Gizem lånar 15 000 kr. Det är ett annuitetslån på 24 månader, vilket innebär att hon betalar tillbaka samma summa varje månad: 1087.07 kr. Men den delen av lånet som hon ännu inte betalat tillbaka, växer med månadsräntan 5\%. Följande graf illustrerar lånet.
+\figurec{9cm}{exercise-loan.png}{}
+Den stigande blå linjen visar hur mycket pengar Gizem har betalat totalt efter varje månad. Den fallande orange trapp-liknande linjen visar hur den återstående skulden förändras. Notera att den går både uppåt och nedåt - upp pga räntan, ner pga återbetalningen. Skriv koden för att skapa samma graf själv!
+\newline
+\newline
+\emph{Tips: Rita linjerna med metoden som vi lärde oss i \autoref{subsec:plottwodim}. Den orange linjen behöver två värden för varje månad, inte bara ett värde.}
+\end{matteovnings}
+
+% ==========================================================================
+\newpage
+\section{Derivata}\label{sec:derivata}
+\emph{Följande övningar är lämpliga för Ma3c och är relaterade till följande centrala innehåll:
+\begin{itemize}
+\item \textbf{Samband och förändring:} Orientering när det gäller kontinuerlig och diskret funktion samt begreppet gränsvärde. (Ma3c)
+\item \textbf{Samband och förändring:} Begreppen [...] ändringskvot och derivata för en funktion. (Ma3c)
+\item \textbf{Samband och förändring:} Algebraiska och grafiska metoder för bestämning av derivatans värde för en funktion. (Ma3c)
+\item \textbf{Samband och förändring:} Introduktion av talet e och dess egenskaper. (Ma3c)
+\end{itemize}}
+
+\begin{matteovning}{Förändringshastighet enligt tabell (Ma3c)}{numeriskDeriveringTabell1}
+Koldioxidhalten i jordens atmosfär ökar varje år. Följande tabell innehåller årliga medelvärden av koldioxidhalten i PPM (parts per million), uppmätta på berget Mauna Loa på Hawaii:
+\vspace{10pt}
+\begin{python}
+x = array([2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017])
+y = array([383.79, 385.60, 387.43, 389.90, 391.65, 393.85, 396.52, 398.65, 400.83, 404.21, 406.53])
+# källa:
+# https://www.esrl.noaa.gov/gmd/ccgg/trends/data.html
+\end{python}
+
+Fråga: Hur snabbt ökade koldioxidhalten år 2016? Svaret ska ha enheten PPM/år.
+\newline
+\newline
+Skriv ett program som approximerar derivatan i punkten $x=2016$ med hjälp av ''central ändringskvot'' - mät med andra ord den genomsnittliga ökningen från 2015 till 2017.
+\end{matteovning}
+
+\begin{matteovning}{Förändringshastighet enligt tabell, del 2 (Ma3c)}{numeriskDeriveringTabell2}
+Utgå från föregående övning. Förbättra programmet så att det kan approximera derivatan för valfritt år. När programmet körs får användaren mata in det årtal de är intresserade av (alltså med funktionen \cw{input}) mellan 2008 och 2016.
+\newline
+\newline
+\emph{Tips: Kom ihåg \cw{argwhere} som vi gick igenom i \autoref{sec:findInList}.}
+\end{matteovning}
+
+\begin{matteovning}{Ändringskvot för funktion (Ma3c)}{numeriskDeriveringFunktion}
+Utgå från föregående övning, men byt från en tabell till funktionen $f(x) = (x^2 + 1) / x$
+\newline
+\newline
+Till skillnad från ovanstående tabell, där vi jobbade med hela årtal, så är det nu inte självklart hur långt framåt och bakåt vi ska gå för att välja ''grannar'' till $x$. För denna övning, välj avståndet $h=0.4$ till grannarna! Använd programmet för att approximera derivatan för $x=1$, så grannarna blir alltså $0.6$ och $1.4$.
+\end{matteovning}
+
+\begin{matteovningm}{Testa olika värden för $h$ (Ma3c)}{numeriskDeriveringOlikaH}
+% Lämplig för Ma3c
+Bygg vidare på föregående program och låt datorn testa en massa olika värden för $h$. Börja med $h=0.4$, beräkna ändringskvoten, halvera $h$, beräkna ändringskvoten igen, och så vidare. Upprepa 8 gånger. Plotta en graf med ändringskvoten på y-axeln, och antalet halveringar på x-axeln. Baserat på grafen, vad tror du att den exakta derivatan är?
+\end{matteovningm}
+
+\begin{matteovning}{Testa den inbyggda \cw{gradient} (Ma3c)}{testaGradient}
+% Lämplig för Ma3c
+Det finns (som vanligt) inbyggda funktioner för att mäta ändringskvoten. Bland annat en som heter \cw{gradient} som i princip ersätter koden vi själva skrev i \autoref{ov:numeriskDeriveringFunktion}. Vi måste fortfarande välja ett $h$ själva, och svaret är fortfarande bara ungefärligt. Så här använder vi \cw{gradient}:
+\vspace{0pt}
+\begin{python}
+xp = 1 # i vilken punkt vill vi veta lutningen
+h = 0.001
+x = array([xp - h, xp, xp + h])
+y = (x**2 + 1) / x # vår funktion
+estimate = gradient(y, h)[1]
+print(estimate)
+\end{python}
+
+För att testa en annan punkt eller funktion behöver du bara ändra på rad 1 och 4.
+\newline
+\newline
+Använd nu \cw{gradient} för att beräkna $f'(1)$ för funktionen $f(x) = 3 \sqrt{x} + 2 / x^2$
+\end{matteovning}
+\newpage
+
+\begin{matteovnings}{Approximera talet $e$ (Ma3c)}{approximeraTaletE}\index{e}
+% https://www.skolverket.se/polopoly_fs/1.268355!/Uppgifter_workshop_programmering_gymnasiet.pdf
+Finns det något tal $e$ som uppfyller att derivatan av $e^x$ (med avseende på $x$) är lika med $e^x$ för alla $x$? Ja, det finns det. Skriv ett program som hittar (ett närmevärde till) det talet genom att prova sig fram.
+\newline
+\newline
+Du behöver ett sätt för datorn att prova sig fram och närma sig svaret, så gör först \autoref{ov:datorngissartalet}, och sedan \autoref{ov:intervallhalvering}.
+\newline
+\newline
+Sen behöver du ett sätt att mäta ändringskvoten i en viss punkt, så utgå från koden du skrev i \autoref{ov:numeriskDeriveringFunktion}. Kombinera allt du lärt dig i de övningarna, så kan du nog lösa även denna!
+\newline
+\newline
+Observera att du inte behöver testa för alla $x$, utan bara \emph{något} $x$, och det spelar ingen roll vilket $x$ du väljer, för resultatet blir ändå detsamma. Använd förslagsvis $x=1$, så blir koden lite enklare - du kan då söka efter ett $e$ där ändringskvoten för $e^x$ kring punkten $x=1$ är lika med $e^1 = e$. Och vilket intervall ska du söka i? Tips: $e$ är större än $0$, så du behöver inte söka bland negativa tal.
+\end{matteovnings}

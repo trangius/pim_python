@@ -1,0 +1,154 @@
+% Programmering i matematiken - med Python (c)
+% by Krister Trangius & Emil Hall
+%
+% Programmering i matematiken  - med Python is licensed under a
+% Creative Commons  Attribution-ShareAlike 4.0 International License.
+%
+% You should have received a copy of the license along with this work. If not,
+% see <http://creativecommons.org/licenses/by-sa/4.0/>.
+%------------------------------------------------------------------------------
+
+\documentclass[14pt]{extbook}
+\usepackage[top=2cm,bottom=2cm,left=3cm,right=2.4cm,headsep=24pt,a4paper]{geometry} % Page margins
+\input{style.tex}
+\input{style-headings.tex}
+
+\fancyfoot[LE, LO]{{\small{Programmering i Matematiken}}}
+\fancyfoot[RE, RO]{{\small{\textcopyright \thinspace Krister Trangius \& Emil Hall}}}
+
+% uncomment this to get 13pt:
+% \usepackage{type1cm}
+% \renewcommand\normalsize{%
+%    \@setfontsize\normalsize{13pt}{14.5pt}%
+%    \abovedisplayskip 12\p@ \@plus3\p@ \@minus7\p@
+%    \abovedisplayshortskip \z@ \@plus3\p@
+%    \belowdisplayshortskip 6.5\p@ \@plus3.5\p@ \@minus3\p@
+%    \belowdisplayskip \abovedisplayskip
+%    \let\@listi\@listI}\normalsize
+
+\title{Programmering i matematiken - med Python}
+\author{Krister Trangius och Emil Hall}
+\date{april 2018}
+
+% well, these seems to work for printing but gives odd result in pdf viewer TOC:
+% \def\frontmatter{%
+%     \pagenumbering{roman}
+%     \setcounter{page}{1}
+%     \renewcommand{\thesection}{\Roman{section}}
+% 	\renewcommand{\thechapter}{\Alph{chapter}}
+% }%
+% \def\mainmatter{%
+%     \pagenumbering{arabic}
+%     \setcounter{page}{1}
+%     \setcounter{section}{0}
+% 	\renewcommand{\thechapter}{\arabic{chapter}}
+%     \renewcommand{\thesection}{\arabic{section}}
+% }%
+
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+%   COPYRIGHT PAGE
+%----------------------------------------------------------------------------------------
+\newpage
+~\vfill
+\thispagestyle{empty}
+
+\noindent Copyright \copyright\ 2018 Krister Trangius och Emil Hall % Copyright notice
+
+\noindent \textsc{Utgiven av Thelin Förlag} % Publisher
+
+
+\noindent Samtliga varumärken som förekommer i boken tillhör innehavaren av varumärket. Observera att all kopiering eller annat mångfaldigande av denna bok eller delar av den är förbjudet enligt lag.\\
+Thelin Förlag, Lidköping\\
+Tel. 0510-66100, \emph{www.thelinforlag.se}\\
+utskriven 2018-05-20\\
+Beställningsnummer J200 4941\\
+Tryckeri: JustNu\\
+ISBN: 978-91-7379-391-9\\
+Omslagsfoto: Mikael Carlsson\\
+Git-repo: https://gitlab.com/mahakala777/pim_python\\
+\newpage
+
+%----------------------------------------------------------------------------------------
+%   FÖRORD
+%----------------------------------------------------------------------------------------
+\newpage
+\thispagestyle{empty}
+{\Large{\textbf{Förord}}}
+
+Hösten 2018 kom programmering in som en del i kurserna Ma1c, Ma2c och Ma3c. Att använda programmering i matematiken kan vara till stor hjälp. Med hjälp av programmering kan vi visualisera sådant som annars ofta upplevs som abstrakt och svårt att få grepp om. Det är också möjligt att göra många beräkningar (och göra dem om och om igen med olika värden) som skulle vara mer eller mindre omöjliga med bara papper och penna.
+
+Samtidigt är det många som har ganska begränsade (eller inga) erfarenheter av programmering när de möter det i matematiken. Syftet med den här boken är främst att du ska få öva dig i att räkna med programmering som hjälp, men vi går också igenom de viktigaste grunderna i programmering, så att du kan göra  vilka matematiska beräkningar som helst.
+
+Programmering är också roligt! Vi hoppas att den här boken ska vara till stor hjälp under din mattekurs och att du, med hjälp av att använda programmering i matematiken, kommer att få ett nytt förhållningssätt till räknande. Ett sätt som kan vara både spännande, utmanande och givande.
+
+Vi vill tacka Mikael och Rebecka som har varit till stor hjälp vid framtagandet av denna bok. Vi vill också ge ett stort tack till vår käre förläggare Jan-Eric Thelin på Thelin Förlag.
+\newline
+\newline
+Krister Trangius och Emil Hall, april 2018.
+
+\newpage
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+%\frontmatter
+\pagenumbering{roman}
+\renewcommand{\thechapter}{\Alph{chapter}}%
+%%\pagestyle{empty} % No headers
+
+\setcounter{page}{1}
+\tableofcontents % Print the table of contents itself
+
+%\cleardoublepage % Forces the first chapter to start on an odd page so it's on the right
+%\clearpage % för att få version A
+
+%----------------------------------------------------------------------------------------
+%   0 - no part at all...
+%----------------------------------------------------------------------------------------
+\pagestyle{fancy} % Print headers again
+
+%\newcounter{starthcap}
+%\newcounter{startchap}[chapter]
+%\setcounter{chapter}{0} % set them to some other numbers than 0
+%\addtocounter{mysubsection}{10} % same
+
+\input{chaps/om_bok.tex} % ch:ombok
+\input{chaps/python_installation.tex} %ch:installation
+
+
+%\clearpage %or \cleardoublepage?
+%\pagenumbering{arabic}
+
+%----------------------------------------------------------------------------------------
+%	PART 1 - GRUNDERNA I PROGRAMMERING
+%----------------------------------------------------------------------------------------
+\thispagestyle{plain} % Print headers again
+\part{Grunderna i programmering}{img/cover/code-photo-python-part-1}
+
+\mainmatter
+\renewcommand{\thechapter}{\arabic{chapter}}%
+\setcounter{chapter}{0}% Equivalent to "letter O"
+
+\pagestyle{fancy} % Print headers again
+\input{chaps/datorn_som_miniraknare.tex} %ch:datornocharitmetik
+\input{chaps/variabler.tex} %ch:variabler
+\input{chaps/listor.tex} %ch:listor
+\input{chaps/grafer.tex} %ch:grafer
+\input{chaps/selektion.tex} %ch:selektion
+\input{chaps/iteration.tex} %ch:iteration
+\input{chaps/problemlosning.tex} %ch:problemlosning
+
+%----------------------------------------------------------------------------------------
+%	PART 2 - EXEMPEL OCH ÖVNINGAR???
+%----------------------------------------------------------------------------------------
+\thispagestyle{plain} % Print headers again
+\part{Övningar och facit}{img/cover/code-photo-python-part-2}
+
+\pagestyle{fancy} % Print headers again
+\input{chaps/ovningar.tex}
+\input{chaps/facit.tex}
+
+\printindex
+
+\end{document}

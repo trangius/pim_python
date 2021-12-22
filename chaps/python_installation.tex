@@ -1,0 +1,96 @@
+% Programmering i matematiken - med Python (c)
+% by Krister Trangius & Emil Hall
+%
+% Programmering i matematiken - med Python is licensed under a
+% Creative Commons  Attribution-ShareAlike 4.0 International License.
+%
+% You should have received a copy of the license along with this work. If not,
+% see <http://creativecommons.org/licenses/by-sa/4.0/>.
+%------------------------------------------------------------------------------
+
+\chapter{Python, Anaconda och Spyder}\label{ch:installation}
+I det här kapitlet ska vi gå igenom hur man kommer igång med Python. Det finns flera olika sätt att arbeta med Python och det sätt som vi rekommenderar i denna bok är att använda ett program som kallas \emph{Spyder}. Spyder är (enkelt förklarat) speciellt utvecklat för att arbeta med matematik i Python - precis vad vi behöver. 
+
+\section{Installera Anaconda och Spyder}
+Det enklaste sättet att komma igång med Python och Spyder är genom att installera ett annat program som heter Anaconda. Anaconda innehåller flera olika viktiga python-komponenter som vi behöver. Anaconda finns för Windows, OS X och Linux.
+
+\boxlinks{
+Du hittar Anaconda här: \url{https://www.anaconda.com/download/}
+}
+
+Installationen av Anaconda kan ta ganska lång tid men när det väl är installerat så ska du också hitta programmet Spyder installerat. Starta det!
+\newpage
+\section{Spyder}
+När du först startar Spyder så ser det ut ungefär såhär:
+
+\figurec{15cm}{spyder1.png}{Programmet Spyder}
+
+Som du ser finns det ett antal olika rutor. Den som kommer vara mest intressant för oss i början av boken är rutan ''Console'' som ligger till höger. Eftersom man kan ha flera sådana rutor öppna samtidigt, heter den första ''Console 1/A''. I den finns en del text som berättar vilken version av Python etc. vi använder oss av. Där finns också följande rad:
+
+\begin{python}[caption={Tom kommando-rad},label={}]
+In [1]:
+\end{python}
+
+Klicka i den rutan. Då hamnar en blinkande markör där, så du kan skriva text. Testa att skriva in texten \cw{1+1}, så att det ser ut såhär:
+
+\begin{python}[caption={Skrivit in lite matte},label={}]
+In [1]: 1+1
+\end{python}
+
+och tryck sedan på Enter-tangenten. Vad tror du kommer hända?
+
+\begin{python}[caption={Hurra, datorn kan räkna!},label={}]
+In [1]: 1+1
+Out[1]: 2
+\end{python}
+
+Du kan testa att skriva in några olika beräkningar där. Därefter kan du trycka på uppåtpilen på tangentbordet; på så vis kan vi köra gamla kommandon igen, utan att behöva skriva in dem på nytt.
+
+\subsection{Filer i Spyder}\label{subsec:filer}
+I början av boken kommer vi bara behöva använda ''Console'', men i \autoref{ch:grafer} behöver vi börja arbeta med filer, för att kunna skriva längre kodstycken.
+
+Till vänster i Spyder finns en ruta med en öppen fil. Första gången man startar programmet heter filen \emph{temp.py}. Det är i vanlig ordning möjligt att skapa nya filer och spara via File uppe i menyn.
+
+Det är viss skillnad på vilken kod ''Console'' accepterar och vilken kod man kan skriva in i filen. För att kunna se vad \cw{1+1} blir i filen, behöver vi använda \cw{print} (vi kommer att lära oss mer om \cw{print} längre fram i boken):
+
+\begin{python}[caption={print},label={}]
+print(1+1)
+\end{python}
+
+Överst finns en grön play-knapp som du nu kan trycka på för att se resultatet i rutan ''Console''. Det är också möjligt att trycka F5 på tangentbordet.
+
+\section{import}
+För att all kod i den här boken ska fungera, så måste vi skriva följande:
+
+\begin{python}[caption={import för matematikuträkning},label={}]
+from pylab import *
+\end{python}
+
+Gör detta \emph{varje} gång du startar programmet och ska använda ''Console'' eller längst upp i filen. Det är viktigt att du kommer ihåg detta!
+
+\boxteknisk{
+Programmeringsspråket Python innehåller viss basfunktionalitet redan från början. Därutöver har många smarta människor skrivit kod för annan funktionalitet också, och paketerat ihop den till så kallade \emph{bibliotek} som vi kan \emph{importera}. När vi ska arbeta med matematik i Python så skriver vi \cw{from pylab import *} för att kunna använda funktionalitet som är gjord just för matematik. Denna kodrad importerar egentligen tre bibliotek som heter \cw{numpy}, \cw{scipy} och \cw{matplotlib}. Sök på nätet om dem om du är nyfiken!
+}
+
+\section{Andra alternativ}
+
+\subsection{Bara Python}
+Det finns möjlighet att installera Python på datorn utan Anaconda och Spyder. Hur man gör det beror på vilket operativsystem man kör och vilken funktionalitet man behöver. Om man gör det, så behöver man installera bibliotek på egen hand, vilket kan vara krångligt. Därför rekommenderar vi Anaconda och Spyder.
+\boxlinks{
+Du kan läsa mer om Python och hur man installerar här: \url{https://www.python.org}
+}
+
+\subsection{Onlinelösningar}
+Det finns flera olika onlinelösningar med webbsidor som man enkelt kan surfa in på och börja koda direkt. Samtliga onlinelösningar har stöd för själva språket Python, men de skiljer sig åt i vilka olika bibliotek som stödjs. Eftersom man inte kan påverka vilka bibliotek en onlinelösning har, så finns det stora fördelar med att köra Python lokalt på sin egen dator. Därför rekommenderar vi Anaconda och Spyder som från början har stöd för de bibliotek som krävs i denna bok.
+
+\subsubsection{Trinket}
+En av de bästa onlinelösningarna heter Trinket och finns på \url{https://trinket.io/}. Det går inte att fullt ut följa denna bok med Trinket, men för att få så mycket funktionalitet som möjligt kan vi importera dessa bibliotek istället för \cw{from pylab import *}:
+
+\begin{python}[caption={import på trinket.io},label={}]
+from math import * # för olika matematiska funktioner
+from random import * # för att skapa slumptal
+from numpy import *  # för arrayer
+from matplotlib.pyplot import *  # för plot
+\end{python}
+
+Exempel på funktioner som saknas eller har ett annat beteende i Trinket jämfört med Spyder: \cw{randint}, \cw{grid}, \cw{append}, \cw{argwhere}.

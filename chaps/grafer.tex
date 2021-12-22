@@ -1,0 +1,166 @@
+% Programmering i matematiken - med Python (c)
+% by Krister Trangius & Emil Hall
+%
+% Programmering i matematiken - med Python is licensed under a
+% Creative Commons  Attribution-ShareAlike 4.0 International License.
+%
+% You should have received a copy of the license along with this work. If not,
+% see <http://creativecommons.org/licenses/by-sa/4.0/>.
+%------------------------------------------------------------------------------
+
+\chapter{Grafer och diagram}\label{ch:grafer}\index{grafer|textbf}\index{diagram|textbf}
+En stor anledning till att vi programmerar i Spyder är att det där är väldigt lätt att rita olika sorters grafer och diagram. I det här kapitlet kommer vi gå igenom en funktion som heter \cw{plot} - den använder vi för att rita grafer. Vi kommer också lära oss funktionen \cw{hist} som används för att rita ut histogram.
+
+Hittills har vi bara skrivit in vår kod i ''Console'' men nu kommer våra program att växa och då blir det mycket enklare om vi använder filer. Om du inte redan är bekant med det, se \autoref{ch:installation} för hur du ska göra.
+%==============================================================================
+
+\section{Plot}\index{plot|textbf}
+
+Tänk dig att vi med en termometer har mätt temperaturen en gång per dag, fr.o.m. måndag t.o.m. fredag, så att vi har 5 mätvärden. Om vi har våra mätvärden i en lista så kan vi ge listan till Python med kommandot \cw{plot} och då kommer vi få upp en graf på skärmen.
+
+Kom ihåg: För att rita grafer i Spyder behöver vi köra \cw{from pylab import *}. För att vara säker på att grafen ska visas, använd funktionen \cw{show}. Skriv följande i din fil och kör koden:
+
+\begin{python}[caption={Vår första graf},label={}]
+temperaturPerDag = array([1, 4, 0, 2, 3])
+plot(temperaturPerDag)
+show()
+\end{python}
+
+Du ser resultatet här nedanför. Notera att linjen börjar på 1 längst till vänster, sen går den upp till 4, ner till 0, och så vidare, precis i samma ordning som vår lista. Notera också att den horisontella axeln går från 0 till 4, vilket motsvarar elementens index i vår lista. Den vertikala axeln går från 0 till 4, vilket beror på att den lägsta temperaturen i vår lista är 0 och den högsta är 4.
+
+\figurec{9cm}{python-first-plot-example.png}{Vår första graf}
+
+\subsection{Rita punkter och rutnät}
+
+För att göra grafen lite tydligare så kan vi be Python att rita små cirklar vid varje mätpunkt. Det gör vi genom att lägga till \cw{, "{}-o"{}} innan slutparentesen efter \cw{plot}. För att göra grafen ännu tydligare kan vi visa ett rutnät i bakgrunden, och det gör vi genom att lägga till \cw{grid(True)} på en egen rad.
+
+\begin{python}[caption={Vår andra graf},label={}]
+temperaturPerDag = array([1, 4, 0, 2, 3])
+plot(temperaturPerDag, "-o")
+grid(True)
+show()
+\end{python}
+
+\boxlinks{
+Det finns många fler möjligheter att ställa in och anpassa hur grafer ska ut. T.ex. färger, storlek, var de vertikala och horisontella axlarna ska börja och sluta, med mera. Detta kan vara krångligt men för den som är intresserad finns det mycket att läsa om \cw{plot} här: \url{https://matplotlib.org/api/pyplot_api.html}
+}
+
+\subsection{Flera grafer på samma gång}
+
+Vad händer om vi använder \cw{plot} flera gånger på rad, i samma fil, fast med olika listor? Jo, vi får se flera resultat i samma graf. Varje \cw{plot}-linje får då en egen färg, för att vi lättare ska kunna se skillnad på dem:
+\begin{python}[caption={Två grafer i en},label={}]
+plot(array([1, 4, 0, 2, 3]), "-o")
+plot(array([4, 5, 4, 3, 2]), "-o")
+grid(True)
+show()
+\end{python}
+
+\figurec{9cm}{python-2-plots-in-1.png}{Två grafer i en}
+
+\subsection{Plotta med två listor, i två dimensioner}\label{subsec:plottwodim}
+
+Tänk om vi hade tänkt mäta temperaturen varje dag i en vecka, men vi glömde mäta på torsdag och fredag. Hur vill vi att vår graf ska se ut då? Det vore bra om det syntes i grafen att två dagar saknas i mitten. Vi kan förstås plotta som vanligt...
+
+\begin{python}[caption={Syns inte att torsdag och fredag saknas},label={}]
+temperaturPerDag = array([10, 9, 9, 7, 6])
+plot(temperaturPerDag, "-o")
+grid(True)
+show()
+\end{python}
+
+\figurec{9cm}{python-missing-days-1.png}{Syns inte att torsdag och fredag saknas}
+
+... men då ser det ut som att vi mätte fem dagar på rad. Det vore bättre om vi fick ett ''glapp'' i grafen, så att det inte finns någon punkt på $x=4$ och $x=5$, men att det sedan finns punkter igen på $x=6$ och $x=7$. Kan vi åstadkomma detta i Python? Såklart vi kan! Men då måste vi använda \cw{plot} på ett nytt sätt. Istället för att bara skicka in en lista så skickar vi in två listor:
+
+\begin{python}[caption={Syns att torsdag och fredag saknas},label={}]
+dagar = array([1, 2, 3, 6, 7]) # vi hoppar över 4 och 5
+temperaturPerDag = array([10, 9, 9, 7, 6])
+plot(dagar, temperaturPerDag, "-o")
+grid(True)
+show()
+\end{python}
+
+\figurec{9cm}{python-missing-days-2.png}{Syns att torsdag och fredag saknas}
+
+Nu fick vi det glapp som vi ville ha, hurra!
+
+Notera att vi på detta sätt kan rita vilka former som helst, även linjer som vänder tillbaka, korsar sig själv, osv:
+
+\begin{python}[caption={Plotta vilken form som helst},label={}]
+plot(array([1, 5, 3, 2, 4.5]), array([1, 2, 4, 3, 3]), "-o")
+grid(True)
+show()
+\end{python}
+(Se graf på nästa sida...)
+\newpage
+\figurec{9cm}{python-2d-plot.png}{Kors och tvärs}
+
+Om vi enkelt vill rita en rät linje, så kan vi använda ovanstående metod och bara ange linjens startpunkt och slutpunkt, såhär:  \cw{plot(array([xstart, xend]), array([ystart, yend]))}. Exempel:
+\begin{python}[caption={Rät linje},label={}]
+plot(array([0, 10]), array([7, 5]))
+show()
+\end{python}
+
+\subsection{Plotta en funktion av x}
+Nu har vi lärt oss allt vi behöver för att kunna rita en graf av en funktion av x. Som vi såg i \autoref{sec:operationerpaenlista} så är det möjligt att köra en funktion på varje element i en lista. Låt oss testa att rita ut en graf av funktionen \cw{sqrt}:
+
+\begin{python}[caption={Plotta kvadratrotsfunktion},label={}]
+x = arange(0, 100) # fyll lista med x-värden att visa
+y = sqrt(x) # kör funktionen sqrt på varje element
+plot(x, y) # rita ut grafen!
+show()
+\end{python}
+
+Notera att vi också använder det vi lärde oss i \autoref{subsec:filllist} där vi fyllde en lista med alla nummer mellan -2 och 2.
+\newpage
+\subsection{Övningar för plot}
+
+\begin{matteovning}{Återskapa kod efter bild}{aterskapaKodEfterBild}
+Skriv koden för att rita följande bild:
+
+\figurec{9cm}{exercise-graph-1.png}{}
+\end{matteovning}
+
+\begin{matteovning}{Plotta given funktion}{plottaGivenFunktion}
+Här är några ofullständiga rader kod:
+\vspace{10pt}
+\begin{python}
+x = # här ska det stå något
+y = sin(x) / x
+# här ska det stå kod för att rita ut grafen
+\end{python}
+Ersätt kommentarerna med kod för att rita följande bild:
+
+\figurec{9cm}{exercise-graph-2.png}{}
+\end{matteovning}
+
+%==============================================================================
+
+\section{Histogram}\label{sec:histogram}\index{histogram|textbf}
+
+Om vi istället har temperaturen från många dagar så kanske vi hellre vill se en slags sammanfattning - hur många dagar var det 3 grader varmt? Hur många dagar var det 4 grader? Då passar det bra med ett så kallat histogram, även känt som stapeldiagram eller stolpdiagram.
+
+\begin{python}[caption={Vårt första histogram},label={}]
+temperaturPerDag = array([1, 4, 0, 2, 3, 4, 3, 6, 7, 7, 7, 6, 5, 7, 3, 2, 3, 2, 2, 1, 1, 2, 1, 0])
+hist(temperaturPerDag, array([-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5]))
+show()
+\end{python}
+
+\figurec{9cm}{python-first-histogram-example.png}{Vårt första histogram}
+
+I histogrammet kan vi se att det var 3 grader varmt fyra dagar och 4 grader varmt i två dagar. Funktionen \cw{hist} tar alltså två argument. Det första är en lista av tal att sammanfatta, som kan vara hur lång som helst. Det andra argumentet berättar hur vi vill sammanfatta listan, närmare bestämt var vi vill ha gränserna mellan staplarna. Den första stapeln har sin vänsterkant vid \cw{-0.5} och högerkant vid \cw{0.5}, och där börjar nästa stapel, och så vidare.
+
+När vi vill visa en sån här lista, där vi vet att den lägsta temperaturen är 0 och den högsta är 7, så passar det förstås bäst att ha just de staplarna i diagrammet. Mer generellt, när vi har en lista som bara innehåller heltal (inga decimaltal), och har ett ganska litet antal olika heltal, så passar det bäst att ha en stapel för varje heltal. Vi kan automatisera det såhär:
+
+\begin{python}[caption={Välja rätt antal staplar automatiskt},label={}]
+temperaturPerDag = array([1, 4, 0, 2, 3, 4, 3, 6, 7, 7, 7, 6, 5, 7, 3, 2, 3, 2, 2, 1, 1, 2, 1, 0])
+hist(temperaturPerDag, arange(temperaturPerDag.min()-0.5, temperaturPerDag.max()+1.5))
+show()
+\end{python}
+
+Med ovanstående kod kan vi lätt lägga till nya temperaturer utan att behöva komma ihåg att ändra på \cw{hist}-raden. Du behöver inte tänka på hur \cw{arange}-biten funkar om du inte vill.
+
+Men om vi istället har en lista som innehåller väldigt många olika heltal, eller decimaltal, så passar det inte bäst med något särskilt antal staplar utan är mer av en smaksak.
+
+%==============================================================================
+

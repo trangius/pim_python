@@ -1,0 +1,89 @@
+% Programmering i matematiken - med Python (c)
+% by Krister Trangius & Emil Hall
+%
+% Programmering i matematiken  - med Python is licensed under a
+% Creative Commons  Attribution-ShareAlike 4.0 International License.
+%
+% You should have received a copy of the license along with this work. If not,
+% see <http://creativecommons.org/licenses/by-sa/4.0/>.
+%------------------------------------------------------------------------------
+
+\newcommand{\partintro}[1]{{\LARGE\scshape\color{myBlue} #1}}
+
+%----------------------------------------------------------------------------------------
+%  HEADINGS
+%----------------------------------------------------------------------------------------
+\renewcommand{\chaptername}{Kapitel} % used by headers
+\addto\captionsswedish{\renewcommand{\chaptername}{Kapitel}} % ...or rather this is used in headers?
+\addto\extrasswedish{\renewcommand{\chapterautorefname}{kapitel}} %Used by autoref
+\addto\extrasswedish{\renewcommand{\sectionautorefname}{delkapitel}} %Used by autoref
+\addto\extrasswedish{\renewcommand{\subsectionautorefname}{delkapitel}} %Used by autoref
+\addto\extrasswedish{\renewcommand{\partautorefname}{del}} %Used by autoref
+\addto\extrasswedish{\renewcommand{\tableautorefname}{tabell}} %Used by autoref
+\def\lstlistingautorefname{exempel} % Used by autoref
+\renewcommand{\figurename}{Figur} % used by headers
+\addto\captionsswedish{\renewcommand{\figurename}{Figur}} % ...or rather this is used in headers?
+%\renewcommand{\@chapapp}{kapitel} % ... or this, but might as well leave them for now
+
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\color{black}}
+  {\filleft%
+    \begin{tikzpicture}
+	\node[ % the square
+      outer sep=0pt,
+      text width=2.5cm,
+      minimum height=3cm,
+      fill=myBlue,
+      font=\color{white}\fontsize{80}{90}\selectfont,
+      align=center
+      ] (num) {\thechapter};
+%    \node[ % the rotated "Kapitel"
+%      rotate=90,
+%      anchor=south,
+%      font=\color{black}\Large\normalfont
+%      ] at ([xshift=-5pt]num.west) {\textls[180]{\textsc{\chaptertitlename}}};
+	 \node[ % this is the title of the chapter (sent as argument #1)
+      anchor=south east,
+      font=\color{black}\Large\normalfont
+      ] at ([yshift=-70pt, xshift=88pt]num.west) {\textls[180]{\textsc{#1}}}; 
+\end{tikzpicture} 
+  }
+  {10pt}
+  {\titlerule[2.5pt]\vskip3pt\titlerule\vskip4pt\LARGE\sffamily}
+
+% and here we've got the section:
+\makeatletter
+\renewcommand{\@seccntformat}[1]{\llap{\textcolor{myBlue}{\csname the#1\endcsname}\hspace{1em}}}                    
+\renewcommand{\section}{\@startsection{section}{1}{\z@}
+{-2ex \@plus -1ex \@minus -.4ex}
+{3pt \@plus.2ex }
+{\normalfont\large\sffamily\bfseries}}
+\renewcommand{\subsection}{\@startsection {subsection}{2}{\z@}
+{-3ex \@plus -0.1ex \@minus -.4ex}
+{0.5ex \@plus.2ex }
+{\normalfont\sffamily\bfseries}}
+\renewcommand{\subsubsection}{\@startsection {subsubsection}{3}{\z@}
+{-2ex \@plus -0.1ex \@minus -.2ex}
+{.2ex \@plus.2ex }
+{\normalfont\small\sffamily\bfseries}}                        
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}
+{-2ex \@plus-.2ex \@minus .2ex}
+{.1ex}
+{\normalfont\small\sffamily\bfseries}}
+
+
+% % Section text styling
+% \titlecontents{section}[1.25cm] % Indentation
+% {\addvspace{3pt}\sffamily\bfseries} % Spacing and font options for sections
+% {\contentslabel[\thecontentslabel]{1.25cm}} % Section number
+% {}
+% {\hfill\color{black}\thecontentspage} % Page number
+% []
+
+% % Subsection text styling
+% \titlecontents{subsection}[1.25cm] % Indentation
+% {\addvspace{1pt}\sffamily\small} % Spacing and font options for subsections
+% {\contentslabel[\thecontentslabel]{1.25cm}} % Subsection number
+% {}
+% {\ \titlerule*[.5pc]{.}\;\thecontentspage} % Page number
+% []

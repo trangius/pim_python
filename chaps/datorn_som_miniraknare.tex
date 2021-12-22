@@ -1,0 +1,327 @@
+% Programmering i matematiken - med Python (c)
+% by Krister Trangius & Emil Hall
+%
+% Programmering i matematiken - med Python is licensed under a
+% Creative Commons  Attribution-ShareAlike 4.0 International License.
+%
+% You should have received a copy of the license along with this work. If not,
+% see <http://creativecommons.org/licenses/by-sa/4.0/>.
+%------------------------------------------------------------------------------
+
+\chapter{Datorn som miniräknare}\label{ch:datorn_som_raknemaskin}
+
+I det här kapitlet kommer vi att lära oss att använda Python som en miniräknare. Detta är en viktig grund innan vi går vidare till att använda Python för att rita grafer och programmera. All kod i detta kapitlet körs i ''Console''.
+
+
+\section{Kommentarer}\index{kommentarer|textbf}
+
+När vi skriver in tal och matteberäkningar i Python så utför datorn dessa beräkningar. Men ibland kan det vara användbart för vår egen skull att skriva in text som datorn \emph{inte} bryr sig om. Som minnesanteckningar till oss själva. Om vi skriver en så kallad fyrkant/brädgård/hashtagg, \cw{\#} så kommer datorn att strunta i resten av raden, vad det än står där. Detta kallas inom programmering för \emph{kommentarer}:
+
+\begin{python}[caption={Vår första kommentar},label={}]
+In: 1+1 # allt efter fyrkanten är bara en kommentar
+Out: 2
+\end{python}
+
+Våra kodexempel i boken kommer hädanefter ofta att innehålla små kommentarer som förklarar detaljer i koden, när vi inte skriver förklaringarna i brödtexten ovanför eller nedanför kodexemplet.
+\newpage
+\section{Aritmetik: de fyra räknesätten}\index{aritmetik|textbf}\index{addition|textbf}\index{multiplikation|textbf}\index{subtraktion|textbf}\index{division|textbf}
+I föregående kapitel så testade vi kommandofönstret i Python genom att skriva \cw{1+1}. Låt oss testa de fyra räknesätten. Vi börjar med bara heltal (så tar vi decimaltal senare):
+
+\begin{python}[caption={De fyra räknesätten},label={}]
+In: 1-1
+Out: 0
+In: 1+5-3
+Out: 3
+In: 122-300
+Out: -178
+In: 3*5
+Out: 15
+In: 20+2*7
+Out: 34
+In: (20+2)*7
+Out: 154
+In: 21/7
+Out: 3.0
+In: 10+6/2
+Out: 13.0
+In: (10+6)/2
+Out: 8.0
+\end{python}
+
+Som du kanske ser ovan, så gäller de vanliga reglerna för de fyra räknesätten även i Python; Multiplikation och division sker före addition och subtraktion och det är, i vanlig ordning, möjligt att styra detta med parenteser. Som du också ser är multiplikationstecknet en asterisk \cw{*}.
+
+
+\subsection{Decimaltal}\index{decimaltal|textbf}
+
+Vad händer om vi gör en division som inte går jämnt upp? I Python får vi faktiskt decimaltal av alla divisioner, oavsett om de går jämnt upp eller ej - det är därför vi får svaret 3.0 istället för bara 3.
+
+\begin{python}[caption={Decimaltal},label={}]
+In: 17 / 2
+Out: 8.5
+\end{python}
+
+Jo, vi får ett decimaltal med en punkt mellan heltalsdelen och decimalerna. Svensk standard är att skriva kommatecken där, men Python följer engelsk standard där man använder punkt istället. Om vi själva vill skriva in ett decimaltal så måste vi också använda punkt:
+
+\begin{python}[caption={Decimaltal skrivs med punkt},label={}]
+In: 8.5 * 2
+Out: 17.0
+\end{python}
+
+Eftersom kommatecken har andra betydelser inom programmering så kommer Python att missförstå och ger oss ett helt annat resultat än vi ville:
+
+\begin{python}[caption={Varning för kommatecken},label={}]
+In: 8,5 * 2
+Out: (8, 10)
+\end{python}
+
+
+\begin{matteovning}{De fyra räknesätten}{fyraraknesatt}
+Testa de fyra räknesätten i Python med olika siffror, både heltal och decimaltal.
+\end{matteovning}
+
+\section{Operatorer}\label{sec:operatorer}\index{operatorer|textbf}
+Inom programmering talar man om något som kallas \emph{operatorer}. Vi har redan använt några operatorer, nämligen de fyra räknesätten (\cw{+}, \cw{-}, \cw{*}, \cw{/}) men det finns fler som du redan känner till från matematiken (och några som du kanske inte känner igen).
+
+I den här boken kommer vi att arbeta med lite olika operatorer och du kommer att lära dig dem allt eftersom. Några operatorer som vi kan titta på redan nu, är de så kallade \emph{jämförelseoperatorerna}\index{jämförelseoperatorer|textbf}:
+
+En jämförelseoperator används för att jämföra två tal. Vi kan se det som att vi frågar datorn om jämförelsen stämmer (t.ex. ifall ett tal är mindre än ett annat) och datorn svarar ja eller nej. Låt oss testa:
+
+\begin{python}[caption={Mindre än-operatorn},label={}]
+In: 3 < 17 # är 3 mindre än 17?
+Out: True
+\end{python}
+
+Det stämmer ju att 3 är mindre än 17. Som du ser, så svarar datorn \cw{True}. Det är datorns sätt att säga ''ja''. Om det inte hade stämt, hade datorn svarat \cw{False}:
+
+\begin{python}[caption={Mindre än-operatorn igen},label={}]
+In: 17 < 3 # är 17 mindre än 3?
+Out: False
+\end{python}
+\newpage
+Här kan du se de jämförelseoperatorer som finns i Python:
+\index{jämförelseoperatorer|textbf}
+\begin{center}
+\captionof{table}{Jämförelseoperatorer} \label{tab:jamforelseoperatorer}
+\begin{tabular}{ l | c }
+  \hline
+  \emph{Tecken} & \emph{Betydelse} \\
+  \hline
+  \cw{==} & lika med \\
+  \cw{<} & mindre än \\
+  \cw{>} & mer än \\
+  \cw{<=} & mindre än eller lika med \\
+  \cw{>=} & mer än eller lika med \\
+  \cw{!=} & inte lika med \\
+  \hline
+\end{tabular}
+\end{center}
+
+Notera att jämförelseoperatorn \cw{==} består av två lika med-tecken på rad. Det kanske verkar märkligt, men blir begripligt senare, i \autoref{sec:tilldelningsoperatorn} där vi talar om tilldelningsoperatorn som skrivs med endast ett lika med-tecken.
+
+Låt oss testa några av dessa:
+
+\begin{python}[caption={Test av jämförelseoperatorer},label={}]
+In: 3 > 17 # är 3 mer än 17?
+Out: False
+In: 5 >= 5 # är 5 mer än eller lika med 5?
+Out: True
+In: 8 == 8 # är 8 lika med 8?
+Out: True
+\end{python}
+
+Du kanske undrar vad det här ska vara bra för. Är det inte självklart att 3 är mindre än 17? Varför ska vi fråga datorn om det? Jämförelseoperatorer används oftast tillsammans med selektion (som vi går igenom i \autoref{ch:selektion}) och iteration (som vi går igenom i \autoref{ch:iteration}).
+
+\boxlinks{
+Det finns också fler operatorer i Python än de vi går igenom i den här boken. Se här för en lista: \url{https://www.quackit.com/python/reference/python_3_operators.cfm}
+}
+
+\begin{matteovning}{Jämförelseoperatorer}{jamforelseoperatorer}
+Testa själv med samtliga jämförelseoperatorer och lite olika tal till höger och vänster!
+\end{matteovning}
+\newpage
+
+\section{Kvadratrot}\index{kvadratrot|textbf}\index{sqrt|textbf}
+
+Kom ihåg: vi måste köra \cw{from pylab import *} innan vi använder matematiska funktioner i Spyder. Utan importen kommer \cw{sqrt} och många andra funktioner inte att funka.
+
+Vi antar att du redan känner till begreppet ''roten ur'', eller \emph{kvadratrot} som det också kallas. Med papper och penna brukar vi skriva till exempel $\sqrt9 = 3$. Men det finns ingen tangent på datorns tangentbord för att skriva ett sådant rot-tecken. I Python räknar vi istället ut kvadratrötter med ordet \cw{sqrt} - förkortning av engelskans \emph{square root}. Sen direkt efter ordet \cw{sqrt} ska vårt tal stå inom parentes:
+
+\begin{python}[caption={Kvadratrot, roten ur 9},label={}]
+In: sqrt(9)
+Out: 3.0	
+\end{python}
+
+
+\section{Funktioner i programmering}\index{funktioner|textbf}
+
+Begreppet \emph{funktion} är kanske något du känner igen från din vanliga mattebok? T.ex. kanske du har hört att $y$ är en funktion av $x$, alltså: $y=f(x)$. Här händer något med $x$ inne i funktionen $f$ och $y$ har värdet av $f(x)$. Inom programmering används det begreppet lite annorlunda - varje funktion har ett visst namn. Vi kan se det som att namnet är en förkortning som representerar ett längre stycke kod.
+
+Det finns en massa inbyggda funktioner i Python och i Pythons olika matematiska bibliotek. Vi har redan lärt oss en av dem, nämligen \cw{sqrt}, och vi ska strax lära oss några till. Det går även att skapa egna funktioner, men det kommer vi inte lära oss i denna bok. Att skapa egna funktioner gör programmerare nämligen mest för att strukturera stora program, och vi kommer inte att skapa så stora program.
+
+Om du inte riktigt förstår allt detta så är det ingen fara - du kommer kunna använda funktioner ändå.
+
+För att använda en funktion skriver vi alltid dess namn, sedan en inledande parentes, sedan så kallade \emph{argument}\index{argument|textbf}, och sist en avslutande parentes. Till exempel:
+
+\begin{python}[caption={Repetition av funktionsanvändning},label={}]
+In: sqrt(81)
+Out: 9.0
+\end{python}
+
+Vissa funktioner har fler än ett argument. Här är exempel på funktioner som tar två argument. Argumenten står inom paranteserna och separeras med kommatecken: 
+\index{min|textbf}\index{max|textbf}\index{fmod|textbf}
+\begin{python}[caption={Funktioner med två argument},label={ex:funktionermedtvaargument}]
+In: min(3.5, 17) # ger det minsta av två tal
+Out: 3.5
+In: max(3.5, 17) # ger det största av två tal
+Out: 17
+In: fmod(26, 10) # ger rest efter division
+Out: 6
+\end{python}
+
+Nu förstår du kanske varför det inte går så bra att använda kommatecken för decimaltal?
+
+Notera att ett argument i sin tur kan vara ett resultat av en uträkning, t.ex:
+
+\begin{python}[caption={Resultat av uträkning som argument},label={}]
+In: min(sqrt(81), 8+2)
+Out: 9.0	
+\end{python}
+
+Och det går förstås att göra hur långa kedjor som helst:
+
+\begin{python}[caption={Människor från yttre rymden},label={}]
+In: min(sqrt(sqrt(81)*3*3), sqrt((8+2)*22))
+Out: 9.0
+\end{python}
+
+\begin{matteovning}{Testa funktioner}{testaFunktioner}
+Testa att använda alla de ovanstående funktionerna med några olika argument. Testa även att använda funktioner som argument till andra funktioner.
+\end{matteovning}
+
+
+\section{Mer matte}
+Det finns förstås många fler funktioner inbyggda i Python. Vi kommer nu att lista andra operatorer och funktioner som brukar användas i mattekurserna Ma1c, Ma2c och Ma3c. Vi kommer också titta på ett par konstanter.
+
+
+\subsection{Potenser}\index{potenser|textbf}
+
+I den rena matematiken brukar vi skriva potenser (''upphöjt till'') med små siffror, till exempel $3^2$. Åter igen finns det inget sätt på datorns tangentbord att skriva sådana små siffror. Istället använder vi två multiplikationstecken på rad:
+
+\begin{python}[caption={Potenser},label={}]
+In: 3 ** 2
+Out: 9
+\end{python}
+
+
+\subsection{Trigonometri}\index{trigonometri|textbf}\index{pi|textbf}
+
+Det speciella talet pi finns inbyggt i Python. Det finns inget specialtecken $\pi$ utan vi skriver helt enkelt:
+
+\begin{python}[caption={pi},label={}]
+In: pi
+Out: 3.141592653589793
+\end{python}
+
+De trigonometriska funktionerna sinus, cosinus, tangens och deras släktingar, finns också inbyggda. Låt oss testa sinus-funktionen:
+
+\begin{python}[caption={Trigonometri},label={}]
+In: sin(pi/4)
+Out: 0.7071067811865475
+\end{python}
+
+I följande tabell kan bokstaven \cw{v} mellan parenteserna ersättas med valfritt tal:
+
+\begin{center}
+\captionof{table}{Trigonometriska funktioner} \label{tab:trigonometriskafunktioner}
+\begin{tabular}{ l | l | l | l }
+  \hline
+  \emph{Matteformel} & \emph{Funktion i Python} \\
+  \hline
+  $\sin v$ & \cw{sin(v)} \\
+  $\cos v$ & \cw{cos(v)} \\
+  $\tan v$ & \cw{tan(v)} \\
+  $\sin^{-1} v$ & \cw{arcsin(v)} \\
+  $\cos^{-1} v$ & \cw{arccos(v)} \\
+  $\tan^{-1} v$ & \cw{arctan(v)} \\
+  \hline
+\end{tabular}
+\end{center}
+\index{sinus|textbf}\index{cosinus|textbf}\index{tangens|textbf}\index{arcus sinus|textbf}\index{arcus cosinus|textbf}\index{arcus tangens|textbf}\index{sin|textbf}\index{cos|textbf}\index{tan|textbf}\index{arcsin|textbf}\index{arccos|textbf}\index{arctan|textbf}
+
+\boxteknisk{
+Argumentet som vi skickar in i de trigonometriska funktionerna \cw{sin}, \cw{cos} och \cw{tan} är en vinkel. Men den funkar kanske inte som du förväntar dig? Vinkeln mäts nämligen i \emph{radianer}, inte i \emph{grader}. Det går 360 grader på ett varv, men det går $2\pi \approx 6.28$ radianer på ett varv.
+\newline
+\newline
+För att omvandla mellan grader och radianer kan vi använda funktionerna \cw{deg2rad} (\emph{from degrees to radians}), respektive \cw{rad2deg} (\emph{from radians to degrees}). T.ex: \cw{sin(deg2rad(30))} eller \cw{rad2deg(arcsin(0.5))}.
+}
+
+\begin{matteovning}{Trigonometriska funktioner}{trigonometriskaFunktioner}
+Testa själv med samtliga trigonometriska funktioner och lite olika tal mellan parenteserna!
+\end{matteovning}
+
+
+\subsection{Logaritmer}\index{logaritmer|textbf}\index{log|textbf}\index{e|textbf}
+\begin{python}[caption={Logaritmer},label={}]
+In: e
+Out: 2.718281828459045
+In: log10(10**3)
+Out: 3.0
+In: log(e**3)
+Out: 3.0
+\end{python}
+
+
+\subsection{Avrundning}\index{avrundning|textbf}\index{round|textbf}\index{floor|textbf}\index{ceil|textbf}
+
+Som vanligt ska vårt tal stå inom parentes.
+
+\begin{python}[caption={Avrundning},label={}]
+In: round(3.6) # avrundar till närmaste heltal
+Out: 4
+In: floor(3.6) # avrundar nedåt
+Out: 3.0
+In: floor(-3.6) # nedåt även för negativa tal. ej mot noll
+Out: -4.0
+In: ceil(3.2) # avrundar uppåt
+Out: 4.0
+\end{python}
+
+\subsection{Slumptal}\label{subsec:randint}\index{slumptal|textbf}\index{randint|textbf}
+Det är möjligt att slumpa fram tal i Python. Vi kan be om att få ett slumptal från och med 0 till ett valfritt tal:
+
+\begin{python}[caption={Slumptal},label={}]
+In: randint(6) # ger ett slumptal fr.o.m 0 t.o.m 5
+Out: 2
+In: randint(6) # nästa gång kan det bli ett annat tal
+Out: 0
+In: randint(6)
+Out: 5
+\end{python}
+
+\boxteknisk{
+Notera att om vi vill ha ett slumptal till och med 5, så skriver vi \emph{inte} \cw{randint(5)} utan \cw{randint(6)}. Om du har programmerat Python tidigare så kanske detta låter fel. Saken är att det finns två olika \cw{randint}. Det finns en inbyggd i Python i biblioteket \cw{random}. Men eftersom vi i den här boken istället skriver \cw{from pylab import *} så får vi den andra \cw{randint} som beter sig annorlunda. Förvirrande? Ja, tyvärr.
+}
+
+Om vi vill ha ett slumptal inom ett intervall som \emph{inte} börjar på 0, t.ex. om vi vill efterlikna ett tärningsslag mellan 1 och 6, så gör vi såhär:
+
+\vspace{10pt}
+\begin{python}
+randint(1, 7) # ger ett slumptal fr.o.m 1 t.o.m 6
+\end{python}
+
+Det går förstås att ha vilket intervall som helst:
+\vspace{10pt}
+\begin{python}
+randint(7, 42) # ger ett slumptal fr.o.m 7 t.o.m 41
+\end{python}
+
+\subsection{Förvandla negativa tal till positiva (abs)}\label{subsec:abs}\index{abs|textbf}
+En annan funktion som kan vara användbar är \cw{abs}, som förvandlar negativa tal till positiva:
+
+\begin{python}[caption={abs},label={}]
+In: abs(-26) # förvandlar negativa tal till positiva
+Out: 26
+\end{python}
+
+\subsection{Mer då?}
+I det här kapitlet gick vi igenom sånt som gör Python till en vanlig miniräknare. Det finns såklart sådant som gör att vi kan använda datorn som en grafräknare också. Det kommer vi att gå igenom i \autoref{ch:grafer} men först ska vi lära oss några viktiga grunder i programmering.

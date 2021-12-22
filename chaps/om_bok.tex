@@ -1,0 +1,216 @@
+% Programmering i matematiken - med Python (c)
+% by Krister Trangius & Emil Hall
+%
+% Programmering i matematiken - med Python is licensed under a
+% Creative Commons  Attribution-ShareAlike 4.0 International License.
+%
+% You should have received a copy of the license along with this work. If not,
+% see <http://creativecommons.org/licenses/by-sa/4.0/>.
+%------------------------------------------------------------------------------
+
+\chapter{Om denna bok}\label{ch:ombok}
+I detta kapitel kommer vi dels att titta på hur detta läromedel är tänkt att användas, dels kommer en kapitelöversikt där vi går igenom bokens innehåll.
+
+\section{Att använda detta läromedel}
+Detta läromedel är tänkt som ett komplement till redan befintliga matteböcker för gymnasiet som saknar programmering. Boken riktar sig främst till kurserna Ma1c, Ma2c och Ma3c men går bra att använda som komplement i övriga mattekurser också.
+
+Boken är indelad i två delar. Del I lär ut de viktigaste grunderna i programmering och Python. Den innehåller också en del övningar. Del II innehåller bara övningar som är riktade till specifika mattekurser. De övningarna är ofta mer komplexa än de i del I.
+
+\subsection{Till lärare}
+Skolverkets tanke med programmering i matematiken är att det ska vara ett hjälpsamt verktyg som \emph{stödjer} matematikundervisningen. Det finns många intressanta matematiska problem som lämpar sig väldigt väl att lösa med hjälp av programmering medan andra problem lämpar sig bättre att lösa med ''traditionella'' metoder (läs: papper och penna) eller andra digitala verktyg.
+
+En svårighet idag är att många elever inte behärskar programmering när de behöver arbeta med det i matematiken. Därför har vi i denna bok valt att ha en del som ändå ger en introduktion till programmering. Den delen kan med fördel behandlas i eller tillsammans med Programmering 1-kursen. Delen kan också vara till hjälp, även om eleverna redan är bekanta med programmering men tidigare inte stött på just Python. Vi författare har försökt hålla denna introduktion till ett absolut minimum - ett minimum som ändå gör att man kan arbeta med programmering för att lösa meningsfulla uppgifter i matematiken.
+
+\subsection{Konventioner som används i boken}
+Låt oss nu titta på vissa konventioner som används i boken och vad de betyder.
+
+\subsubsection{Pronomen i boken (vi och du)}
+Genomgående i denna bok används orden \emph{vi} och \emph{oss} - det som syftas då är vi (författarna) och du läsaren. När det står \emph{du} eller \emph{dig}, åsyftas dig, läsaren.
+
+\subsubsection{Nya termer och namn}
+När nya termer och namn på olika saker dyker upp för första gången är de oftast \emph{kursiverade}. Då det inte är självklart vad som är en ''term'' så gäller detta inte alltid. Ibland har vi författare också funnit det lämpligt att kursivera en term mer än bara första gången.
+
+\subsubsection{Källkod}
+Stora delar av boken innehåller källkod (programmeringskod) som exempel. Det anges på följande sätt:
+
+\begin{python}[caption={Exempel på källkod},label={}]
+temperature = float(input("Ange temperatur: "))
+if temperature == 100:
+    print("Nu kokar vattnet!")
+else:
+    print("Vattnet är inte exakt 100 grader...")
+\end{python}
+
+Ett problem med att ange källkod i en bok, är att källkoden inte alltid ryms på bredden. Detta har vi författare försökt lösa genom att formatera koden för att passa boksidan så gott det går. Ibland bryts dock en kodrad upp på två rader, vilket tydliggörs då den andra raden har ett indrag och saknar eget radnummer:
+
+
+\begin{python}
+hist(temperaturPerDag, arange(min(temperaturPerDag)-0.5, max(temperaturPerDag)+1.5))
+\end{python}
+
+\subsubsection{Källkod i löptext}
+När källkod skrivs som en del av löptext, kan det se ut på följande sätt: Anropa metoden \cw{print("{}något skrivs ut"{})}.
+
+\subsection{Övningar}
+I boken finns det övningar som är indelade i tre olika svårighetsgrader. Svårighetsgrad anges med färg och bokstav (E)nkel, (M)edel och (S)vår:
+
+\begin{matteovning}{Enkel övning}{}
+Detta är ett exempel på hur en enkel övning ser ut.
+\end{matteovning}
+
+\begin{matteovningm}{Medelsvår övning}{}
+Detta är ett exempel på hur en medelsvår övning ser ut.
+\end{matteovningm}
+
+\begin{matteovnings}{Svår övning}{}
+Detta är ett exempel på hur en svår övning ser ut.
+\end{matteovnings}
+
+\subsubsection{Tekniska detaljer}
+\boxteknisk{
+På olika ställen i boken finns tekniska detaljer i en ruta. Dessa detaljer kan vara intressanta för dem som vill, men är inget man måste kunna eller förstå för att hålla på med programmering i matematiken.
+}
+
+\subsubsection{Länkar}
+
+\boxlinks{
+Det finns mängder av information på nätet. I denna bok har vi författare därför valt att ha länkar till platser där läsaren kan fördjupa sig i vissa aspekter av det som tas upp. Länkar anges i en sån här ruta.
+\newline
+\newline
+Och här är ett exempel på en länk: \url{http://www.trangius.se}
+}
+\section{Del- och kapitelöversikt}
+Här kommer en kapitelöversikt:
+
+%-----------------------------------------------
+
+\vspace{20pt}
+
+\begin{addmargin}[1.7em]{1.7em}% 1em left, 2em right
+
+\fullchref{ch:installation}
+
+Vi går igenom hur du kommer igång med de verktyg/program som du behöver för att programmera matematik i Python.
+
+\end{addmargin}
+
+%-----------------------------------------------
+
+\vspace{20pt}
+{\large{\textbf{Del I - Grunderna i programmering}}}
+
+I den här delen lär vi oss det viktigaste om programmering för att kunna arbeta med det i matematiken.
+\vspace{10pt}
+\begin{addmargin}[1.7em]{1.7em}% 1em left, 2em right
+
+\fullchref{ch:datorn_som_raknemaskin}
+
+Vi går igenom hur man använder Python som en miniräknare. Detta är en viktig grund innan vi går vidare till grafritande räknare och programmering.
+
+\fullchref{ch:variabler}
+
+Vi går igenom hur variabler funkar i programmering.
+
+\fullchref{ch:listor}
+
+Vi går igenom hur listor funkar i programmering.
+
+\fullchref{ch:grafer}
+
+Vi går igenom hur man ritar grafer och histogram.
+
+\fullchref{ch:selektion}
+
+Vi går igenom hur man kan göra val mellan olika alternativ, beroende på sådant som värden på olika tal och variabler.
+
+\fullchref{ch:iteration}
+
+Vi går igenom hur man kan köra vissa kodstycken om och om igen, utifrån önskade villkor.
+
+\fullchref{ch:problemlosning}
+
+Vi tar två exempel på hur programmerare tänker när de bygger upp ett längre program, från början till slut.
+
+\end{addmargin}
+\newpage
+{\large{\textbf{Del II - Övningar och facit}}}
+
+I denna del finns övningar med facit för kurserna Ma1c, Ma2c och Ma3c. Många av övningarna lämpar sig för flera av de olika mattekurserna. Här kommer en lista över vilka underrubriker i \emph{\autoref{ch:ovningar} - Övningar} som är relaterade till det centrala innehållet i de olika kursplanerna:
+
+\subsection*{Ma1c}
+
+\begin{itemize}
+\item \lbrack...\rbrack begreppen primtal och delbarhet.
+	\begin{itemize}
+	\item \myref{sec:primtalDelbarhetFaktorisering}
+	\end{itemize}
+\item Algebraiska och grafiska metoder för att lösa linjära ekvationer och olikheter samt potensekvationer[...]
+	\begin{itemize}
+	\item \myref{sec:numeriskLosningLinjara}
+	\end{itemize}
+\item \lbrack...M\rbrack etoder för beräkning av sannolikheter vid slumpförsök i flera steg med exempel från spel[...].
+	\begin{itemize}
+	\item \myref{sec:sannolikhetStatistik}
+	\end{itemize}
+\item Begreppen förändringsfaktor och index. Metoder för beräkning av räntor och amorteringar för olika typer av lån [...]
+	\begin{itemize}
+	\item \myref{sec:potensfunktionerExponentialfunktioner}
+	\end{itemize}
+\item egenskaper hos [...] exponentialfunktioner.
+	\begin{itemize}
+	\item \myref{sec:potensfunktionerExponentialfunktioner}
+	\end{itemize}
+\end{itemize}
+
+\subsection*{Ma2c}
+\begin{itemize}
+\item Statistiska metoder för rapportering av observationer och mätdata från undersökningar.
+	\begin{itemize}
+	\item \myref{sec:sannolikhetStatistik}
+	\end{itemize}
+\item Metoder för beräkning av olika lägesmått och spridningsmått inklusive standardavvikelse, med digitala verktyg.
+	\begin{itemize}
+	\item \myref{sec:sannolikhetStatistik}
+	\end{itemize}
+\item Konstruktion av grafer till funktioner [...] med digitala verktyg.
+	\begin{itemize}
+	\item \myref{sec:sannolikhetStatistik}
+	\item \myref{sec:potensfunktionerExponentialfunktioner}
+	\item \myref{sec:andragradsekvationer}
+	\end{itemize}
+\item Egenskaper hos andragradsekvationer
+	\begin{itemize}
+	\item \myref{sec:numeriskLosningLinjara} {\color{myBlue}[som förkunskapskrav till andragradsekvationer].}
+	\item \myref{sec:andragradsekvationer}
+	\end{itemize}
+\item Algebraiska och grafiska metoder för att lösa exponential-, andragrads- och rotekvationer [...]
+	\begin{itemize}
+	\item \myref{sec:andragradsekvationer}
+	\item \myref{sec:potensfunktionerExponentialfunktioner}
+	\end{itemize}
+\end{itemize}
+
+\subsection*{Ma3c}
+\begin{itemize}
+\item Algebraiska och grafiska metoder för lösning av extremvärdesproblem.
+	\begin{itemize}
+	\item \myref{sec:andragradsekvationer}
+	\end{itemize}
+\item Orientering när det gäller kontinuerlig och diskret funktion samt begreppet gränsvärde.
+	\begin{itemize}
+	\item \myref{sec:derivata}
+	\end{itemize}
+\item Begreppen [...] ändringskvot och derivata för en funktion.
+	\begin{itemize}
+	\item \myref{sec:derivata}
+	\end{itemize}
+\item Algebraiska och grafiska metoder för bestämning av derivatans värde för en funktion.
+	\begin{itemize}
+	\item \myref{sec:derivata}
+	\end{itemize}
+\item Introduktion av talet e och dess egenskaper.
+	\begin{itemize}
+	\item \myref{sec:numeriskLosningLinjara} {\color{myBlue}[som förkunskapskrav till talet $e$].}
+	\item \myref{sec:derivata}
+	\end{itemize}
+\end{itemize}

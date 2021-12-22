@@ -1,0 +1,330 @@
+% Programmering i matematiken - med Python (c)
+% by Krister Trangius & Emil Hall
+%
+% Programmering i matematiken - med Python is licensed under a
+% Creative Commons  Attribution-ShareAlike 4.0 International License.
+%
+% You should have received a copy of the license along with this work. If not,
+% see <http://creativecommons.org/licenses/by-sa/4.0/>.
+%------------------------------------------------------------------------------
+
+\chapter{Listor}\label{ch:listor}\index{listor|textbf}\index{array|textbf}\index{vektor|textbf}I det här kapitlet ska vi gå igenom listor och se hur de funkar i programmering. Man kan se listor som en speciell typ av variabler (som vi lärde oss i föregående kapitel). En lista kan, till skillnad från en vanlig variabel, innehålla flera värden som ligger på rad. Listor är användbara då man vill hålla reda på många saker samtidigt.
+
+\boxteknisk{
+Den formella beteckningen för en lista är \emph{array} eller \emph{vektor}. Termen vektor kan vara lite förvirrande, då den används på olika sätt i olika sammanhang. Ibland syftar man på en riktning eller position i en rymd (då har den x-, y- och kanske z-koordinater). Termen array används bara på engelska men inte på svenska. I denna bok kommer vi att använda termen lista.
+}
+
+Ett konkret exempel på en lista kan vara temperaturer olika dagar. Den första dagen var det 15 grader, den andra 13, den tredje 16 osv. Varje temperatur ligger var för sig lagrad i något som kallas \emph{element}\index{element|textbf}. Vi kan komma åt varje element i en lista med något som kallas för \emph{index}\index{index|textbf}.
+
+Här är en illustration av en lista som innehåller fem olika element. Vi kan se varje elements index. Notera att det första elementet har index 0:
+
+\begin{figure}[H]
+\begin{center}
+\caption{En lista}
+\begin{tabular}{l|*{5}{c}r}
+\emph{index} & \emph{0} & \emph{1} & \emph{2} & \emph{3} & \emph{4} \\
+\hline
+\emph{}       & 17 & -65 & -20 & 9 & 42  \\
+\end{tabular}
+\end{center}
+\end{figure}
+
+Att skapa listor i Python är ganska enkelt, man gör bara såhär:
+
+\begin{python}[caption={Skapa lista},label={ex:skapavektor1}]
+# Skapa listan:
+lista = []
+
+# Fyll på listan med olika värden med funktionen append:
+lista.append(17)
+lista.append(-65)
+lista.append(-20)
+lista.append(9)
+lista.append(42)
+\end{python}
+
+Tyvärr behöver vi göra det lite krångligare för oss själva i denna bok. Anledningen är teknisk men beror kortfattat på att vi vill använda viss matematisk funktionalitet på våra listor, som finns i biblioteket \cw{pylab}. Kom ihåg: För att använda denna typ av listor i Spyder behöver vi köra \cw{from pylab import *}.
+
+Såhär behöver vi skriva istället:
+
+\begin{python}[caption={Skapa lista},label={ex:skapavektor1}]
+# Skapa listan:
+temperature = array([])
+
+# Fyll på listan med olika värden med funktionen append:
+temperature = append(temperature, 17)
+temperature = append(temperature, -65)
+temperature = append(temperature, -20)
+temperature = append(temperature, 9)
+temperature = append(temperature, 42)
+
+# Skriv ut listan:
+print(temperature)
+\end{python}
+
+Vi får resultatet:
+
+\begin{python}
+[17. -65. -20. 9. 42.]
+\end{python}
+
+\boxteknisk{
+Om du undrar varför talen får en punkt efter sig, så beror det på att de är lagrade som decimaltal, se \autoref{sec:variabeltyper}. Men för att spara plats så skrivs 0:an inte ut. Vissa funktioner som vi använder konverterar heltal till decimaltal, vilket ger de lite lustiga utskrifterna.
+}
+\newpage
+För att sedan använda listan kan vi t.ex. göra så här:
+
+\begin{python}[caption={Använda lista},label={ex:lasavektor1}]
+# Lägg samman värdet på de olika elementen i listan och
+# skriv ut medelvärdet:
+summa = temperature[0] + temperature[1] + temperature[2] + temperature[3] + temperature[4]
+print(summa / 5)
+\end{python}
+
+Då får vi följande utskrift:
+
+\vspace{10pt}
+\begin{python}
+-3.4
+\end{python}
+
+\section{Indexering av listor}\index{indexering (av listor)|textbf}
+
+I \autoref{ex:lasavektor1} läser vi innehållet i listans fem olika element med hjälp av deras index. Genom en siffra indexeras ett specifikt element i listan. Index är det som står inne i hakparenteserna \cw{[]} efter variabelnamnet. Vi kan använda index både för att skriva och läsa ett specifikt element.
+
+När man arbetar med listor och indexering av dem gäller det dock att se upp! Det är lätt hänt att man försöker att använda ett element som inte finns. Det kommer bli fel då man kör programmet. Här är ett exempel:
+
+\begin{python}[caption={Felaktig indexering av en lista},label={}]
+temperature = array([])
+
+temperature = append(temperature, 17)
+temperature = append(temperature, -65)
+temperature = append(temperature, -20)
+temperature = append(temperature, 9)
+temperature = append(temperature, 42)
+
+# Skriv ut elementen med index 0 och 5
+print("Första elementet: ")
+print(temperature[0])
+print("Sjätte elementet: ")
+print(temperature[5]) # fel!
+\end{python}
+
+Då får vi en utskrift som ser ut något i stil med det här:
+
+\vspace{10pt}
+\begin{python}
+Första elementet:
+17.0
+Sjätte elementet:
+Traceback (most recent call last):
+
+  File "<ipython-input-20-0b23519ca590>", line 1, in <module>
+    print(temperature[5])
+
+IndexError: index 5 is out of bounds for axis 0 with size 5
+\end{python}
+
+Först skrivs värdet på det första elementet, \cw{temperature[0]} ut. Därefter får vi som väntat ett felmeddelande. Felet är \emph{''IndexError: index 5 is out of bounds for axis 0 with size 5''}. Vi försöker helt enkelt indexera ett element som ligger utanför vår lista.
+
+Det går alltså inte att läsa ett index som inte finns. Det går inte heller att skriva till ett index som inte finns. Om vi däremot skriver till ett index som redan finns så kommer det gamla värdet att ersättas, precis som det funkar för vanliga variabler.
+
+\section{Listans längd}\index{size|textbf}
+
+En lista har ett antal element. Antalet kallas även listans längd. När vi lägger till ett element så växer listan - den blir längre. Vi kan mäta listans längd genom att skriva \cw{.size} efter namnet på listan. Såhär:
+
+\begin{python}[caption={Listans längd},label={}]
+temperature = array([])
+
+# Stoppa in tre element i listan,
+# och skriv ut listans längd efter varje steg:
+temperature = append(temperature, 17)
+print(temperature.size)
+temperature = append(temperature, -65)
+print(temperature.size)
+temperature = append(temperature, -20)
+print(temperature.size)
+\end{python}
+
+Vi får resultatet:
+
+\vspace{10pt}
+\begin{python}
+1
+2
+3
+\end{python}
+\newpage
+\section{Listans sista element}\index{end|textbf}
+
+Vår listas första element är alltid \cw{temperature[0]}, men vad är dess sista element? Det sista elementets index varierar ju. Vi kan alltid komma åt det sista elementet genom att mäta längden, såhär:
+\vspace{10pt}
+\begin{python}
+temperature[temperature.size-1]
+\end{python}
+Notera att vi måste skriva -1. En lista med t.ex. tre element har ju index 0, 1 och 2 men längden 3.
+
+Men eftersom det är långt och tjatigt att skriva så finns det ett kortare sätt. Man skriver bara -1 som index för att få det sista elementet:
+\vspace{10pt}
+\begin{python}
+temperature[-1]
+\end{python}
+
+\section{Förenklat sätt att skapa listor}
+Det finns också ett enklare sätt att skapa listor på:
+
+\begin{python}[caption={Förenklat sätt att skapa listor},label={}]
+temperature = array([17, -65, -20, 9, 42])
+\end{python}
+
+Eller om vi vill skapa en lista med ett visst antal element, och alla element ska ha samma värde:
+
+%temperature = array([0] * 5) # ger en lista med [0, 0, 0, 0, 0]
+%temperature = array([99] * 3) # ger en lista med [99, 99, 99]
+\begin{python}[caption={Massproduktion},label={}]
+temperature = repeat(0, 5) # ger listan [0, 0, 0, 0, 0]
+temperature = repeat(99, 3) # ger listan [99, 99, 99]
+\end{python}
+
+Detta kan vara praktiskt om man vill skapa väldigt många element och slippa skriva in dem ett i taget. Också praktiskt om det önskade antalet element ligger i en variabel.
+
+% \section{Att ta bort element ur en lista}
+
+% Man kan ta bort element ur en lista, inte bara lägga till dem. Koden för att ta bort ett element är lite märklig, för den liknar koden för att skapa en ny lista, men det är bara att gilla läget. Här är ett exempel där vi tar bort element med index 3 ur listan:
+
+% \begin{python}[caption={Ta bort element ur en lista},label={}]
+% temperature = [111 222 333 444 555 666 777]
+
+% % Ta bort det tredje elementet ur listan
+% temperature(3) = []
+
+% % Skriv ut så vi ser skillnaden
+% disp(temperature)
+% disp(size(temperature, 2))
+% \end{python}
+
+% Vi får resultatet:
+
+% \begin{python}
+% 	111 222 444 555 666 777
+% 	6
+% \end{python}
+
+% Notera att när vi tar bort ett element så krymper listans längd, och efterföljande element ''flyttas ner ett snäpp''. Det element som tidigare låg på index 4 kommer att flyttas ner till index 3, och det som tidigare låg på index 5 kommer att flyttas ner till index 4, och så vidare.
+
+
+\section{Fylla en lista med nummer i ordning}\label{subsec:filllist}
+
+Ofta kommer vi vilja fylla en lista med tal på rad, t.ex. \cw{[-2 -1  0  1  2]}. Då finns det ett koncisare sätt att skriva. Vi kan använda en funktion som heter \cw{arange} som funkar såhär:
+
+
+\begin{python}[caption={arange},label={arange1}]
+print(arange(-2, 3))
+\end{python}
+
+Vilket ger resultatet:
+
+\begin{python}[caption={arange},label={}]
+[-2 -1  0  1  2]
+\end{python}
+
+Notera att \cw{arange} ger oss värden upp till det andra argumentet (3) men inte \emph{till och med} det värdet. Jämför med \cw{randint} i \autoref{subsec:randint}.
+
+Med hjälp av \cw{arange} kan vi alltså skapa en lista såhär:
+\begin{python}[caption={Skapa en lista som innehåller alla heltal från -2 till 2},label={}]
+x = arange(-2, 3)
+\end{python}
+
+Med hjälp av ett tredje argument till funktionen \cw{arange} kan vi dessutom ta kortare ''steg'' mellan elementen:
+
+\begin{python}[caption={Anpassa steglängd mellan element},label={}]
+x = arange(-2, 3, 0.5)
+print(x)
+\end{python}
+
+Vi får resultatet:
+
+\vspace{10pt}
+\begin{python}
+[-2.  -1.5  1.  -0.5  0.  0.5  1.  1.5  2.  2.5]
+\end{python}
+
+Det här blev kanske inte exakt som vi ville? Vi ville egentligen att listan skulle gå upp till och med 2. För att få listan att sluta med 2 så får vi sätta 2.5 som stopp-värde:
+
+\begin{python}[caption={Anpassa steglängd mellan element},label={}]
+x = arange(-2, 2.5, 0.5)
+\end{python}
+
+\section{Söka i en lista}\label{sec:findInList}
+
+Vi har lärt oss att läsa elementet med ett visst index. Ibland kan vi istället vilja göra samma sak ''baklänges'' och få svar på frågan: På vilket index ligger ett visst element? T.ex. vilken dag var temperaturen 9 grader? Då kan vi använda funktionen \cw{argwhere}.
+
+\vspace{10pt}
+\begin{python}
+temperature = array([17, -65, -20, 9, 42])
+argwhere(temperature==9)[0][0] # ger resultatet 3
+\end{python}
+
+\boxteknisk{
+Varför behöver vi skriva \cw{[0][0]} efter \cw{argwhere()}? Anledningen är mer avancerad än vad vi tar upp i denna bok, men har med flexibilitet och matriser att göra.
+}
+
+\section{Matematiska operationer på varje element i listan}\label{sec:operationerpaenlista}
+
+Vi kan enkelt göra samma matematiska operation på varje element i en lista, t.ex. multiplicera alla element med 2, eller med sig själva. Vi använder de vanliga operatorerna \cw{+ - * /}:
+
+\begin{python}[caption={Matematiska operationer på varje element i listan},label={}]
+x = array([1, 2, 3, 4])
+y = x + 1
+z = x * 2
+w = x * x
+print(y)
+print(z)
+print(w)
+\end{python}
+
+Vi får resultatet:
+
+\vspace{10pt}
+\begin{python}
+[2 3 4 5]
+[2 4 6 8]
+[1 4 9 16]
+\end{python}
+
+Det är också möjligt att köra funktioner på varje element i en lista.
+
+\begin{python}[caption={Köra funktioner på varje element i en lista},label={}]
+x = array([4, 9, 16, 25])
+print(sqrt(x))
+\end{python}
+
+Vi får resultatet:
+
+\vspace{10pt}
+\begin{python}
+[2. 3. 4. 5.]
+\end{python}
+\newpage
+%---------------------------------------------------------------
+
+\section{Övningar för listor}
+
+\begin{matteovning}{Olika sätt att skapa samma lista}{skapaListaMed6Element}
+Skapa en lista som innehåller 8 element. Det första elementet ska ha värdet 20, det andra ska ha värdet 30, det tredje 40, och så vidare upp till och med 90. Hur många olika sätt kan du komma på för att skapa en sådan lista? Vilket tycker du känns lämpligast?
+\end{matteovning}
+
+
+\begin{matteovning}{\cw{print} med lista}{dispMedLista}
+Tänk dig följande kod:
+\vspace{10pt}
+\begin{python}
+temperature = array([])
+temperature = append(temperature, -14)
+temperature = append(temperature, 22)
+temperature = append(temperature, 7)
+print(temperature[1])
+print(temperature.size)
+\end{python}
+Utan att skriva in koden själv i Python, vad tror du att vi får för utskrift?
+\end{matteovning}

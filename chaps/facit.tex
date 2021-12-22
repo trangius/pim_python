@@ -1,0 +1,1027 @@
+% Programmering i matematiken - med Python (c)
+% by Krister Trangius & Emil Hall
+%
+% Programmering i matematiken - med Python is licensed under a
+% Creative Commons  Attribution-ShareAlike 4.0 International License.
+%
+% You should have received a copy of the license along with this work. If not,
+% see <http://creativecommons.org/licenses/by-sa/4.0/>.
+%------------------------------------------------------------------------------
+
+\chapter{Facit och lösningsförslag}\label{ch:facit}
+Här följer facit till denna bok. I många av övningarna i denna bok ska du skriva kod. Den kod som presenteras här ska ses som lösningsförslag, snarare än ett absolut facit. Med programmering går det ju att lösa ett problem på många olika sätt.
+%------------------------------------------------------------------------------
+
+\section*{\facchapref{ch:datorn_som_raknemaskin}}
+
+Övningarna i kapitlet behöver inget facit.
+
+%------------------------------------------------------------------------------
+
+\section*{\facchapref{ch:variabler}}
+
+\subsection*{\facovref{ov:assignOpDirection}}
+Efter att ha kört de tre kodraderna så är \cw{a=2} och \cw{b=2}. Alltså, när det står två variabler på varsin sida om tilldelningsoperatorn så ändras den på vänstra sidan.
+
+\subsection*{\facovref{ov:assignmentNotReference}}
+På rad 2 så får \cw{b} det dåvarande värdet av \cw{a}, alltså blir \cw{b=1}. Efter att ha kört de tre kodraderna så är \cw{b=1} fortfarande. Det är \emph{inte} så att \cw{b} ''kopplas ihop'' med \cw{a} för all framtid. När vi på rad 3 ändrar värdet på \cw{a} så ändras alltså \emph{inte} värdet på \cw{b}.
+
+\subsection*{\facovref{ov:sum3AndAverage}}
+\vspace{3pt}
+\begin{python}
+a = 23
+b = 45
+c = 67
+print(a + b + c)
+print((a + b + c) / 3)
+\end{python}
+
+\subsection*{\facovref{ov:roundFloatToInt}}
+\vspace{3pt}
+\begin{python}
+a = 11.534
+print(round(a))
+\end{python}
+
+\section*{\facchapref{ch:listor}}
+
+\subsection*{\facovref{ov:skapaListaMed6Element}}
+\vspace{3pt}
+\begin{python}
+# omständigt sätt:
+a = array([])
+a = append(a, 20)
+a = append(a, a[-1] + 10)
+a = append(a, a[-1] + 10)
+a = append(a, a[-1] + 10)
+a = append(a, a[-1] + 10)
+a = append(a, a[-1] + 10)
+a = append(a, a[-1] + 10)
+a = append(a, a[-1] + 10)
+
+# kortare sätt:
+a = array([20, 30, 40, 50, 60, 70, 80, 90])
+
+# ännu bättre sätt:
+a = arange(20, 91, 10)
+\end{python}
+
+\subsection*{\facovref{ov:dispMedLista}}
+Vi får följande utskrift:
+\vspace{10pt}
+\begin{python}
+22
+3
+\end{python}
+
+\section*{\facchapref{ch:grafer}}
+
+\subsection*{\facovref{ov:aterskapaKodEfterBild}}
+\vspace{3pt}
+\begin{python}
+plot(array([-3, 3]), array([4, 5]), "-o")
+plot(arange(-3, 4), array([6, 7, 5, 6, 5, 4, 3]), "-o")
+grid(True)
+show()
+\end{python}
+
+\subsection*{\facovref{ov:plottaGivenFunktion}}
+\vspace{3pt}
+\begin{python}
+x = arange(-20, 20.01, 0.1)
+y = sin(x) / x
+plot(x, y)
+grid(True)
+show()
+\end{python}
+Notera att om vi bara använder \cw{x = arange(-20, 21)} så blir grafen fult kantig. Därför tar vi kortare steg med steglängden \cw{0.1}.
+
+%------------------------------------------------------------------------------
+
+\section*{\facchapref{ch:selektion}}
+
+\subsection*{\facovref{ov:input}}
+Jag testar att skriva in mitt namn som variabeln \cw{b}:
+\vspace{10pt}
+\begin{python}
+Ange variabeln a: 12
+Ange variabeln b: Emil
+Traceback (most recent call last):
+  .........
+  File "C:/Users/emil/.spyder-py3/temp.py", line 2, in <module>
+    b = float(input("Ange variabeln b: "))
+ValueError: could not convert string to float: "Emil"
+\end{python}
+Python säger att på rad 2 försökte vi omvandla \cw{Emil} till ett tal med hjälp av funktionen \cw{float}, men att det naturligtvis inte gick. (Om vi inte hade använt funktionen \cw{float} så hade vi istället fått ett felmeddelande på rad 3 där Python skulle försökt addera \cw{12+Emil}.)
+\newpage
+\subsection*{\facovref{ov:kontrolleraVadret2}}
+\vspace{3pt}
+\begin{python}
+svaret = input("Är det fint väder? ")
+if svaret == "j":
+    print("Vi går på picknick!")
+if svaret == "n":
+    print("Vi stannar inne och läser en bok")
+\end{python}
+
+\subsection*{\facovref{ov:varArDetKallast}}
+\vspace{3pt}
+\begin{python}
+ostersund_temp = input("Ange temperaturen i Östersund: ")
+goteborg_temp = input("Ange temperaturen i Göteborg: ")
+if ostersund_temp < goteborg_temp:
+    print("Det är kallast i Östersund")
+if goteborg_temp < ostersund_temp:
+    print("Det är kallast i Göteborg")
+if goteborg_temp == ostersund_temp:
+    print("Det är lika kallt")
+\end{python}
+
+\subsection*{\facovref{ov:felaktigIfSats}}
+Koden har två fel. Det första felet är att vi har råkat använda tilldelningsoperatorn \cw{=} istället för jämförelseoperatorn \cw{==}. Det andra felet är att vi glömde skriva ett kolon i slutet av \cw{if}-raden. Vi ville förstås egentligen skriva såhär:
+\vspace{10pt}
+\begin{python}
+x = 9
+if x == 10:
+    print("den är 10!")
+\end{python}
+
+
+%------------------------------------------------------------------------------
+
+\section*{\facchapref{ch:iteration}}
+
+\subsection*{\facovref{ov:talMellan1Och20}}
+\vspace{3pt}
+\begin{python}
+tal = 1
+while tal <= 20:
+	print(tal)
+	tal = tal + 1
+\end{python}
+
+\subsection*{\facovref{ov:talMellan1Och100}}
+\vspace{3pt}
+\begin{python}
+tal = int(input("Ange tal: "))
+while tal <= 100:
+	print(tal)
+	tal = tal + 1
+\end{python}
+
+\subsection*{\facovref{ov:singlaSlant}}
+\vspace{3pt}
+\begin{python}
+antal_singlingar = int(input("Ange hur många gånger du vill singla slant: "))
+i = 1
+while i <= antal_singlingar:
+	if randint(2) == 1:
+		print("Krona")
+	else:
+		print("Klave")
+	i = i + 1
+\end{python}
+
+\subsection*{\facovref{ov:slumpaFemTarningssslag}}
+\vspace{3pt}
+\begin{python}
+i = 1
+while i <= 5:
+	print(randint(1, 7)) # du kommer väl ihåg varför det ska stå 7, inte 6?
+	i = i + 1
+\end{python}
+
+\subsection*{\facovref{ov:vaderstationen}}
+\vspace{3pt}
+\begin{python}
+num_temps = int(input("Ange antal mätningar: "))
+# skapa tom lista som kommer fyllas på med temperaturer:
+all_temps = array([])
+i = 1 # räknare för antal iterationer
+total = 0 # används för att räkna ut medelvärdet
+while i <= num_temps:
+	temperature = float(input("Ange temperaturmätning: "))
+	# lägg till mätningen i slutet av listan:
+	all_temps = append(all_temps, temperature)
+	total = total + temperature
+	i = i + 1
+print(all_temps)
+# räkna ut medelvärdet:
+average = total / num_temps
+print(average)
+\end{python}
+\newpage
+\subsection*{\facovref{ov:multiplikationstabellen}}
+\vspace{3pt}
+\begin{python}
+i = 1 # det ena som ska gångras med...
+while i <= 10:
+	j = 1 # ... det andra
+	while j <= 10:
+		print(i * j)
+		j = j + 1
+	i = i + 1
+	print("---") # separator
+\end{python}
+%------------------------------------------------------------------------------
+
+\section*{\facchapref{ch:problemlosning}}
+\subsection*{\facovref{ov:gissatalet}}
+\vspace{3pt}
+\begin{python}
+answer = randint(1, 101) # slumpa ett tal mellan 1 och 100
+
+nr_guesses = 1
+guess = int(input("Gissa ett tal mellan 1 och 100: "))
+while guess != answer:
+    if guess < answer:
+        guess = int(input("Fel! Mitt tal är högre. Gissa igen: "))
+    if guess > answer:
+        guess = int(input("Fel! Mitt tal är lägre. Gissa igen: "))
+    nr_guesses = nr_guesses + 1
+print("Rätt! Du behövde", nr_guesses, "gissningar.")
+\end{python}
+
+\subsection*{\facovref{ov:datorngissartalet}}
+\vspace{3pt}
+\begin{python}
+user_input = 0 # ska hantera r, l eller h
+min = 1
+max = 100
+nr_guesses=0
+
+while user_input != "r":
+	# vi avrundar nedåt för att bara jobba med heltal:
+	guess = floor((max+min)/2)
+	print("Jag gissar på:", guess)
+	user_input = input("Är det [r]ätt? Eller är ditt tal [h]ögre eller [l]ägre? ")
+	if user_input == "h":
+		min = guess
+	if user_input == "l":
+		max = guess
+	nr_guesses = nr_guesses + 1
+print("Hurra! Jag klarade det på", nr_guesses, "försök.")
+\end{python}
+
+%------------------------------------------------------------------------------
+
+\section*{\facchapref{ch:ovningar}}
+
+\subsection*{\facovref{ov:kontrolleraFaktorer}}
+\vspace{3pt}
+\begin{python}
+expected_product = 41055 # här kan Kim ändra
+all_factors = array([3, 5, 7, 17, 23]) # här också
+product = 1
+i = 0
+while i < all_factors.size:
+	product = product * all_factors[i]
+	i = i + 1
+if product == expected_product:
+	print("Rätt")
+else:
+	print("Fel")
+\end{python}
+
+\subsection*{\facovref{ov:delbartMedTre}}
+\vspace{3pt}
+\begin{python}
+the_number = int(input("Skriv ett heltal: "))
+# blir det ingen rest om vi dividerar talet med 3?
+if fmod(the_number, 3) == 0:
+	print("delbart")
+else:
+	print("ej delbart")
+\end{python}
+
+\subsection*{\facovref{ov:primtalEllerEj}}
+\vspace{3pt}
+\begin{python}
+the_number = int(input("Skriv ett heltal: "))
+is_prime = 1
+factor = 2
+while factor <= sqrt(the_number):
+	# blir det ingen rest om vi dividerar?
+	# dvs, är den jämt delbar?
+	# dvs, är "factor" en faktor i "the_number"?
+	if fmod(the_number, factor) == 0:
+		is_prime = 0
+	factor += 1
+if is_prime:
+	print("primtal")
+else:
+	print("ej primtal")
+\end{python}
+\newpage
+\subsection*{\facovref{ov:faktoriseraTillPrimtalsFaktorer}}
+\vspace{3pt}
+\begin{python}
+remaining = int(input("Skriv ett heltal: "))
+factor = 2
+while remaining > 1:
+	# blir det ingen rest om vi dividerar?
+	# dvs, är den jämt delbar?
+	# dvs, är "factor" en faktor i "remaining"?
+	if fmod(remaining, factor) == 0:
+		# vi har hittat en faktor, skriv ut den
+		print(factor)
+		# efter denna faktor, vad blir kvar av talet?
+		remaining = remaining / factor
+	else:
+		factor = factor + 1
+\end{python}
+
+\subsection*{\facovref{ov:testaFaktoriseringsProgrammet}}
+\vspace{3pt}
+\begin{python}
+the_number = int(input("Skriv ett heltal: "))
+# faktorisera:
+remaining = the_number
+factor = 2
+all_factors = array([])
+while remaining > 1:
+	if fmod(remaining, factor) == 0:
+		print(factor)
+		all_factors = append(all_factors, factor)
+		remaining = remaining / factor
+	else:
+		factor = factor + 1
+# kontrollräkna:
+product = 1
+i = 0
+while i < all_factors.size:
+	product = product * all_factors[i]
+	i = i + 1
+if product == the_number:
+	print("Rätt")
+else:
+	print("Fel")
+\end{python}
+
+
+\subsection*{\facovref{ov:funktionenRandi}}
+Övningen behöver inget facit.
+\newpage
+\subsection*{\facovref{ov:datornLangsam}}
+Övningen behöver inget facit.
+
+\subsection*{\facovref{ov:twoDiceSumHistShapeChange}}
+När vi bara gör 100 kast så blir histogrammet ofta ganska ojämnt och ''taggigt''. Men ju fler kast, desto mer antar histogrammet formen av en likbent triangel.
+
+\subsection*{\facovref{ov:twoDiceDiffProgram}}
+\vspace{3pt}
+\begin{python}
+random_numbers = array([])
+number_throws = 100 # den här kan man ändra
+throw = 1
+while throw <= number_throws:
+	dice1 = randint(1, 7)
+	dice2 = randint(1, 7)
+	difference = abs(dice1 - dice2)
+	random_numbers = append(random_numbers, difference)
+	throw = throw + 1
+hist(random_numbers, arange(random_numbers.min()-0.5, random_numbers.max()+1.5))
+show()
+\end{python}
+
+\subsection*{\facovref{ov:twoDiceDiff}}
+Den vanligaste skillnaden mellan två tärningar är 1.
+
+\subsection*{\facovref{ov:myOwnHistogramFunction}}
+\vspace{3pt}
+\begin{python}
+# ... detta är fortsättning på koden i övningen ovan
+# med andra ord funkar denna kod inte för sig själv
+low = random_numbers.min()
+high = random_numbers.max()
+num_points_in_histogram = 1 + high - low
+summary = repeat(0, num_points_in_histogram)
+i = 0
+while i < random_numbers.size:
+	one_number = random_numbers[i]
+	summary_index = int(one_number - low)
+	summary[summary_index] = summary[summary_index] + 1
+	i = i + 1
+xaxis = arange(low, high+1)
+plot(xaxis, summary, "-o")
+show()
+\end{python}
+
+\subsection*{\facovref{ov:yatzy1}}
+Rätt svar är ca 0,077\% men det krävs väldigt många spelomgångar för att få ett bra närmevärde.
+\vspace{10pt}
+\begin{python}
+total_nr_yatzy = 0 # hur många gånger vi fått yatzy
+nr_games = 100000 # hur många spel vi vill köra
+game = 0
+while game < nr_games:
+
+  # slå en tärning:
+  first = randint(1, 7)
+  # slå fyra tärningar till, se om alla blir samma:
+  all_are_same = 1
+  die = 2 # för vi har redan slagit tärning 1
+  while die <=5:
+    if randint(1, 7) != first:
+      all_are_same = 0
+    die = die + 1 # gå vidare till nästa tärning
+
+  if all_are_same == 1: # blev det yatzy?
+    total_nr_yatzy = total_nr_yatzy + 1
+  game = game + 1 # för att gå vidare till nästa spel
+
+# skriv ut vårt närmevärde till sannolikheten för yatzy,
+# i procent:
+print(100 * total_nr_yatzy / nr_games)
+\end{python}
+
+\subsection*{\facovref{ov:yatzy2}}
+% iterera fem tärningar
+% die = 1
+% while die <=5:
+%   dices(die) = randi(6)
+%   die = die + 1 % gå vidare till nästa tärning
+
+% print("Tärningssslag:")
+% print(dices)
+
+% räkna ut vilket tärningsvärde som vi slog flest av.
+% det är de tärningarna som vi vill spara nästa slag.
+
+\vspace{3pt}
+\begin{python}
+dices = [1, 4, 5, 4, 3] # lista med våra fem tärningar
+
+save_eyes = 0 # vilket tärningsvärde vi slog flest av
+nr_save = 0 # antal tärningar med det värdet
+
+# iterera sex gånger, en för varje tänkbart tärningsvärde
+eyes = 1
+while eyes <= 6:
+
+  # räkna hur många tärningar som visar just detta värde
+  counter = 0
+  die = 0
+  while die < 5:
+    if dices[die] == eyes:
+      counter = counter + 1
+    die = die + 1
+
+  # ska vi byta vilket tärningsvärde vi ska spara?
+  if nr_save < counter:
+    nr_save = counter
+    save_eyes = eyes
+
+  eyes = eyes + 1
+print("Bäst att spara alla tärningar med antal ögon:")
+print(save_eyes)
+\end{python}
+
+Alternativ lösning:
+\vspace{10pt}
+\begin{python}
+dices = [1, 4, 5, 4, 3] # lista med våra fem tärningar
+dice_histogram = repeat(0, 6)
+die = 0
+while die < 5:
+	eyes = dices[die]
+	dice_histogram[eyes-1] = dice_histogram[eyes-1] + 1
+	die = die + 1
+# dice_histogram(1) är hur många 1:or vi slog
+# dice_histogram(2) är hur många 2:or vi slog, osv
+nr_save = 0
+eyes = 1
+while eyes <= 6:
+	if nr_save < dice_histogram[eyes-1]:
+		nr_save = dice_histogram[eyes-1]
+		save_eyes = eyes
+	eyes = eyes + 1
+print(save_eyes)
+\end{python}
+
+\subsection*{\facovref{ov:chansTillYatzy}}
+Ungefär 4.6\% chans.
+\vspace{10pt}
+\begin{python}
+dices = [0, 0, 0, 0, 0] # lista med våra fem tärningar
+total_nr_yatzy = 0 # hur många gånger vi fått yatzy
+
+nr_games = 10000 # hur många spel vi vill köra
+game = 0
+while game < nr_games:
+  # save_eyes håller reda på vilket tärningsvärde vi har
+  # flest av. Här sätter vi den till -1 för vi ska behöva
+  # slå om alla tärningar första gången i ett nytt spel:
+  save_eyes = -1
+
+  # roll är en räknare som går från 1 till 3.
+  # vi itererar alltså tre gånger, en gång för varje slag:
+  roll = 1
+  while roll <= 3:
+
+    # iterera fem tärningar, slå om några eller alla:
+    die = 0
+    while die < 5:
+      # om vi inte vill spara tärningen, slå om den:
+      if dices[die] != save_eyes:
+        dices[die] = randint(1, 7)
+      die = die + 1 # gå vidare till nästa tärning
+
+    # räkna ut vilket tärningsvärde som vi slog flest av.
+    # det är de tärningarna som vi vill spara nästa slag.
+
+    save_eyes = 0 # vilket tärningsvärde vi slog flest av
+    nr_save = 0 # antal tärningar med det värdet
+
+    # iterera 6 gånger, ett varv för varje
+    # tänkbart tärningsvärde
+    eyes = 1
+    while eyes <= 6:
+
+      # räkna hur många tärningar som visar just detta
+      # värde
+      counter = 0
+      die = 0
+      while die < 5:
+        if dices[die] == eyes:
+          counter = counter + 1
+        die = die + 1
+
+      # ska vi byta vilket tärningsvärde vi ska spara?
+      if counter > nr_save:
+        nr_save = counter
+        save_eyes = eyes
+
+      eyes = eyes + 1
+
+    roll = roll + 1 # för att gå vidare till nästa slag
+
+  if nr_save == 5: # blev det yatzy?
+    total_nr_yatzy = total_nr_yatzy + 1
+  game = game + 1 # för att gå vidare till nästa spel
+
+# skriv ut vårt närmevärde till sannolikheten för yatzy,
+# i procent
+print(100 * total_nr_yatzy / nr_games)
+\end{python}
+
+\newpage
+\subsection*{\facovref{ov:standardavvikelse}}
+Medelvärde: 6.15, standardavvikelse: 3.801
+\vspace{10pt}
+\begin{python}
+my_list = array([4, 9, 10, 7.5, 8, 9, 3, 9, 4, -2])
+nr_items = my_list.size
+
+# räkna ut summan för alla tal i listan:
+total = 0
+i = 0
+while i < nr_items:
+    total = total + my_list[i]
+    i = i + 1
+
+# räkna ut medelvärdet:
+mid = total / nr_items
+
+# räkna ut standardavvikelse:
+total = 0 # återställ total till 0
+i = 0
+while i < nr_items:
+    total = total + (my_list[i] - mid)**2
+    i = i + 1
+
+std_dev = sqrt(total/ (nr_items-1))
+# nr_items-1 pga Bessels korrektion
+
+print(mid)
+print(std_dev)
+\end{python}
+
+\subsection*{\facovref{ov:typvarde}}
+Typvärde: 9
+\vspace{10pt}
+\begin{python}
+my_list = array([4, 9, 10, 7.5, 8, 9, 3, 9, 4, -2])
+nr_items = my_list.size
+
+nr_most_common = 0 # antal element med typvärdet
+
+i = 0
+while i < nr_items:
+
+	# räkna antal element med "det här" värdet:
+	counter = 0
+	j = 0
+	while j < nr_items:
+		if my_list[j] == my_list[i]:
+			counter = counter + 1
+		j = j + 1
+
+	# ska vi ersätta det förra typvärdet?
+	if nr_most_common < counter:
+		nr_most_common = counter
+		most_common = my_list[i]
+
+	i = i + 1
+
+print("Typvärde: ")
+print(most_common)
+\end{python}
+
+\subsection*{\facovref{ov:standardavvikelse2}}
+\vspace{3pt}
+\begin{python}
+my_list = array([4, 9, 10, 7.5, 8, 9, 3, 9, 4, -2])
+print(mean(my_list)) # medelvärde
+print(std(my_list)) # standardavvikelse
+from scipy.stats import mode
+print(mode(my_list).mode[0]) # typvärde
+\end{python}
+
+%==============================================================================
+
+\subsection*{\facovref{ov:enkelNumeriskLosning}}
+\vspace{3pt}
+\begin{python}
+x = -10
+while x <= 10:
+	if 3 * x - 7 == 5:
+		print(x)
+	x = x + 1
+\end{python}
+
+\subsection*{\facovref{ov:enkelNumeriskLosningFel1}}
+Vi ändrar på rad 3 i föregående kodstycke till \cw{if 3 * x - 7 == 29:}. Programmet misslyckas för att lösningen då är 12, vilket ligger utanför intervallet -10 till 10 som ju är de värden vi testar. Den lättaste fixen är att testa ett större intervall, till exempel -1000 till 1000.
+
+\subsection*{\facovref{ov:enkelNumeriskLosningFel2}}
+Vi ändrar på rad 3 i föregående kodstycke till \cw{if 3 * x - 7 == 4:}. Lösningen på $3x-7=4$ är x=3,6666... men programmet kan bara hitta heltalslösningar. När datorn testar \cw{x=3} så blir vänsterledet lika med 2, och när datorn i nästa varv testar \cw{x=4} så blir vänsterledet lika med 5. Vänsterledet ''hoppar'' alltså direkt från 2 till 5, och hoppar över rätt svar. Det finns inget jättelätt sätt att fixa programmet - vi behöver byta till en mer avancerad metod.
+
+\subsection*{\facovref{ov:testaSolve}}
+$x = -6$
+
+Först skriver vi om ekvationen från $4x+15=-9$ till $4x+15+9=0$ så att högerledet är en nolla, sen ger vi vänsterledet till \cw{fsolve}:
+\vspace{10pt}
+\begin{python}
+from scipy.optimize import fsolve
+print(fsolve(lambda x: 4*x+15+9, 0))
+\end{python}
+
+\subsection*{\facovref{ov:intervallhalvering}}\index{intervallhalvering|textbf}\index{binär sökning|textbf}
+Precis som i ''gissa talet''-spelet så är det smart att gissa mitt emellan två tal. Sedan testar vi vår gissning \cw{xmed} genom att mata in den i ekvationen, och kolla om vi hamnade \emph{under} eller \emph{över} $4$. Den grundläggande strategin brukar kallas \emph{binär sökning} eller \emph{intervallhalvering}, och används som lösning på en mängd olika problem inom programmering.
+\vspace{10pt}
+\begin{python}
+xmin = -10 # dessa måste sättas manuellt,
+xmax = 10 # så att de "omfamnar" svaret
+i = 0
+while i < 20: # ju fler iterationer desto mer exakt svar
+	xmed = (xmin + xmax) / 2 # gissa mitt emellan
+	# testa ekvationens (snarare olikhetens) värde
+	# i tre punkter:
+	ymin = 3 * xmin - 7 < 4
+	ymax = 3 * xmax - 7 < 4
+	ymed = 3 * xmed - 7 < 4
+	# kontrollera att vi är på vardera sidan om rätt svar:
+	if ymin == ymax:
+		print("fel! välj bättre xmin och xmax. Starta om")
+		i = 10000 # avbryt loopen i förtid
+	# välj vilken halva vi ska söka vidare i:
+	if ymin != ymed:
+		xmax = xmed
+	if ymax != ymed:
+		xmin = xmed
+	i = i + 1
+print(xmin)
+print(xmax)
+\end{python}
+Det här programmet är för övrigt ett bra exempel på när det skulle löna sig att skapa våra egna funktioner i Python. Med en egen funktion skulle vi kunna slippa upprepa nästan samma ekvations-kod tre gånger. Om du har lust och tid över, sök information om det på nätet, t.ex. på \url{https://www.learnpython.org/en/Functions}
+
+%==============================================================================
+
+\subsection*{\facovref{ov:testaRoots2ndDegree}}
+\begin{itemize}
+\item \cw{roots([6, -13, 5])} ger $x_{1}=1.66667$ och $x_{2}=0.5$
+\item \cw{roots([4, -2, -6])} ger $x_{1}=1.5$ och $x_{2}=-1$
+\item $2/x - 18 = 0$ är inte en polynomekvation, går inte att lösa med \cw{roots}
+\item \cw{roots([3, -2, 0])} ger $x_{1}=0.66667$ och $x_{2}=0$
+\end{itemize}
+
+\subsection*{\facovref{ov:intervallhalvering2}}
+Samma program som i \autoref{ov:intervallhalvering}, förutom att vi ändrar startvärdena \cw{xmin} och \cw{xmax}, samt ändrar ekvationen (olikheten). Programmet hittar lösningen $x = 14.667$
+\vspace{10pt}
+\begin{python}
+xmin = -50
+xmax = 50
+i = 1
+while i <= 20:
+	xmed = (xmin + xmax) / 2
+	ymin = xmin**6 - sin(xmin) - 3**xmin + 7 < 0
+	ymax = xmax**6 - sin(xmax) - 3**xmax + 7 < 0
+	ymed = xmed**6 - sin(xmed) - 3**xmed + 7 < 0
+	if ymin == ymax:
+		print("fel! välj bättre xmin och xmax. Starta om")
+		i = 10000 # avbryt loopen i förtid
+	if ymin != ymed:
+		xmax = xmed
+	if ymax != ymed:
+		xmin = xmed
+	i = i + 1
+print(xmin)
+print(xmax)
+\end{python}
+
+\subsection*{\facovref{ov:intervallhalvering3}}
+Nej, lösningsförslaget i den här boken klarar inte att lösa den ekvationen. Intervallhalverings-metoden bygger ju på att \cw{ymin} och \cw{ymax} ska vara på varsin sida rätt svar, så metoden kräver alltså att kurvan korsar linjen $y=0$. Men polynomfunktionen $y = x^2 + 5x - 6$ bara nuddar vid linjen utan att korsa den! Det finns dock andra numeriska metoder som klarar att lösa sådana ekvationer.
+
+
+\subsection*{\facovref{ov:lisasLillaTunna}}
+Radie=1 dm, höjd=2 dm
+\vspace{10pt}
+\begin{python}
+radius = arange(0.5, 1.51, 0.1)
+volume = 6.2832
+height = volume / (pi * (radius**2))
+area = 2 * pi * radius * (radius + height)
+plot(radius, area, "-o")
+grid(True)
+show()
+\end{python}
+\figurec{9cm}{exercise-lisas-lilla-tunna-area.png}{Grafen för ovanstående kod}
+
+%==============================================================================
+
+% \subsection*{\facovref{ov:arsrantaOchManadsranta}}
+% \begin{python}
+% yearly = 3 / 100 % omvandla från procent
+% monthly = (1 + yearly)^(1/12) - 1
+% print(monthly * 100) % skriv ut i procent
+% yearly = (1 + monthly)^12 - 1
+% print(yearly * 100) % skriv ut i procent
+% \end{python}
+
+\subsection*{\facovref{ov:invanareEfterYYears}}
+6727.5 biljetter (troligen avrundat uppåt eller nedåt).
+\vspace{10pt}
+\begin{python}
+tickets = array([1000]) # ett element per år
+yr = 1
+while yr <= 20:
+	tickets = append(tickets, tickets[-1] * (1 + 10/100))
+	yr = yr + 1
+print(tickets[-1])
+plot(tickets, "-o")
+grid(True)
+show()
+\end{python}
+\newpage
+\subsection*{\facovref{ov:invanareHurMangaYears}}
+Den 18:e festivalen.
+\vspace{10pt}
+\begin{python}
+tickets = array([1000]) # ett element per år
+yr = 1
+while tickets[-1] < 5000:
+	tickets = append(tickets, tickets[-1] * (1 + 10/100))
+	yr = yr + 1
+print(yr)
+\end{python}
+
+\subsection*{\facovref{ov:oregelbundenExpFunkt}}
+Den 26:e festivalen har 8110.5 biljetter (troligen avrundat uppåt eller nedåt).
+\vspace{10pt}
+\begin{python}
+nr_years = 25
+changes = array([])
+# changes innehåller ökningen i procent till nästa festival
+# dvs, changes[0] är ökningen från tickets[0] till tickets[1]
+# sätt de två första ökningarna:
+changes = append(changes, 4)
+changes = append(changes, 2)
+# räkna ut alla andra ökningar enligt mönstret:
+yr = 2
+while yr < nr_years:
+	changes = append(changes, changes[yr-2] + 1)
+	yr = yr + 1
+
+tickets = array([1000]) # ett element per år
+yr = 1
+while yr <= nr_years:
+	change = (1 + changes[yr-1] / 100)
+	tickets = append(tickets, tickets[yr-1] * change)
+	yr = yr + 1
+print(tickets[-1])
+plot(tickets, "-o")
+grid(True)
+show()
+\end{python}
+
+
+% \subsection*{\facovref{ov:invanareVilkenPercentOkning}}
+% XX
+% \begin{python}
+% min_percent = 0
+% max_percent = 100
+% start_tickets = 1024
+% end_tickets = 3125
+% total_years = 5
+% tickets = -1
+% while round(tickets) != end_tickets:
+% 	guess_percent = (min_percent + max_percent) / 2 % gissa mitt emellan
+
+%   tickets = start_tickets
+%   years_passed = 0
+%   while years_passed < total_years:
+%     tickets = tickets * (1 + guess_percent/100)
+%     years_passed = years_passed + 1
+%   %print(tickets)
+%   print([tickets, min_percent, guess_percent, max_percent])
+
+% 	% välj vilken halva vi ska söka vidare i:
+% 	if tickets > end_tickets:
+% 		max_percent = guess_percent
+%   if tickets < end_tickets:
+% 		min_percent = guess_percent
+% print(guess_percent)
+
+% print(((end_tickets / start_tickets) ^ (1 / total_years)) - 1)
+% \end{python}
+% 25%
+% 1024.0   1280.0   1600.0   2000.0   2500.0   3125.0
+\newpage
+\subsection*{\facovref{ov:oregelbundenExpFunkt2}}
+Ungefär 1300 kaniner.
+\vspace{10pt}
+\begin{python}
+estimates = array([])
+total = 0
+i = 1
+while i <= 100:
+	rabbits = array([20]) # ett element per månad
+	mon = 0
+	while mon < 24:
+		change = 1 + randint(10, 29) / 100
+		rabbits = append(rabbits, rabbits[mon] * change)
+		mon = mon + 1
+	plot(rabbits)
+	estimates = append(estimates, rabbits[-1])
+	total = total + rabbits[-1]
+	i = i + 1
+
+show()
+# skriv ut medelvärde
+print("Ca antal kaniner: ")
+print(mean(estimates))
+\end{python}
+
+\figurec{9cm}{exercise-rabbits.png}{}
+
+\subsection*{\facovref{ov:avbetalningAvAnnuitetsLan}}
+\vspace{3pt}
+\begin{python}
+# konstanter:
+interest = 5 # månadsränta i procent
+amort_per_month = 1087.07
+
+# listor:
+months = array([0])
+sum_payed = array([0])
+months_twice = array([0])
+debt = array([15000])
+
+while debt[-1] > 0:
+  month = months[-1] + 1
+
+  months = append(months, month)
+  new_sum_payed = sum_payed[-1] + amort_per_month
+  sum_payed = append(sum_payed, new_sum_payed)
+
+  months_twice = append(months_twice, month)
+  debt = append(debt, debt[-1] * (1 + interest / 100))
+  months_twice = append(months_twice, month)
+  debt = append(debt, debt[-1] - amort_per_month)
+
+plot(months, sum_payed, "-o")
+plot(months_twice, debt)
+grid(True)
+show()
+\end{python}
+
+%==============================================================================
+
+\subsection*{\facovref{ov:numeriskDeriveringTabell1}}
+
+Med hjälp av följande kod:
+\vspace{10pt}
+\begin{python}
+x = array([2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017])
+y = array([383.79, 385.60, 387.43, 389.90, 391.65, 393.85, 396.52, 398.65, 400.83, 404.21, 406.53])
+
+index = 9 # det 10e mätvärdet i listan
+result = (y[index+1] - y[index-1]) / 2
+print(result)
+\end{python}
+
+Får vi resultatet \emph{2.85} ppm/år.
+
+\subsection*{\facovref{ov:numeriskDeriveringTabell2}}
+\vspace{3pt}
+\begin{python}
+x = array([2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017])
+y = array([383.79, 385.60, 387.43, 389.90, 391.65, 393.85, 396.52, 398.65, 400.83, 404.21, 406.53])
+
+year = int(input("ange år mellan 2008 och 2016: "))
+
+# hitta index för årtalet användaren vill se:
+index = argwhere(x == year)[0][0]
+# räkna ut den centrala differenskvoten kring det året
+result = (y[index+1] - y[index-1]) / 2
+print(result)
+\end{python}
+
+
+\subsection*{\facovref{ov:numeriskDeriveringFunktion}}
+Ett närmevärde till derivatan är: -0.19048
+\vspace{10pt}
+\begin{python}
+x = float(input("ange x-värde att beräkna derivatan för: "))
+h = 0.4
+x_left  = x - h
+x_right = x + h
+y_left  = (x_left**2 + 1) / x_left
+y_right = (x_right**2 + 1) / x_right
+estimate = (y_right - y_left) / (2 * h)
+print("ett närmevärde till derivatan är: ")
+print(estimate)
+\end{python}
+
+
+\subsection*{\facovref{ov:numeriskDeriveringOlikaH}}
+Följande kod:
+\vspace{10pt}
+\begin{python}
+estimates = array([])
+x = float(input("ange x-värde att beräkna derivatan för: "))
+h = 0.4
+num_halvings = 1
+while num_halvings <= 8:
+    x_left  = x - h
+    x_right = x + h
+    y_left  = (x_left**2 + 1) / x_left
+    y_right = (x_right**2 + 1) / x_right
+    estimate = (y_right - y_left) / (2 * h)
+    print(estimate)
+    estimates = append(estimates, estimate)
+    h = h / 2
+    num_halvings = num_halvings + 1
+plot(estimates, "-o")
+grid(True)
+show()
+\end{python}
+
+Ger grafen (se nästa sida...):
+\newpage
+\figurec{9cm}{exercise-estimate-derivative.png}{}
+
+I grafen ser det ut som att den exakta derivatan är: 0
+
+\subsection*{\facovref{ov:testaGradient}}
+Följande kod ger approximationen $f'(1) = -2.5$
+\vspace{10pt}
+\begin{python}
+xp = 1 # i vilken punkt vill vi veta lutningen
+h = 0.001
+x = array([xp - h, xp, xp + h])
+y = 3 * sqrt(x) + 2 / (x**2) # vår funktion
+estimate = gradient(y, h)[1]
+print(estimate)
+\end{python}
+
+\subsection*{\facovref{ov:approximeraTaletE}}
+Följande kod ger approximationen $e = 2.7183$
+\vspace{10pt}
+\begin{python}
+emin = 0 # dessa måste sättas manuellt,
+emax = 10 # så att de "omfamnar" svaret.
+
+# för ändringskvot. mindre h ger exaktare svar:
+h = 0.00001
+i = 0
+while i <= 40: # ju fler iterationer desto exaktare svar
+	emed = (emin + emax) / 2 # gissa mitt emellan
+	# beräkna ändringskvoten kring emed^1:
+	slope = (emed**(1+h) - emed**(1-h)) / (2 * h)
+	# vi önskar att "slope" ska bli exakt lika med emed,
+	# så välj vilken halva vi ska söka vidare i:
+	if slope > emed:
+		# vår gissning var för hög, sök i nedre halvan
+		emax = emed
+	else:
+		# vår gissning var för låg, sök i övre halvan
+		emin = emed
+	i = i + 1
+if abs(slope - emed) < 0.001:
+	print("Talet e är ungefär = ")
+	print(emed)
+else:
+	print("Hittade inte något tal e mellan emin och emax.")
+	print("Ändra startvärden och försök igen.")
+\end{python}

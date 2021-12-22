@@ -1,0 +1,240 @@
+% Programmering i matematiken - med Python (c)
+% by Krister Trangius & Emil Hall
+%
+% Programmering i matematiken - med Python is licensed under a
+% Creative Commons  Attribution-ShareAlike 4.0 International License.
+%
+% You should have received a copy of the license along with this work. If not,
+% see <http://creativecommons.org/licenses/by-sa/4.0/>.
+%------------------------------------------------------------------------------
+
+\chapter{Problemlösning}\label{ch:problemlosning}\index{problemlösning|textbf}
+När man programmerar är det viktigt att kunna dela upp problemet i mindre delar. Det är faktiskt en av de allra viktigaste färdigheterna som en programmerare har. Ett mindre program kanske kan brytas ner till några få beståndsdelar, medan ett stort och komplext program kan innehålla tusen och åter tusen beståndsdelar. Man får bryta ner problemen i olika delar. Man börjar med det största problemet och bryter ner det i mindre underproblem. Dessa underproblem får sedan egna underproblem osv.
+
+En tumregel för när man brytit ner problemen till lagom stora delar, är då det är möjligt söka efter lösningar med hjälp av en sökmotor på nätet. För att de ska vara sökbara, bör problemen kunna formuleras i några få nyckelord.
+
+I det här kapitlet kommer vi att titta på två problem och hur man kan gå till väga för att lösa dem. Det första problemet är ganska kort och tanken är att du ska få lära dig hur du bryter ner problemet i så små delar att de är sökbara på nätet. Det andra problemet börjar från noll och byggs upp till en färdig lösning och du får se varje steg på vägen.
+
+%==============================================================================
+
+\section{Nedbrytning och webbsökning}
+Låt oss igen ta gissa talet-spelet som exempel (från \autoref{subsec:gissa_talet1}). Istället för att alltid använda talet 42, så ska spelet slumpvis hitta på ett heltal mellan 1 och 100. Användaren ska sedan gissa talet. Gissar man fel ska programmet nu svara \emph{''Fel. Mitt tal är lägre''} respektive \emph{''Fel. Mitt tal är högre.''}. I slutet skriver programmet ut antalet försök.
+\newpage
+Här är ett exempel på hur det kan se ut vid körning:
+
+\vspace{10pt}
+\begin{python}
+Gissa ett tal mellan 1 och 100: 15
+Fel. Mitt tal är högre. Gissa igen: 50
+Fel. Mitt tal är lägre. Gissa igen: 40
+Fel. Mitt tal är högre. Gissa igen: 45
+Fel. Mitt tal är högre. Gissa igen: 48
+Rätt! Du behövde 5 gissningar.
+\end{python}
+
+Hur gör vi nu för att lösa detta? Vi kan kanske inte söka efter och hitta hela lösningen på webben. Däremot kan vi dela upp det i mindre bitar och söka efter dem enskilt:
+\begin{enumerate}
+	\item Vi kan söka information om hur man slumpar fram ett tal, genom att söka på ''python random''.
+	\item Vidare kan vi söka reda på hur man tar emot ett tal ifrån en användare, genom att söka på ''python user input''.
+	\item För att jämföra två tal med varandra kan vi söka på ''python compare numbers''
+\end{enumerate}
+
+Nu kanske vi redan vet hur man löser flera av dessa problem utantill. Då behöver vi såklart inte söka efter informationen på webben - men tankesättet är ändå detsamma när man bryter ner problem i mindre delar. På det här sättet har vi kommit närmare en lösning. Nu är det bara att sätta ihop dessa delar och skapa ett litet spel. Prova själv!
+
+När man söker är det viktigt att inte ge upp i första taget. Men generellt gäller att om man inte hittar det man söker på något av de första 10 resultaten, är det oftast bättre att försöka med några nya sökord, än att leta vidare i lägre prioriterade resultat.
+
+
+%---------------------------------------------------------------
+\begin{matteovning}{Gissa talet}{gissatalet}
+% Lämplig för Ma1c, Ma2c, Ma3c eftersom detta är förkunskap för intervallhalvering
+Skapa spelet ''gissa talet'' (se ovan) där datorn slumpar fram ett tal mellan 1 och 100 och användaren får gissa vilket tal det är.
+\newline
+\newline
+\emph{När du spelar spelet så finns det en strategi som är den optimala för att alltid behöva göra så få gissningar som möjligt. Kan du hitta den strategin?}
+\end{matteovning}
+
+\begin{matteovningm}{Datorn gissar talet}{datorngissartalet}\index{intervallhalvering}
+% Lämplig för Ma1c, Ma2c, Ma3c eftersom detta är förkunskap för intervallhalvering
+Låt oss göra ungefär samma övning som ovan, fast denna gång är det användaren som bestämmer sig för ett tal (det räcker om den gör det tyst i huvudet) och datorn som gissar. Användaren får svara \cw{r}, \cw{h} eller \cw{l} för ''rätt'', ''högre'' eller ''lägre''. Såhär skulle en exempelkörning kunna se ut:
+
+\vspace{10pt}
+\begin{python}
+Jag gissar på: 50
+Är det [r]ätt? Eller är ditt tal [h]ögre eller [l]ägre? h
+Jag gissar på: 75
+Är det [r]ätt? Eller är ditt tal [h]ögre eller [l]ägre? l
+Jag gissar på: 62
+Är det [r]ätt? Eller är ditt tal [h]ögre eller [l]ägre? h
+Jag gissar på 68
+Är det [r]ätt? Eller är ditt tal [h]ögre eller [l]ägre? r
+Hurra! Jag klarade det på 4 försök.
+\end{python}
+
+\emph{Kan du programmera datorn så att den använder samma optimala gissnings-strategi som du kom på när du gissade själv?}
+\end{matteovningm}
+
+%==============================================================================
+
+\section{Hur ett program växer fram}
+
+Låt oss ta ett exempel där vi grundligt förklarar hur vi tänker medan vi bygger upp programmet och löser problemet. Vi bygger upp programmet gradvis, steg för steg. När du ska lösa egna problem så kan det vara bra att tänka på samma steg-för-steg-sätt.
+
+Vi gör ett program som skriver ut alla primtal mellan 1 och 100. Idén kommer från en grekisk herre vid namn Erastothenes som levde för några tusen år sedan, långt innan det fanns datorer.
+
+Ett sätt att skriva ut alla tal mellan 1 och 10 är med hjälp av en loop:
+\vspace{10pt}
+\begin{python}
+i = 1
+while i <= 10:
+	print(i)
+	i = i + 1
+\end{python}
+
+Tänk dig att vi på något magiskt sätt redan vet vilka tal mellan 1 och 10 som är primtal och inte. Hur skriver vi ut bara dem, och inte resten? Vi behöver någon sorts \cw{if}-sats (som vi lärde oss i \autoref{ch:selektion}):
+
+\vspace{10pt}
+\begin{python}
+i = 1
+while i <= 10:
+	if should_print[i]:
+		print(i)
+	i = i + 1
+\end{python}
+
+Ovanstående kod funkar inte i verkligheten- om du försöker köra den så klagar förstås Python på att \cw{should\_print} inte existerar. Men vi kan förstås skriva in den manuellt som en lista (som vi lärde oss i \autoref{ch:listor}):
+\vspace{10pt}
+
+\begin{python}
+should_print = array([False, True, True, True, False, True, False, True, False, False, False])
+i = 1
+while i <= 10:
+	if should_print[i]:
+		print(i)
+	i = i + 1
+\end{python}
+
+Detta är förstås ingen lösning - vårt mål är ju att datorn ska räkna ut vilka tal som är primtal, inte att vi ska behöva skriva in det manuellt. Men det är en början.
+
+En allmänt bra strategi för att lösa ett svårt problem när vi inte har någon aning om lösningen, är att börja med att lösa ett relaterat men mycket enklare problem. Så istället för att räkna ut alla primtal, låt oss börja med att räkna ut vilka tal som \emph{inte} är delbara med 2, förutom talet 2 självt:
+\vspace{10pt}
+
+\begin{python}
+# skapa lista med 11 element. Varje element är True
+should_print = repeat(True, 10+1)
+# för alla tal som är en multipel av 2,
+# sätt should_print till False
+j = 4
+while j <= 10:
+	should_print[j] = False
+	j = j + 2
+# skriv ut
+i = 1
+while i <= 10:
+	if should_print[i]:
+		print(i)
+	i = i + 1
+\end{python}
+
+Förstår du while-loopen? Först sätter den \cw{should\_print[4]=False}, sen sätter den \cw{should\_print[6]=False}, och så vidare med 8 och 10.
+\newpage
+Tänk om vi vill gå högre, alltså öka 10 till 25. Då måste vi ändra på tre olika ställen. Det är jobbigt i längden. Låt oss istället lägga tian i en variabel så att vi lätt kan ändra den:
+\vspace{10pt}
+
+\begin{python}
+limit = 25
+should_print = repeat(True, limit+1)
+# för alla tal som är en multipel av 2,
+# sätt should_print till False
+j = 4
+while j <= limit:
+	should_print[j] = False
+	j = j + 2
+# skriv ut
+i = 1
+while i <= limit:
+	if should_print[i]:
+		print(i)
+	i = i + 1
+\end{python}
+
+På samma sätt kan vi ju skriva ut alla tal som varken är delbara med 2 eller 3:
+\vspace{10pt}
+
+\begin{python}
+limit = 25
+should_print = repeat(True, limit+1)
+# för alla tal som är en multipel av 2,
+# sätt should_print till False
+j = 4
+while j <= limit:
+	should_print[j] = False
+	j = j + 2
+# för alla tal som är en multipel av 3,
+# sätt should_print till False
+j = 6
+while j <= limit:
+    should_print[j] = False
+    j = j + 3
+# skriv ut
+i = 1
+while i <= limit:
+	if should_print[i]:
+		print(i)
+	i = i + 1
+\end{python}
+\newpage
+Börjar du se mönstret? Tänk om vi gör detta inte bara för 2 och 3 utan för \emph{alla} tal upp till och med 25. Då blir det ju bara primtalen kvar som skrivs ut. Men vi vill ju inte behöva skriva nästan samma kod 25 gånger på rad, så det är bättre att lägga in den koden i en till, yttre loop:
+\vspace{10pt}
+
+\begin{python}
+limit = 25
+should_print = repeat(True, limit+1)
+
+i = 2
+while i <= limit:
+	# för alla tal som är en multipel av i,
+	# sätt should_print till False
+	j = i*2
+	while j <= limit:
+		should_print[j] = False
+		j = j + i
+	i = i + 1
+
+# skriv ut
+i = 1
+while i <= limit:
+	if should_print[i]:
+		print(i)
+	i = i + 1
+\end{python}
+
+Hurra, det funkar! Vi har lyckats skriva ett kort program som skriver ut alla primtal mellan 1 och 25, och det är lätt att öka gränsen till 100. Programmet är dock inte så snabbt som det skulle kunna vara. Det gör en hel del beräkningar i onödan - det sätter \cw{should\_print} till \cw{False} flera gånger för samma tal. Vi kan göra tre optimeringar.
+
+För det första går den yttre loopen onödigt långt. Den går hela vägen upp till och med 25, men det behövs inte. Tänk dig att vi står på \cw{i==7} som ju är ett primtal. Då kommer vi att sätta \cw{should\_print=False} för $7*2=14$ och $7*3=21$. Men vi har ju redan gjort detta då vi stod på \cw{i==2} och \cw{i==3}. Mer generellt så behöver den yttre loopen bara gå upp till och med 5, dvs kvadratroten ur 25. Vi använder funktionen \cw{sqrt()} för att räkna ut kvadratroten.
+
+För det andra. Först besöker vi alla multiplar av 2, dvs 4,6,8,10,12,14,16 osv. Och lite senare besöker vi alla multiplar av 4, dvs 8,12,16 osv, men det är ju onödigt, alla de är ju redan satta. När \cw{i==4} så borde vi inte köra den inre loopen alls, eftersom 4 inte är ett primtal. Mer generellt, när \cw{should\_print[i]} är \cw{False} så borde vi inte köra den inre loopen alls.
+
+För det tredje så börjar den inre loopen på ett onödigt lågt tal. När vi står på \cw{i==3} så behöver vi inte besöka \cw{j==6} för det har vi redan gjort, alltså kan den inre loopen börja på \cw{j==9}. Och när vi står på \cw{i==5} så behöver vi inte besöka \cw{j==10}, \cw{j==15} eller \cw{j==20}, för det har vi redan gjort, alltså kan den inre loopen då börja på \cw{j==25}. Mer generellt kan den inre loopen börja på \cw{j=i*i}.
+
+Om vi implementerar alla dessa tre optimeringar så får vi den färdiga Sieve of Erastothenes:
+\vspace{10pt}
+
+\begin{python}
+limit = 25
+should_print = repeat(True, limit+1)
+i = 2
+while i <= sqrt(limit): # optimering 1: sluta tidigare
+	if should_print[i]: # optimering 2
+		j = i * i; # optimering 3: börja loopa senare
+		while j <= limit:
+			should_print[j] = False
+			j = j + i
+	i = i + 1
+
+# skriv ut
+i = 1
+while i <= limit:
+	if should_print[i]:
+		print(i)
+	i = i + 1
+\end{python}

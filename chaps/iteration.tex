@@ -1,0 +1,192 @@
+% Programmering i matematiken - med Python (c)
+% by Krister Trangius & Emil Hall
+%
+% Programmering i matematiken - med Python is licensed under a
+% Creative Commons  Attribution-ShareAlike 4.0 International License.
+%
+% You should have received a copy of the license along with this work. If not,
+% see <http://creativecommons.org/licenses/by-sa/4.0/>.
+%------------------------------------------------------------------------------
+
+\chapter{Iteration (med while)}\label{ch:iteration}\index{iteration|textbf}
+Iteration är att köra ett kodstycke om och om igen, utan att behöva skriva kodstycket flera gånger. Ofta brukar ett sånt kodstycke kallas loop. Kodstycket upprepas så länge ett visst villkor är sant. Ofta vill man upprepa något ett visst antal gånger. Om man t.ex. vill gå igenom en lista med femtio element (saker i listan) i och göra något med varje element, så loopar man ett kodstycke femtio gånger.
+
+I Python finns det flera typer av loopar med olika syften. Den enda loop vi kommer att arbeta med i denna bok är \cw{while}, eftersom den är enklast att förstå, och går att använda till allt.
+
+\section{while-loopen}\index{while|textbf}
+Man kan beskriva \cw{while}-loopen på svenska så här:
+
+\begin{pseudo}
+MEDAN någonting SÅ
+   Gör detta
+SLUT MEDAN
+\end{pseudo}
+
+Vi kan t.ex. be någon ange temperatur. Så länge temperaturen är mindre än 100, så kör vi ett varv i loopen. För varje varv i loopen, så ökar vi temperaturen med en grad och skriver ut den. När temperaturen är 100 så går vi vidare i programmet och skriver ut ett meddelande:
+
+(Se nästa sida...)
+\newpage
+\begin{pseudo}
+MEDAN temperatur är mindre än 100 SÅ
+   Plussa på temperaturen med ett
+   Skriv ut temperaturen
+SLUT MEDAN
+Skriv ut "Nu kokar vattnet!"
+\end{pseudo}
+
+Detta kan illustreras som flödesschema så här:
+
+ \figurec{12cm}{flodesschema/while.png}{En while-loop som flödesschema}
+
+Precis som med selektion (\cw{if}-satser), så kan vi använda samtliga jämförelseoperatorer (som finns listade i \autoref{sec:operatorer}) när vi jobbar med iteration och \cw{while}-loopar. Nu testar vi med mindre än-operatorn \cw{<}.
+
+I Python blir det:
+
+\begin{python}[caption={Vår första while-loop},label={}]
+temperature = float(input("Ange temperatur: "))
+while temperature < 100:
+	temperature = temperature + 1
+	print("Temperaturen är nu:", temperature)
+print("Nu kokar vattnet!")
+\end{python}
+
+Om vi anger den nuvarande temperaturen som 92 får vi följande resultat:
+
+\vspace{10pt}
+\begin{python}
+Ange temperatur: 92
+Temperaturen är nu: 93.0
+Temperaturen är nu: 94.0
+Temperaturen är nu: 95.0
+Temperaturen är nu: 96.0
+Temperaturen är nu: 97.0
+Temperaturen är nu: 98.0
+Temperaturen är nu: 99.0
+Temperaturen är nu: 100.0
+Nu kokar vattnet!
+\end{python}
+
+Om vi istället anger temperaturen 100 (eller mer), kommer kodstycket i loopen aldrig att köras. Programmet hoppar då direkt till ''Nu kokar vattnet!''-meddelandet och vi får följande resultat:
+
+\vspace{10pt}
+\begin{python}
+Ange temperatur: 100
+Nu kokar vattnet!
+\end{python}
+
+\section{Oändliga loopar}
+När vi skriver koden för en loop så gäller det att se upp. Om vår jämförelse aldrig slutar vara sann, så fortsätter loopen att snurra i all oändlighet. Det kan t.ex. hända om vi glömmer att skriva koden för att plussa på temperaturen inuti loopen, såhär:
+
+\begin{python}[caption={Oändlig loop, varning!},label={}]
+temperature = float(input("Ange temperatur: "))
+while temperature < 100:
+	print("Temperaturen är nu:", temperature)
+\end{python}
+
+Om vi kör en oändlig loop så går det inte att köra någon mer kod efteråt. Vi kan då trycka Ctrl+C på tangentbordet för att avbryta vår loop.
+
+\section{for-loopen}
+Som sagt finns det flera typer av loopar. Den så kallade \cw{for}-loopen har fördelen att den inte kan råka bli oändlig. Den är även mer koncis. Här är ett exempel på en \cw{for}-loop:
+\vspace{10pt}
+\begin{python}
+start_temperature = 95
+for t in range(start_temperature, 100):
+	print("Temperaturen är nu: ")
+	print(t)
+\end{python}
+
+Det finns ingen situation där man \emph{måste} använda \cw{for}-loopen, men det finns däremot situationer där man \emph{måste} använda \cw{while}-loopen. För att hålla denna bok enkel kommer vi inte att arbeta något mer med \cw{for}-loopen.
+
+\section{Gissa talet!}\label{subsec:gissa_talet1}
+Låt oss tillverka ett enkelt litet spel. Spelaren ska få gissa på ett tal mellan 1 och 100, ett tal som vi programmerare redan bestämt innan. Talet är 42. Så länge spelaren gissar fel, ska den få fortsätta att gissa. När spelaren har gissat rätt skriver vi ut ett grattis-meddelande. Vi tar det först på svenska:
+
+\begin{pseudo}
+Skriv ut "Gissa ett tal mellan 1 och 100"
+Mata in tal
+MEDAN talet inte är 42 SÅ
+   Skriv ut "Fel. Gissa igen"
+   Mata in tal
+SLUT MEDAN
+Skriv ut "Grattis! Du gissade rätt!"
+\end{pseudo}
+
+Kodat i Python blir det:
+
+\begin{python}[caption={Gissa talet},label={}]
+guess = int(input("Gissa ett tal mellan 1 och 100: "))
+while guess != 42:
+    guess = int(input("Fel! Gissa igen: "))
+print("Grattis! Du gissade rätt!")
+\end{python}
+
+Här har min kompis försökt spela spelet:
+
+\vspace{10pt}
+\begin{python}
+Gissa ett tal mellan 1 och 100: 50
+Fel! Gissa igen: 25
+Fel! Gissa igen: 37
+Fel! Gissa igen: 44
+Fel! Gissa igen: 41
+Fel! Gissa igen: 42
+Grattis! Du gissade rätt!
+\end{python}
+
+Det här spelet är inte så roligt att spela mer än en gång. Vi kommer att återkomma till spelet i \autoref{ch:problemlosning} där du också kan vidareutveckla det i en klurig övning.
+
+\newpage
+\section{Övningar}
+
+\begin{matteovning}{Tal mellan 1 och 20}{talMellan1Och20}
+Skapa ett program som använder iteration för att skriva ut alla tal mellan 1 och 20.
+\end{matteovning}
+
+%---------------------------------------------------------------
+\begin{matteovning}{Tal mellan 1 och 100}{talMellan1Och100}
+Skapa ett program där användaren får mata in valfritt tal upp till 100. Programmet skriver sedan ut alla tal, från talet som användaren matade in upp till och med 100. Om man matar in ett tal som är större än 100 så stängs programmet av direkt.
+\newline
+\newline
+Exempel:
+\vspace{10pt}
+\begin{python}
+Mata in ett tal: 93
+93
+94
+95
+96
+97
+98
+99
+100
+\end{python}
+\end{matteovning}
+
+%---------------------------------------------------------------
+\begin{matteovning}{Singla slant}{singlaSlant}
+Be användaren mata in hur många gånger denne vill singla slant. Programmet ska sedan slumpvis mata ut om det blir krona eller klave, lika många gånger som användaren angett.
+\newline
+\newline
+För att implementera övningen i Python behöver du använda funktionen \cw{randint} för att slumpa fram nummer. Kom ihåg att du behöver som vanligt raden \cw{from pylab import *} överst i din kod.
+\end{matteovning}
+
+%---------------------------------------------------------------
+\newpage
+\begin{matteovning}{Yatzy}{slumpaFemTarningssslag}
+Skapa ett program som fem gånger slumpar fram tärningsslag (tal mellan 1 och 6).
+\newline
+\newline
+För att implementera övningen i Python behöver du använda \cw{randint} för att slumpa fram nummer.
+\end{matteovning}
+
+%---------------------------------------------------------------
+\begin{matteovning}{Väderstationen}{vaderstationen}
+Skapa en lista som ska innehålla temperaturmätningar från en väderstation. I programmets början ska användaren få ange hur många mätningar som har gjorts. Därefter får användaren mata in olika temperaturer. Programmet ska sedan skriva ut de olika temperaturerna och medeltemperaturen.
+\end{matteovning}
+
+%---------------------------------------------------------------
+\begin{matteovningm}{Multiplikationstabellen}{multiplikationstabellen}
+Skapa ett program som skriver ut multiplikationstabellen, dvs skriv ut resultatet av att multiplicera $1*1$, sedan $1*2$, och så vidare hela vägen upp till $10*10$.
+\newline
+\newline
+\emph{Tips: Du behöver använda två loopar - den ena inuti den andra.}
+\end{matteovningm}
