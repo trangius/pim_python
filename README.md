@@ -6,7 +6,7 @@ En lärobok för gymansiekurserna Ma1c, Ma2c och Ma3c, av Krister Trangius och E
 Denna bok finns även för Matlab/Octave här: https://github.com/trangiusarien/pim_mloct
 
 # PDF-nerladdning
-Senaste versionen av boken är tillgänglig i pdf-format i git-repot på https://gitlab.com/mahakala777/pim_python.
+Senaste versionen av boken är tillgänglig i pdf-format i git-repot på https://github.com/trangiusarien/pim_python.
 
 # Kompilera boken
 Denna bok är skriven i LaTeX. För att kompilera boken rekommenderas att du installerar någon av de kompletta TeX distributioner som finns. Se https://www.latex-project.org. Använd förslagsvis `mklatex` för att t.ex. skapa en pdf-fil:
