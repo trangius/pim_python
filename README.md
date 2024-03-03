@@ -3,7 +3,7 @@ Programmering i matematiken - med Python
 
 En lärobok för gymansiekurserna Ma1c, Ma2c och Ma3c, av Krister Trangius och Emil Hall. Utgiven på [Thelin Förlag](https://www.thelinab.se/thelin-forlag/). Stöd oss gärna genom att köpa boken via [Skolportalen](https://www.skolportalen.se).
 
-Denna bok finns även för Matlab/Octave här: https://gitlab.com/mahakala777/pim_mloct
+Denna bok finns även för Matlab/Octave här: https://github.com/trangiusarien/pim_mloct
 
 # PDF-nerladdning
 Senaste versionen av boken är tillgänglig i pdf-format i git-repot på https://gitlab.com/mahakala777/pim_python.
